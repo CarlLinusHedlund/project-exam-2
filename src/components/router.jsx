@@ -5,6 +5,7 @@ export default function Router() {
   return (
     <Routes key={location.pathname} location={location}>
       <Route path="/" element={<Index />} />
+      <Route path="/listings" element={<Index />} />
     </Routes>
   );
 }

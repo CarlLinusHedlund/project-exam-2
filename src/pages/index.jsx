@@ -1,5 +1,7 @@
-import React from "react";
-
 export default function Index() {
-  return <div>Index</div>;
+  return (
+    <div className="h-[10000px]">
+      Index Index Index Index Index Index Index IndexIndexIndex
+    </div>
+  );
 }
