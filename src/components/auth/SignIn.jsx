@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from "react";
-import { signInContext } from "./utils/signInContext";
+import { SignInContext } from "./utils/authContext";
 import { useAnimate } from "framer-motion";
 
 function useSignInAnimation(activeSignInModal, modalRef) {
@@ -36,7 +36,7 @@ function useSignInAnimation(activeSignInModal, modalRef) {
 }
 
 export default function SignInModal() {
-  const [activeSignInModal, setActiveSignInModal] = useContext(signInContext);
+  const [activeSignInModal, setActiveSignInModal] = useContext(SignInContext);
   const modalRef = useRef(null);
   useSignInAnimation(activeSignInModal, modalRef);
 

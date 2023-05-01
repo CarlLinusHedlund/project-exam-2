@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAnimate, stagger } from "framer-motion";
 import { useContext } from "react";
 import { headerContext } from "../utils/mobileHeaderContext";
-import { signInContext } from "../../auth/utils/signInContext";
+import { SignInContext, SignUpContext } from "../../auth/utils/authContext";
 
 const staggerButtons = stagger(0.1, { startDelay: 0.05 });
 
@@ -27,7 +27,9 @@ function useMenuAnimation(activeHeader) {
 
 export default function ProfileContent() {
   const [activeHeader, setActiveHeader] = useContext(headerContext);
-  const [signInModal, setSignInModal] = useContext(signInContext);
+  const [signInModal, setSignInModal] = useContext(SignInContext);
+  const [signUpModal, setSignUpModal] = useContext(SignUpContext);
+
   const scope = useMenuAnimation(activeHeader);
 
   const handleSignInClick = () => {
@@ -38,6 +40,8 @@ export default function ProfileContent() {
 
   const handleSignUpClick = () => {
     setActiveHeader(false); // Close the menu by updating activeHeader to false
+    setSignUpModal(true);
+    console.log("SignUpModal", signUpModal);
   };
 
   return (

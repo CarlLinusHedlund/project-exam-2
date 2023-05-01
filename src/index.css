@@ -7,6 +7,7 @@ body {
 }
 
 /* removes possibility to scroll when mobile menu dropdown is active  */
+body.disableScroll,
 body.activeDropdown {
   overflow-y: hidden;
 }
