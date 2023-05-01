@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #fafafa;
+}
+
+/* removes possibility to scroll when mobile menu dropdown is active  */
+body.disableScroll,
+body.activeDropdown {
+  overflow-y: hidden;
+}
+
+.active {
+  @apply bg-gradient-to-r from-[#e0736d26] to-primaryWhite shadow-sm;
+}
