@@ -12,5 +12,5 @@ body.activeDropdown {
 }
 
 .active {
-  @apply bg-gradient-to-r from-[#e0736d30] to-primaryWhite;
+  @apply bg-gradient-to-r from-[#e0736d26] to-primaryWhite shadow-sm;
 }

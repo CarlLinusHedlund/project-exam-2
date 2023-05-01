@@ -17,7 +17,7 @@ function MobileHeader() {
   }
   return (
     <headerContext.Provider value={[isOpen, setIsOpen]}>
-      <div className="relative w-full h-full flex justify-between items-center md:hidden px-5 z-50">
+      <div className="relative w-full h-full flex justify-between items-center md:hidden px-5 z-30">
         <Logo />
         <span
           onClick={toggleMenu}
@@ -39,8 +39,8 @@ function MobileHeader() {
       <div
         className={
           isOpen
-            ? "duration-500 bg-primaryWhite md:hidden flex w-[250px] sm:w-[350px] h-screen fixed top-[75px] right-0 z-10 overflow-hidden shadow-xl"
-            : "duration-300 opacity-0 w-0 h-screen md:hidden fixed top-[75px] right-0 z-10 overflow-hidden"
+            ? "duration-500 bg-primaryWhite md:hidden flex flex-col gap-10 w-[250px] sm:w-[350px] h-screen fixed top-[75px] right-0 z-10 overflow-hidden shadow-md "
+            : "duration-500 opacity-0 w-0 h-screen md:hidden fixed top-[75px] right-0 z-10 overflow-hidden"
         }
       >
         <MobileDropdown />
