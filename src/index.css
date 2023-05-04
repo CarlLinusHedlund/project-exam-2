@@ -13,5 +13,26 @@ body.activeDropdown {
 }
 
 .active {
-  @apply bg-gradient-to-r from-[#e0736d26] to-primaryWhite shadow-sm;
+  @apply bg-gradient-to-r md:bg-none from-[#e0736d26] to-primaryWhite shadow-sm md:shadow-none md:font-semibold md:duration-300;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #252525;
+  border-radius: 30px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

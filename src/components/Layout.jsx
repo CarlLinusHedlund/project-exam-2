@@ -1,6 +1,6 @@
-import Footer from "./footer/footer";
-import Header from "./header/header";
-import Router from "./router";
+import Footer from "./footer/Footer";
+import Header from "./header/Header";
+import Router from "./Router";
 
 export default function Layout() {
   return (
