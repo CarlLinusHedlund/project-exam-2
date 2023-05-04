@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from "react";
-import { SignInContext } from "./utils/authContext";
+import { SignInContext } from "./utils/AuthContext";
 import { useAnimate } from "framer-motion";
 import SignInForm from "./SignInForm";
 
@@ -15,16 +15,17 @@ function useSignInAnimation(activeSignInModal, modalRef) {
           modalRef.current,
           { opacity: 1 },
           {
-            duration: 0.4,
-          }
+            duration: 0.6,
+          },
+          { delay: 0.5 }
         );
-      }, 100); // Delay the animation by 100 milliseconds (adjust as needed)
+      }, 500); // Delay the animation by 100 milliseconds (adjust as needed)
     } else {
       animate(
         modalRef.current,
         { opacity: 0 },
         {
-          duration: 0.6,
+          duration: 0.4,
           onComplete: () => {
             modalRef.current.style.display = "none"; // Hide the modal after the animation completes
           },
@@ -49,11 +50,11 @@ export default function SignInModal() {
   return (
     <div
       ref={modalRef}
-      className="signInModal justify-center items-center fixed w-screen h-screen top-0 left-0 right-0 z-20 backdrop-blur-[2px] bg-[#a9a9a91c] px-4 pt-[90px] pb-[10px]"
+      className="signInModal justify-center items-center fixed w-screen h-screen top-0 left-0 right-0 z-30 backdrop-blur-[2px] bg-[#a9a9a91c] px-4 pt-[80px] pb-[20px]"
     >
-      <div className="relative w-full h-full max-h-[600px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg overflow-y-scroll ">
+      <div className="relative w-full h-full max-h-[620px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg overflow-y-scroll ">
         <img
-          className=" cursor-pointer h-[15px] w-[15px] md:h-[20px] md:w-[20px] absolute top-3 right-3 hover:scale-110 duration-300 "
+          className=" cursor-pointer md:h-[15px] md:w-[15px] h-[20px] w-[20px] absolute top-3 right-3 hover:scale-110 duration-300 "
           onClick={handleSignInModalClick}
           src="../close.svg"
           alt="close"

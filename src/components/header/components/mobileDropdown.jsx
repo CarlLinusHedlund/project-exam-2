@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { headerContext } from "../utils/mobileHeaderContext";
+import { headerContext } from "../utils/MobileHeaderContext";
 import { NavLink } from "react-router-dom";
-import ProfileContent from "./profileContent";
+import { ProfileContent } from "./ProfileContent";
 import { useEffect } from "react";
 import { useAnimate, stagger } from "framer-motion";
 
@@ -83,7 +83,7 @@ export default function MobileDropdown() {
           </NavLink>
         </div>
       </div>
-      <div className="">
+      <div className="pb-[10px]">
         <ProfileContent />
       </div>
     </div>

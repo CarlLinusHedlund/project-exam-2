@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Logo from "./logo";
-import MobileDropdown from "./mobileDropdown";
-import { headerContext } from "../utils/mobileHeaderContext";
+import Logo from "./Logo";
+import MobileDropdown from "./MobileDropdown";
+import { headerContext } from "../utils/MobileHeaderContext";
 
 function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);

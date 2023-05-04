@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import DesktopHeader from "./components/desktopHeader";
 import { motion, useScroll } from "framer-motion";
-import MobileHeader from "./components/mobileHeader";
-import { SignInContext, SignUpContext } from "../auth/utils/authContext";
+import MobileHeader from "./components/MobileHeader";
+import { SignInContext, SignUpContext } from "../auth/utils/AuthContext";
 import SignInModal from "../auth/SignIn";
 import SignUpModal from "../auth/SignUp";
+import DesktopHeader from "./components/desktopHeader";
 
 export default function Header() {
   //Fot the header to disappear and come back
@@ -31,7 +31,6 @@ export default function Header() {
   //Sign in modal context. If true remove possiblilty to scroll in the background
   const [signInModalOpen, setSignInModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
-  console.log("Header file: ", signInModalOpen);
 
   if (signInModalOpen || signUpModalOpen) {
     document.body.classList.add("disableScroll");
@@ -39,6 +38,22 @@ export default function Header() {
     document.body.classList.remove("disableScroll");
   }
   //Sign in modal context. If true remove possiblilty to scroll in the background
+
+  const [isMobileScreen, setIsMobileScreen] = useState(
+    window.matchMedia("(max-width: 767px)").matches
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileScreen(window.matchMedia("(max-width: 767px)").matches);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <SignInContext.Provider value={[signInModalOpen, setSignInModalOpen]}>
@@ -48,11 +63,10 @@ export default function Header() {
           animate={hidden ? "hidden" : "visible"}
           className=" header1 w-full sticky top-0 left-0 right-0 h-[75px] md:h-[90px] z-30 backdrop-blur-[5px]"
         >
-          <DesktopHeader />
-          <MobileHeader />
+          {isMobileScreen ? <MobileHeader /> : <DesktopHeader />}
         </motion.div>
-        <SignInModal />
-        <SignUpModal />
+        {signInModalOpen && <SignInModal />}
+        {signUpModalOpen && <SignUpModal />}
       </SignUpContext.Provider>
     </SignInContext.Provider>
   );
