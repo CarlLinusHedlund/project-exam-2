@@ -4,7 +4,7 @@ import MobileHeader from "./components/MobileHeader";
 import { SignInContext, SignUpContext } from "../auth/utils/AuthContext";
 import SignInModal from "../auth/SignIn";
 import SignUpModal from "../auth/SignUp";
-import DesktopHeader from "./components/desktopHeader";
+import DesktopHeader from "./components/DesktopHeader";
 
 export default function Header() {
   //Fot the header to disappear and come back
