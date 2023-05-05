@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import { useAnimate } from "framer-motion";
 import { SignUpContext } from "./utils/AuthContext";
-import SignUpForm from "./SignUpForm";
+import SignUpForm, { SignedUpContext } from "./SignUpForm";
 
 function useSignUpAnimation(activeSignUpModal, modalRef) {
   const [scope, animate] = useAnimate();
@@ -37,12 +37,14 @@ function useSignUpAnimation(activeSignUpModal, modalRef) {
 }
 
 export default function SignUpModal() {
-  const [activeSignUpModal, setActiveSignUpMOdal] = useContext(SignUpContext);
+  const signedUp = useContext(SignedUpContext);
+  console.log("SignedUp: ", signedUp);
+  const [activeSignUpModal, setActiveSignUpModal] = useContext(SignUpContext);
   const modalRef = useRef(null);
   useSignUpAnimation(activeSignUpModal, modalRef);
 
   const handleSignUpModalClick = () => {
-    setActiveSignUpMOdal(false);
+    setActiveSignUpModal(false);
     console.log("ActiveSignUpMOdal", activeSignUpModal);
   };
 
@@ -51,9 +53,13 @@ export default function SignUpModal() {
       ref={modalRef}
       className="signUpModal justify-center items-center absolute w-screen h-screen top-0 left-0 right-0 z-30 backdrop-blur-[2px] bg-[#a9a9a91c] px-4 pt-[80px] pb-[20px] "
     >
-      <div className="relative w-full h-full max-h-[650px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg overflow-y-scroll ">
+      <div
+        className={`relative w-full h-full max-h-[650px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg ${
+          signedUp ? "overflow-y-hidden" : "overflow-y-scroll"
+        } `}
+      >
         <img
-          className=" cursor-pointer md:h-[15px] md:w-[15px] h-[20px] w-[20px] absolute top-3 right-3 hover:scale-110 duration-300 "
+          className=" z-40 cursor-pointer md:h-[15px] md:w-[15px] h-[20px] w-[20px] absolute top-3 right-3 hover:scale-110 duration-300 "
           onClick={handleSignUpModalClick}
           src="../close.svg"
           alt="close"

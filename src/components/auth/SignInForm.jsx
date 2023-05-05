@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { SignInContext, SignUpContext } from "./utils/AuthContext";
+// import { supabase } from "../../supabase";
 
 export default function SignInForm() {
   const [signInModal, setSignInModal] = useContext(SignInContext);
   const [signUpModal, setSignUpModal] = useContext(SignUpContext);
+  // const [session, setSession] = useContext(useContext);
 
   const handleSignUpClick = () => {
     setSignInModal(!signInModal);
@@ -28,17 +30,7 @@ export default function SignInForm() {
         </p>
       </div>
       <form className="w-full h-fit pt-10">
-        <label htmlFor="googleAuth">
-          <button className="w-full p-2 rounded-xl border border-[#B4B4B4] flex items-center justify-center gap-3 md:hover:scale-105 duration-300">
-            <img src="../google.svg" alt="google icon" /> Sign in with Google
-          </button>
-        </label>
-        <div className="flex justify-betwee items-center py-6">
-          <div className="w-full rounded-full h-[1px] border-[1px] border-[#B4B4B4] "></div>
-          <p className="px-4">or</p>
-          <div className="w-full rounded-full h-[1px] border-[1px] border-[#B4B4B4] "></div>
-        </div>
-        <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-col gap-2 items-center">
           <label className="w-full" htmlFor="email">
             <label htmlFor="email">Email</label>
             <input
@@ -47,6 +39,7 @@ export default function SignInForm() {
               name="email"
               type="email"
             />
+            <p className="text-[12px] text-red-400 ">Error Message: </p>
           </label>
           <label className="w-full" htmlFor="current-password">
             <label htmlFor="current-password">Password</label>
@@ -56,9 +49,10 @@ export default function SignInForm() {
               name="current-password"
               type="current-password"
             />
+            <p className="text-[12px] text-red-400 ">Error Message: </p>
           </label>
           <button
-            className=" duration-300 md:hover:scale-105 mt-10 max-w-[300px] p-2 w-full bg-primaryCoral rounded-xl"
+            className=" duration-300 md:hover:scale-105 mt-5 max-w-[300px] p-2 w-full bg-primaryCoral rounded-xl"
             type="submit"
           >
             Sign In

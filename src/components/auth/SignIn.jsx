@@ -52,9 +52,9 @@ export default function SignInModal() {
       ref={modalRef}
       className="signInModal justify-center items-center fixed w-screen h-screen top-0 left-0 right-0 z-30 backdrop-blur-[2px] bg-[#a9a9a91c] px-4 pt-[80px] pb-[20px]"
     >
-      <div className="relative w-full h-full max-h-[620px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg overflow-y-scroll ">
+      <div className="relative w-full h-full max-h-[520px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg overflow-y-scroll ">
         <img
-          className=" cursor-pointer md:h-[15px] md:w-[15px] h-[20px] w-[20px] absolute top-3 right-3 hover:scale-110 duration-300 "
+          className="  cursor-pointer md:h-[15px] md:w-[15px] h-[20px] w-[20px] absolute top-3 right-3 hover:scale-110 duration-300 "
           onClick={handleSignInModalClick}
           src="../close.svg"
           alt="close"
