@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
 import "./index.css";
-
 import { UserContext } from "./components/auth/utils/UserContext";
 import { supabase } from "./Supabase";
 

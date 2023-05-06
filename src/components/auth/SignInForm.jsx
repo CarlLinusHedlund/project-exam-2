@@ -10,8 +10,6 @@ export default function SignInForm() {
   const [signUpModal, setSignUpModal] = useContext(SignUpContext);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // const [session, setSession] = useContext(useContext);
-
   const handleSignUpClick = () => {
     setSignInModal(!signInModal);
     setSignUpModal(!signUpModal);
@@ -33,7 +31,7 @@ export default function SignInForm() {
       password: `${values.password}`,
     });
     if (data) {
-      console.log(data);
+      setSignInModal(!signInModal);
     }
     if (error) {
       setSignInResponse(true);
