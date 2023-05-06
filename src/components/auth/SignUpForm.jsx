@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { SignInContext, SignUpContext } from "./utils/AuthContext";
 import { supabase } from "../../supabase";
 import { useFormik } from "formik";
-import validationSchema from "./utils/ValidateSchema";
+import { validationSchema } from "./utils/ValidateSchema";
 import "./index.css";
 
 export default function SignUpForm() {
@@ -95,6 +95,7 @@ export default function SignUpForm() {
               <label className="w-full relative" htmlFor="userEmail">
                 <p>Email</p>
                 <input
+                  autoComplete="username"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.userEmail}
@@ -181,7 +182,7 @@ export default function SignUpForm() {
           <div className="absolute left-0 top-0 right-0 bottom-0 w-full h-full backdrop-blur-[2px] flex justify-center items-center bg-[#0000000f]">
             <div className="w-[90%] h-fit bg-primaryWhite mx-auto my-auto rounded-[10px] shadow-lg px-4 pb-6 flex flex-col gap-2 items-center overflow-y-scroll ">
               <img className="w-fit h-3/5 " src="success.gif" alt="success" />
-              <h2 className="text-center font-medium font-poppins text-[20px] ">
+              <h2 className=" text-center font-medium font-poppins text-[20px] ">
                 Thanks for signing up!
               </h2>
               <div

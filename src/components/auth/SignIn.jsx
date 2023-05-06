@@ -54,7 +54,7 @@ export default function SignInModal() {
     >
       <div className="relative w-full h-full max-h-[520px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg overflow-y-scroll ">
         <img
-          className="  cursor-pointer md:h-[15px] md:w-[15px] h-[20px] w-[20px] absolute top-3 right-3 hover:scale-110 duration-300 "
+          className="  cursor-pointer md:h-[15px] md:w-[15px] h-[20px] w-[20px] absolute top-3 right-3 hover:scale-110 duration-300 z-40 "
           onClick={handleSignInModalClick}
           src="../close.svg"
           alt="close"
