@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { SignInContext, SignUpContext } from "./utils/AuthContext";
-import { supabase } from "../../supabase";
+import { supabase } from "../../Supabase";
 import { useFormik } from "formik";
 import { signInSchema } from "./utils/ValidateSchema";
 

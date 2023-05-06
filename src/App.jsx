@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
 import "./index.css";
-import { supabase } from "./supabase";
+
 import { UserContext } from "./components/auth/utils/UserContext";
+import { supabase } from "./Supabase";
 
 function App() {
   const [session, setSession] = useState(null);
