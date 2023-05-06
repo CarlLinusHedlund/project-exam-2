@@ -12,8 +12,11 @@ export default function Router() {
       <Routes key={location.pathname} location={location}>
         <Route path="/" element={<Index />} />
         <Route path="/listings" element={<Listings />} />
+        <Route path="/dashboard/profile" element={<Index />} />
+        <Route path="/dashboard/messages" element={<Index />} />
         <Route path="/dashboard/become-a-host" element={<Index />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/help-center" element={<Index />} />
       </Routes>
     </AnimatePresence>
   );

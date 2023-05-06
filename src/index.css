@@ -9,11 +9,11 @@ body {
 /* removes possibility to scroll when mobile menu dropdown is active  */
 body.disableScroll,
 body.activeDropdown {
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .active {
-  @apply bg-gradient-to-r md:bg-none from-[#e0736d26] to-primaryWhite shadow-sm md:shadow-none md:font-semibold md:duration-300;
+  @apply bg-gradient-to-r md:bg-none from-[#e0736d26] to-primaryWhite shadow-sm md:shadow-none md:font-semibold;
 }
 
 /* width */

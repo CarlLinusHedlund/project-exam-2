@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { headerContext } from "../utils/MobileHeaderContext";
 import { NavLink } from "react-router-dom";
-import { ProfileContent } from "./ProfileContent";
+import { ProfileContent, SingedInProfile } from "./ProfileContent";
 import { useEffect } from "react";
 import { useAnimate, stagger } from "framer-motion";
+import HomeSvg, { DashboardSvg, HostSvg, ListingsSvg } from "../../DynamicSvgs";
 
 const staggerMenuItems = stagger(0.1, { startDelay: 0.05 });
 
@@ -37,50 +38,73 @@ export default function MobileDropdown() {
   return (
     <div
       ref={scope}
-      className="w-full h-full flex flex-col justify-between pb-[75px]"
+      className="w-full h-full flex flex-col justify-between pb-[75px] overflow-y-scroll"
     >
-      <div className="w-full p-5 flex flex-col gap-2 font-poppins">
-        <p className=" text-sm font-poppins text-primaryDark opacity-50">
-          Main menu
-        </p>
-        <div className="whitespace-nowrap text-primaryDark flex flex-col gap-3">
-          <NavLink
-            activeclassname="active"
-            className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
-            to={"/"}
-            onClick={handleNavLinkClick}
-          >
-            <img src="../home.svg" alt="" />
-            Home
-          </NavLink>
-          <NavLink
-            activeclassname="active"
-            className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
-            to={"/listings"}
-            onClick={handleNavLinkClick}
-          >
-            <img src="../home.svg" alt="" />
-            Place to stay?
-          </NavLink>
-          <NavLink
-            activeclassname="active"
-            className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
-            to={"dashboard/become-a-host"}
-            onClick={handleNavLinkClick}
-          >
-            <img src="../home.svg" alt="" />
-            Become a host
-          </NavLink>
-          <NavLink
-            end
-            activeclassname="active"
-            className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
-            to={"/dashboard"}
-            onClick={handleNavLinkClick}
-          >
-            <img src="../home.svg" alt="" />
-            Dashboard
-          </NavLink>
+      <div className="w-full flex flex-col gap-2 font-poppins">
+        <SingedInProfile />
+        <div className="p-5">
+          <p className=" text-sm font-poppins text-primaryDark opacity-50">
+            Main menu
+          </p>
+          <div className="whitespace-nowrap text-primaryDark flex flex-col gap-3">
+            <NavLink
+              activeclassname="active"
+              className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
+              to={"/"}
+              onClick={handleNavLinkClick}
+            >
+              <HomeSvg
+                color={window.location.pathname === "/" ? "#E0736D" : "#A7A7A7"}
+              />
+              Home
+            </NavLink>
+            <NavLink
+              activeclassname="active"
+              className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
+              to={"/listings"}
+              onClick={handleNavLinkClick}
+            >
+              <ListingsSvg
+                color={
+                  window.location.pathname === "/listings"
+                    ? "#E0736D"
+                    : "#A7A7A7"
+                }
+              />
+              Place to stay?
+            </NavLink>
+            <NavLink
+              activeclassname="active"
+              className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
+              to={"/dashboard/become-a-host"}
+              onClick={handleNavLinkClick}
+            >
+              <HostSvg
+                color={
+                  window.location.pathname === "/dashboard/become-a-host"
+                    ? "#E0736D"
+                    : "#A7A7A7"
+                }
+              />
+              Become a host
+            </NavLink>
+            <NavLink
+              end
+              activeclassname="active"
+              className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
+              to={"/dashboard"}
+              onClick={handleNavLinkClick}
+            >
+              <DashboardSvg
+                color={
+                  window.location.pathname === "/dashboard"
+                    ? "#E0736D"
+                    : "#A7A7A7"
+                }
+              />
+              Dashboard
+            </NavLink>
+          </div>
         </div>
       </div>
       <div className="pb-[10px]">
