@@ -228,20 +228,20 @@ export function SingedInProfile() {
   }
 }
 
-const staggerLinks = stagger(0.1, { startDelay: 0.05 });
+const staggerLinks = stagger(0.1, { startDelay: 0.02 });
 
 function useModalAnimation(profileNav) {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
     animate(".modal", profileNav ? { opacity: 1 } : { opacity: 0 }, {
-      duration: profileNav ? 0.6 : 0.1,
+      duration: profileNav ? 0.6 : 0,
     }),
       animate(
         ".link",
         profileNav ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 },
         {
-          duration: profileNav ? 0.6 : 0.1,
+          duration: profileNav ? 0.1 : 0.3,
           delay: profileNav ? staggerLinks : 0,
         }
       );
@@ -254,6 +254,23 @@ export function SingedInProfileDesktop() {
   const session = useContext(UserContext);
   const [profileNav, setProfileNav] = useState(false);
   const scope = useModalAnimation(profileNav);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const modal = scope.current;
+      if (modal && !modal.contains(event.target) && profileNav) {
+        setProfileNav(false);
+      }
+    };
+
+    if (profileNav) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [profileNav, scope]);
 
   const profileNavHandler = () => {
     setProfileNav(!profileNav);
@@ -306,7 +323,7 @@ export function SingedInProfileDesktop() {
           >
             <NavLink
               onClick={checkWindowSize}
-              className=" link px-2 py-[8px] rounded-[10px] flex items-center gap-2 whitespace-nowrap "
+              className=" duration-300 hover:bg-gray-100 link px-2 py-[8px] rounded-[10px] flex items-center gap-2 whitespace-nowrap "
               to={"/dashboard/profile"}
             >
               <AccountSettingsSvg
@@ -320,7 +337,7 @@ export function SingedInProfileDesktop() {
             </NavLink>
             <NavLink
               onClick={checkWindowSize}
-              className=" link px-2 py-[8px] rounded-[10px] flex items-center gap-2 whitespace-nowrap "
+              className=" duration-300 hover:bg-gray-100 link px-2 py-[8px] rounded-[10px] flex items-center gap-2 whitespace-nowrap "
               to={"/dashboard/messages"}
             >
               <MessagesSvg
@@ -334,7 +351,7 @@ export function SingedInProfileDesktop() {
             </NavLink>
             <NavLink
               onClick={checkWindowSize}
-              className=" link px-2 py-[8px] rounded-[10px] flex items-center gap-2 whitespace-nowrap "
+              className=" duration-300 hover:bg-gray-100 link px-2 py-[8px] rounded-[10px] flex items-center gap-2 whitespace-nowrap "
               to={"/help-center"}
             >
               <HelpSvg
@@ -346,7 +363,7 @@ export function SingedInProfileDesktop() {
               />
               Help center
             </NavLink>
-            <div className=" px-2 py-[8px] link">
+            <div className=" duration-300 hover:bg-gray-100 px-2 py-[8px] md:cursor-pointer md:rounded-[10px] link">
               <SignOut />
             </div>
           </div>
