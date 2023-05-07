@@ -12,6 +12,11 @@ export default {
         primaryWhite: "#FAFAFA",
         primaryCoral: "#E0736D",
       },
+      screens: {
+        xxs: "400px",
+        xs: "450px",
+        smd: "880px",
+      },
     },
   },
   plugins: [],

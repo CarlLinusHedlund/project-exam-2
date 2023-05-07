@@ -293,7 +293,7 @@ export function SingedInProfileDesktop() {
             onClick={profileNavHandler}
             className="cursor-pointer flex justify-between gap-2 "
           >
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center px-2">
               {user.user_metadata.avatar_url ? (
                 <img
                   className=" h-6 w-6 rounded-full "
@@ -301,7 +301,7 @@ export function SingedInProfileDesktop() {
                   alt={`${user.user_metadata.full_name}`}
                 />
               ) : (
-                <div className=" text-[16px] bg-primaryCoral h-10 w-10 flex justify-center items-center rounded-full ">
+                <div className=" text-[14px] bg-primaryCoral h-8 w-8 flex justify-center items-center rounded-full ">
                   {firstLetter}
                 </div>
               )}

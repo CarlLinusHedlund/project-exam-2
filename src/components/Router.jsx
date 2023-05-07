@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import Index from "../pages";
 import Listings from "../pages/listings";
 import Dashboard from "../pages/dashboard";
 import { AnimatePresence } from "framer-motion";
+import Index from "../pages/home";
 
 export default function Router() {
   const location = useLocation();
