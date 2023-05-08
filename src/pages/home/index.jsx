@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import Herobanner from "./components/herobanner";
+import Categories from "./components/Categories";
+import VenuesNearby from "./components/VenuesNearby";
+import BecomeAHost from "./components/BecomeAHost";
 
 export default function Index() {
   return (
@@ -10,6 +13,9 @@ export default function Index() {
       className=" inner px-3 md:px-5 h-fit py-20 "
     >
       <Herobanner />
+      <Categories />
+      <VenuesNearby />
+      <BecomeAHost />
     </motion.div>
   );
 }
