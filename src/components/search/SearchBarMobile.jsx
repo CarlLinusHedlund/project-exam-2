@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { SearchSvg } from "../DynamicSvgs";
 import { supabase } from "../../Supabase";
+import "./index.css";
+import RangeSlider from "./PriceRange";
 
 export default function SearchBarMobile() {
   const [openSearch, setOpenSearch] = useState(false);
@@ -8,9 +10,10 @@ export default function SearchBarMobile() {
   const searchModalRef = useRef(null);
   const [maxPrice, setMaxPrice] = useState(0);
   const [prices, setPrices] = useState([]);
+  console.log("prices", prices);
 
   useEffect(() => {
-    async function fetchVenues() {
+    async function fetchVenuesPrice() {
       const { data, error } = await supabase
         .from("venues")
         .select("price_per_night");
@@ -21,13 +24,12 @@ export default function SearchBarMobile() {
       setPrices(price);
       setMaxPrice(Math.max(...price));
     }
-
-    fetchVenues();
+    fetchVenuesPrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const bucketSize = maxPrice / 20;
-  console.log("BucketSize: ", bucketSize);
+  // console.log("BucketSize: ", bucketSize);
   const buckets = new Array(20).fill(0);
 
   prices.forEach((price) => {
@@ -38,7 +40,6 @@ export default function SearchBarMobile() {
       buckets[bucketIndex]++;
     }
   });
-
   console.log("Buckets :", buckets);
 
   useEffect(() => {
@@ -62,27 +63,27 @@ export default function SearchBarMobile() {
   }
 
   const handleSearch = () => {
-    console.log("Search!");
+    // console.log("Search!");
     setOpenSearch(false);
   };
   const OpenSearchModal = () => {
     setOpenSearch(true);
-    console.log("open Search!: ", openSearch);
+    // console.log("open Search!: ", openSearch);
   };
 
   const CloseSearchModal = (event) => {
     event.stopPropagation();
     setOpenSearch(false);
-    console.log("close Search!: ", openSearch);
+    // console.log("close Search!: ", openSearch);
   };
 
   return (
     <>
       {isMobile && (
-        <div className="w-full h-fit absolute left-0 right-0 top-5 mx-auto px-3 xs:px-10 md:hidden ">
+        <div className="w-full h-fit absolute left-0 right-0 top-5 mx-auto px-3 xs:px-10 md:hidden z-10 ">
           <div
             ref={searchModalRef}
-            className="w-full h-full text-primaryDark bg-primaryWhite drop-shadow-lg rounded-[10px] px-4 py-3 font-poppins flex flex-col overflow-hidden "
+            className="w-full h-full text-primaryDark bg-primaryWhite drop-shadow-lg rounded-[10px] px-4 py-5 font-poppins flex flex-col "
           >
             <div
               onClick={OpenSearchModal}
@@ -115,37 +116,42 @@ export default function SearchBarMobile() {
             </div>
             <div
               className={`bg-primaryWhite overflow-hidden w-full duration-500 flex flex-col gap-5 justify-between ${
-                openSearch ? "h-[250px] pt-5 " : "h-0 py-0"
+                openSearch ? "h-[350px] pt-10 " : "h-0 py-0"
               }`}
             >
-              <div
-                className={`duration-500 delay-75 flex flex-col w-full ${
-                  openSearch ? "opacity-100" : "opacity-0"
-                } `}
-              >
-                <div className="flex gap-[2px] justify-between items-end h-20">
-                  {buckets.map((count, index) => (
-                    <div
-                      className={` w-full rounded-t-[4px] bg-primaryCoral max-h-14`}
-                      style={{
-                        height: `${openSearch ? count * 10 : 0}px`,
-                        opacity: `${openSearch ? "1" : "0"}`,
-                        transition: "opacity 1s ease-in-out, height 1s ease-in",
-                      }}
-                      key={index}
-                    ></div>
-                  ))}
+              {prices.length > 0 && (
+                <div
+                  className={`duration-500 delay-75 flex flex-col w-full ${
+                    openSearch ? "opacity-100" : "opacity-0"
+                  } `}
+                >
+                  <div className="w-full">
+                    <h3>Price range</h3>
+                  </div>
+                  <div className="flex gap-[2px] justify-between items-end pb-1 h-20">
+                    {buckets.map((count, index) => (
+                      <div
+                        className={` w-full rounded-t-[4px] bg-primaryCoral max-h-14`}
+                        style={{
+                          height: `${openSearch ? count * 10 : 0}px`,
+                          opacity: `${openSearch ? "0.8" : "0"}`,
+                          transition:
+                            "opacity 1s ease-in-out, height 1s ease-in",
+                        }}
+                        key={index}
+                      ></div>
+                    ))}
+                  </div>
+                  <RangeSlider
+                    initialMin={1500}
+                    initialMax={3000}
+                    min={0}
+                    max={maxPrice + 1}
+                    step={100}
+                    priceCap={1000}
+                  />
                 </div>
-                <input
-                  min={bucketSize}
-                  className="px-1"
-                  step={bucketSize}
-                  type="range"
-                  max={maxPrice}
-                  name="pricePerNight"
-                  id="pricePerNight"
-                />
-              </div>
+              )}
 
               <button
                 onClick={handleSearch}

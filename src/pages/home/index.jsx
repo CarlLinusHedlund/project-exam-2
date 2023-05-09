@@ -3,7 +3,7 @@ import Categories from "./components/Categories";
 import VenuesNearby from "./components/VenuesNearby";
 import BecomeAHost from "./components/BecomeAHost";
 import Herobanner from "./components/Herobanner";
-import SearchBarMobile from "../../components/search/SearchBar";
+import SearchBarMobile from "../../components/search/SearchBarMobile";
 
 export default function Index() {
   return (
