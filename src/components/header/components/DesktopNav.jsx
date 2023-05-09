@@ -9,7 +9,7 @@ export default function DesktopNav() {
       <NavLink
         activeclassname="active"
         className="duration-300 "
-        to={"/listings"}
+        to={"/venues"}
       >
         Place to stay?
       </NavLink>
