@@ -65,6 +65,7 @@ export default function SearchBarMobile() {
   const handleSearch = () => {
     // console.log("Search!");
     setOpenSearch(false);
+    location.pathname = "/venues/id=1231314123123123";
   };
   const OpenSearchModal = () => {
     setOpenSearch(true);

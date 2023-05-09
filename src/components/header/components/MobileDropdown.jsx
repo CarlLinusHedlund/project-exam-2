@@ -61,7 +61,7 @@ export default function MobileDropdown() {
             <NavLink
               activeclassname="active"
               className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
-              to={"/listings"}
+              to={"/venues"}
               onClick={handleNavLinkClick}
             >
               <ListingsSvg

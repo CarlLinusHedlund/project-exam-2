@@ -1,8 +1,9 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import Listings from "../pages/listings";
 import Dashboard from "../pages/dashboard";
 import { AnimatePresence } from "framer-motion";
 import Index from "../pages/home";
+import VenueDetail from "../pages/venueDetail";
+import { Venues } from "../pages/venues";
 
 export default function Router() {
   const location = useLocation();
@@ -11,7 +12,8 @@ export default function Router() {
     <AnimatePresence mode="wait">
       <Routes key={location.pathname} location={location}>
         <Route path="/" element={<Index />} />
-        <Route path="/listings" element={<Listings />} />
+        <Route path="/venues" element={<Venues />} />
+        <Route path="/venue/:id" element={<VenueDetail />} />
         <Route path="/dashboard/profile" element={<Index />} />
         <Route path="/dashboard/messages" element={<Index />} />
         <Route path="/dashboard/become-a-host" element={<Index />} />
