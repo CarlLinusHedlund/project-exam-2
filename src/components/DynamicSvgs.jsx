@@ -175,3 +175,30 @@ export function SearchSvg(props) {
 SearchSvg.propTypes = {
   color: PropTypes.string.isRequired,
 };
+
+export function LocationSvg(props) {
+  const { color } = props;
+  const { height } = props;
+  const { width } = props;
+
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill={color}
+      viewBox="0 0 7 9"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3.52044 1C2.1342 1 1 2.22692 1 3.71674C1 4.89984 2.51226 6.95931 3.18438 7.83568C3.35241 8.05477 3.64646 8.05477 3.81449 7.83568C4.48661 6.95931 5.99887 4.85602 5.99887 3.71674C6.04088 2.22692 4.90668 1 3.52044 1ZM3.52044 4.50548C3.05836 4.50548 2.68029 4.11111 2.68029 3.62911C2.68029 3.1471 3.05836 2.75274 3.52044 2.75274C3.98252 2.75274 4.36058 3.1471 4.36058 3.62911C4.36058 4.11111 3.98252 4.50548 3.52044 4.50548Z"
+        strokeWidth="0.1"
+        strokeMiterlimit="5"
+      />
+    </svg>
+  );
+}
+LocationSvg.propTypes = {
+  color: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
+};

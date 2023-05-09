@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { supabase } from "../../Supabase";
-import { Link } from "react-router-dom";
+import { VenueCard } from "./VenueCard";
 
 export function Venues() {
   const [loading, setLoading] = useState(true);
@@ -26,27 +26,23 @@ export function Venues() {
   }
   return (
     <motion.div
-      className="inner"
+      className="inner px-4"
       exit={{ opacity: 0, transition: { duration: 0.3 } }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 0.5 } }}
     >
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-10 items-center sm:justify-center py-20">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-6 items-center sm:justify-center py-20">
         {venues &&
           venues.map((venue) => (
-            <Link
-              className="p-[5px] w-full h-[300px] max-w-[315px] max-h-[290px] rounded-[10px] border-[1px] border-gray-300"
-              to={`/venue/id=${venue.id}`}
+            <VenueCard
+              media={venue.media}
+              id={venue.id}
               key={venue.id}
-            >
-              <div className="w-full h-[65%] bg-red-300 rounded-[10px]">
-                <img
-                  className=" rounded-[10px] w-full h-full object-cover"
-                  src={`${venue.media[0]}`}
-                  alt={venue.title}
-                />
-              </div>
-            </Link>
+              title={venue.title}
+              country={venue.location.address.country}
+              city={venue.location.address.city}
+              price={venue.price_per_night}
+            />
           ))}
       </div>
       {loading && <h1>Loading....</h1>}
