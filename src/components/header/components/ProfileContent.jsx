@@ -319,7 +319,7 @@ export function SingedInProfileDesktop() {
           <div
             className={` modal ${
               profileNav ? " shadow-lg h-fit" : "h-0 shadow-none "
-            } overflow-hidden rounded-md absolute top-[50px] flex-col gap-10 text-primaryDark bg-[primaryWhite] border-[1px] border-[#E3E3E3] font-poppins px-2 py-2 text-[14px] left-0 right-0`}
+            } overflow-hidden bg-primaryWhite rounded-md absolute top-[50px] flex-col gap-10 text-primaryDark bg-[primaryWhite] border-[1px] border-[#E3E3E3] font-poppins px-2 py-2 text-[14px] left-0 right-0`}
           >
             <NavLink
               onClick={checkWindowSize}

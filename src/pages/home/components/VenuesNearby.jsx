@@ -1,4 +1,4 @@
-import { supabase } from "../../../Supabase";
+// import { supabase } from "../../../Supabase";
 
 export default function VenuesNearby() {
   if ("geolocation" in navigator) {
@@ -11,21 +11,21 @@ export default function VenuesNearby() {
       console.log(radius);
       // Call the PostgreSQL function using Supabase's rpc method
 
-      const fetchData = async () => {
-        const { data, error } = await supabase.rpc("get_nearby_venues", {
-          lat,
-          lon,
-          radius,
-        });
-        // handle data and error
-        if (error) {
-          console.log(error);
-        }
-        if (data) {
-          console.log(data);
-        }
-      };
-      fetchData();
+      // const fetchData = async () => {
+      //   const { data, error } = await supabase.rpc("get_nearby_venues", {
+      //     lat,
+      //     lon,
+      //     radius,
+      //   });
+      //   // handle data and error
+      //   if (error) {
+      //     console.log(error);
+      //   }
+      //   if (data) {
+      //     console.log(data);
+      //   }
+      // };
+      // fetchData();
     });
   } else {
     console.log("Geolocation is not supported by this browser.");

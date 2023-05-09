@@ -44,7 +44,6 @@ export default function SignInModal() {
 
   const handleSignInModalClick = () => {
     setActiveSignInModal(false);
-    console.log("activeSignInModal", activeSignInModal);
   };
 
   return (
