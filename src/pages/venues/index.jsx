@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { supabase } from "../../Supabase";
-import { VenueCard } from "./venueCard";
+import { VenueCard } from "./VenueCard";
 
 export function Venues() {
   const [loading, setLoading] = useState(true);
