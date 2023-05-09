@@ -21,7 +21,7 @@ export function VenueCard({ id, media, title, country, city, price }) {
     >
       <Link
         className=" w-full h-full flex flex-col font-poppins "
-        to={`/venue/id=${id}`}
+        to={`/venue/${id}`}
         key={id}
       >
         <div className=" relative w-full h-[65%] bg-red-300 rounded-[10px]">
