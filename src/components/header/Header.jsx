@@ -61,7 +61,7 @@ export default function Header() {
         <motion.div
           variants={headerVariants}
           animate={hidden ? "hidden" : "visible"}
-          className=" header1 w-full sticky top-0 left-0 right-0 h-[75px] md:h-[90px] z-30 backdrop-blur-[5px]"
+          className=" header1 w-full sticky top-0 left-0 right-0 h-[75px] md:h-[90px] z-30 bg-[#fafafa] backdrop-blur-[8px]"
         >
           {isMobileScreen ? <MobileHeader /> : <DesktopHeader />}
         </motion.div>

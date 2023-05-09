@@ -293,7 +293,7 @@ export function SingedInProfileDesktop() {
             onClick={profileNavHandler}
             className="cursor-pointer flex justify-between gap-2 "
           >
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center px-2">
               {user.user_metadata.avatar_url ? (
                 <img
                   className=" h-6 w-6 rounded-full "
@@ -301,7 +301,7 @@ export function SingedInProfileDesktop() {
                   alt={`${user.user_metadata.full_name}`}
                 />
               ) : (
-                <div className=" text-[16px] bg-primaryCoral h-10 w-10 flex justify-center items-center rounded-full ">
+                <div className=" text-[14px] bg-primaryCoral h-8 w-8 flex justify-center items-center rounded-full ">
                   {firstLetter}
                 </div>
               )}
@@ -319,7 +319,7 @@ export function SingedInProfileDesktop() {
           <div
             className={` modal ${
               profileNav ? " shadow-lg h-fit" : "h-0 shadow-none "
-            } overflow-hidden rounded-md absolute top-[50px] flex-col gap-10 text-primaryDark bg-[primaryWhite] border-[1px] border-[#E3E3E3] font-poppins px-2 py-2 text-[14px] left-0 right-0`}
+            } overflow-hidden bg-primaryWhite rounded-md absolute top-[50px] flex-col gap-10 text-primaryDark bg-[primaryWhite] border-[1px] border-[#E3E3E3] font-poppins px-2 py-2 text-[14px] left-0 right-0`}
           >
             <NavLink
               onClick={checkWindowSize}

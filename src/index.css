@@ -16,6 +16,10 @@ body.activeDropdown {
   @apply bg-gradient-to-r md:bg-none from-[#e0736d26] to-primaryWhite shadow-sm md:shadow-none md:font-semibold;
 }
 
+.inner {
+  @apply max-w-7xl mx-auto
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 4px;
