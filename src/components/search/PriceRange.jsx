@@ -91,45 +91,45 @@ export default function RangeSlider({
         <div className="relative h-fit w-fit bg-primaryWhite rounded-[5px] px-2 border-[1px] border-gray-300">
           <label
             htmlFor="minPrice"
-            className="text-[12px] absolute -top-4 left-1 text-gray-300 "
+            className="text-[12px] absolute -top-5 left-1 text-gray-300 "
           >
             Min Price
           </label>
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
+            <span className=" text-gray-300 text-[12px] ">NOK</span>
             <input
               onChange={(e) => setMinValue(e.target.value)}
               value={minValue}
               min={min}
               max={max}
               disabled
-              className="py-2 w-10 outline-none bg-primaryWhite text-[14px] "
+              className=" text-center py-2 w-[50px] outline-none bg-primaryWhite text-[14px] "
               type="number"
               name="minPrice"
               id="minPrice"
             />
-            <span className=" text-gray-300 ">NOK</span>
           </div>
         </div>
         <div className="relative h-fit w-fit bg-primaryWhite rounded-[5px] px-2 border-[1px] border-gray-300">
           <label
             htmlFor="minPrice"
-            className="text-[12px] absolute -top-4 left-1 text-gray-300"
+            className="text-[12px] absolute -top-5 left-1 text-gray-300"
           >
             Max Price
           </label>
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
+            <span className="text-gray-300 text-[12px] ">NOK</span>
             <input
               onChange={(e) => setMaxValue(e.target.value)}
               value={maxValue}
               min={min}
               max={max}
               disabled
-              className="py-2 w-10 outline-none bg-primaryWhite text-[14px]"
+              className=" text-center py-2 w-[50px] outline-none bg-primaryWhite text-[14px]"
               type="number"
               name="maxPrice"
               id="maxPrice"
             />
-            <span className="text-gray-300 ">NOK</span>
           </div>
         </div>
       </div>

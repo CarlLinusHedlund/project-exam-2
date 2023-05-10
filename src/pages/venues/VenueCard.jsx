@@ -42,7 +42,7 @@ export function VenueCard({ id, media, title, country, city, price }) {
           <div className="w-full flex flex-col">
             <div className="w-full flex justify-between gap-4">
               <h2 className=" overflow-hidden whitespace-nowrap text-ellipsis text-[16px] font-semibold ">
-                {title}wsefsdfsdfsdfsdfsdf
+                {title}
               </h2>
               <p>Rating</p>
             </div>
