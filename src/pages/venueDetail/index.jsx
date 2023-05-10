@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { supabase } from "../../Supabase";
-import ImgContainer from "./components/imgContainer";
+import ImgContainer from "./components/ImgContainer";
 
 export default function VenueDetail() {
   const { id } = useParams();
