@@ -15,7 +15,7 @@ export function MobileImgContainer({ media, title }) {
   }
 
   return (
-    <div className=" relative px-2 rounded-[10px] overflow-hidden shadow-xl">
+    <div className=" relative rounded-[10px] overflow-hidden ">
       <motion.div
         exit={{ opacity: 0, x: -20, transition: { duration: 0.3 } }}
         initial={{ opacity: 0 }}
@@ -32,11 +32,14 @@ export function MobileImgContainer({ media, title }) {
           dynamicBullets: true,
         }}
         modules={[Pagination]}
-        className="mySwiper h-[50vh] min-h-[400px] w-full rounded-[10px]"
+        className="  mySwiper h-[50vh] min-h-[400px] w-full rounded-[10px]"
       >
         {media.map((img, index) => (
-          <SwiperSlide className=" relative w-full h-full" key={index}>
-            <div className=" absolute top-0 left-0 right-0 w-full h-full bg-[#0000002c]  "></div>
+          <SwiperSlide
+            className=" shadow-xl relative w-full h-full"
+            key={index}
+          >
+            <div className=" absolute top-0 left-0 right-0 w-full h-full bg-[#0000002c]"></div>
             <img className="w-full h-full object-cover" src={img} alt={title} />
           </SwiperSlide>
         ))}

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { supabase } from "../../Supabase";
 import ImgContainer from "./components/ImgContainer";
+import { LocationSvg } from "../../components/DynamicSvgs";
 
 export default function VenueDetail() {
   const { id } = useParams();
@@ -44,19 +45,18 @@ export default function VenueDetail() {
         exit={{ opacity: 0, transition: { duration: 0.3 } }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 0.5 } }}
-        className="inner "
+        className="inner px-2 md:px-4 "
       >
-        {venue.title}
-        <ImgContainer
-          title={venue.title}
-          media={[
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-          ]}
-        />
+        <ImgContainer title={venue.title} media={venue.media} />
+        <div className="">
+          <h2 className="text-">{venue.title}</h2>
+          <div className="flex gap-2 items-center">
+            <LocationSvg color={"#E0736D"} width={"18px"} height={"18px"} />
+            <p className="">
+              {venue.location.address.city}, {venue.location.address.country}
+            </p>
+          </div>
+        </div>
       </motion.div>
     );
   }

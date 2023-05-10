@@ -84,7 +84,7 @@ export default function SearchBarMobile() {
         <div className="w-full h-fit absolute left-0 right-0 top-5 mx-auto px-3 xs:px-10 md:hidden z-10 ">
           <div
             ref={searchModalRef}
-            className="w-full h-full text-primaryDark bg-primaryWhite drop-shadow-lg rounded-[10px] px-4 py-5 font-poppins flex flex-col "
+            className="w-full h-full text-primaryDark bg-primaryWhite border-[1px] border-gray-100 drop-shadow-md rounded-[10px] px-4 py-[12px] font-poppins flex flex-col "
           >
             <div
               onClick={OpenSearchModal}

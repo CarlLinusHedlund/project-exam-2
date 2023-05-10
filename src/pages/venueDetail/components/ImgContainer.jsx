@@ -7,13 +7,13 @@ export default function ImgContainer({ title, media }) {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   return (
-    <div className="">
+    <>
       {isMobile ? (
         <MobileImgContainer media={media} title={title} />
       ) : (
         <DesktopImgContainer media={media} title={title} />
       )}
-    </div>
+    </>
   );
 }
 
