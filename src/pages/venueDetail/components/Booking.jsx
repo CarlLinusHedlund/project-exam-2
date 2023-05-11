@@ -1,11 +1,12 @@
 import { useMediaQuery } from "react-responsive";
 import "./index.css";
 import PropTypes from "prop-types";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DayPicker } from "react-day-picker";
 import { format } from "date-fns";
 import "react-day-picker/dist/style.css";
 import CheckNextBooking from "./CheckNextBooking";
+import GuestCounter from "./GuestCounter";
 
 export default function Booking({ price, bookings }) {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -15,7 +16,22 @@ export default function Booking({ price, bookings }) {
   console.log("bookings: ", bookings);
   console.log("openDate: ", openDate);
 
-  function Example({ size }) {
+  const defaultSelected = {
+    from: new Date(),
+    to: "",
+  };
+  const [range, setRange] = useState(defaultSelected);
+  useEffect(() => {
+    // When range.from and range.to are both set,
+    // set openDate to true and close the calendar
+    console.log("UseEffect is running");
+    if (range && range.from && range.to) {
+      // add null check for range
+      setOpenDate(false);
+    }
+  }, [range]);
+
+  function Calendar() {
     const disabledDays = bookings.map((booking) => {
       return {
         from: new Date(booking.booking_start_date),
@@ -23,31 +39,24 @@ export default function Booking({ price, bookings }) {
       };
     });
 
-    const defaultSelected = {
-      from: new Date(),
-      to: "",
-    };
-
-    const [range, setRange] = useState(defaultSelected);
-
     return (
-      <div className="flex flex-row z-30 delay-75 ">
+      <div
+        onMouseLeave={OpenDate}
+        className="flex flex-row z-30 p-10 delay-75 "
+      >
         <DayPicker
+          showOutsideDays
           defaultMonth={new Date()}
           mode="range"
-          numberOfMonths={size}
+          numberOfMonths={1}
           selected={range}
           onSelect={setRange}
           disabled={disabledDays}
-          classNames={class}
-          // footer={footer}
+          classNames={classNames}
         />
       </div>
     );
   }
-  Example.propTypes = {
-    size: PropTypes.number.isRequired,
-  };
 
   const handleBooking = () => {
     if (isMobile) {
@@ -66,6 +75,31 @@ export default function Booking({ price, bookings }) {
     setOpenDate(!openDate);
   };
 
+  const classNames = {
+    vhidden: "sr-only",
+    caption: "flex justify-center items-center h-10",
+    root: "text-gray-800",
+    months: "flex gap-10 relative px-4",
+    caption_label: "text-xl px-1",
+    nav_button:
+      "inline-flex justify-center items-center absolute top-0 w-10 h-10 rounded-full text-gray-600 hover:bg-gray-100",
+    nav_button_next: "right-0",
+    nav_button_previous: "left-0",
+    table: "border-collapse border-spacing-0",
+    head_cell: "w-10 h-10 uppercase align-middle text-center",
+    cell: "w-10 h-10 align-middle text-center border-0 px-0",
+    day: "rounded-full w-10 h-10 transition-colors hover:border hover:border-gray-900 hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-sky-300 focus-visible:ring-opacity-50 active:bg-[#FF004D] active:text-white",
+    day_selected: "text-white bg-[#E0736D] hover:bg-pink-700 duration-500",
+    day_today: "font-bold",
+    day_disabled:
+      "opacity-25 hover:border-0 line-through hover:bg-white active:bg-white active:text-gray-800",
+    day_outside: "enabled:opacity-50 ",
+    day_range_middle: "rounded-none",
+    day_range_end: "rounded-l-none rounded-r-full",
+    day_range_start: "rounded-r-none rounded-l-full",
+    day_hidden: "hidden",
+  };
+
   return (
     <>
       {bookingOpen && isMobile && (
@@ -79,16 +113,16 @@ export default function Booking({ price, bookings }) {
         className={
           isMobile
             ? "font-poppins bookingShadow fixed bottom-0 right-0 left-0 bg-primaryWhite h-20 w-full z-40"
-            : "font-poppins bookingShadowDesktop bg-primaryWhite md:col-span-3 md:col-start-5 md:row-span-4 md:row-start-1 md:row-end-4 rounded-[10px] h-full p-3 lg:p-8 "
+            : "font-poppins shadow-lg bg-primaryWhite md:col-span-3 border-[1px] border-gray-100 md:col-start-5 md:row-span-4 md:row-start-1 md:row-end-4 rounded-[10px] h-full p-3 lg:p-8 "
         }
       >
         <div
           className={
             isMobile
               ? `w-full bg-primaryWhite ${
-                  bookingOpen ? "h-[60vh]" : "h-0"
-                } duration-300 overflow-hidden fixed bottom-20`
-              : "w-full h-full flex flex-col justify-between relative items-center "
+                  bookingOpen ? "h-[150px] py-10 " : "py-0 h-0"
+                } duration-300 overflow-hidden fixed bottom-20 px-5 `
+              : "w-full h-full flex flex-col justify-between relative items-center  "
           }
         >
           {!isMobile && (
@@ -97,9 +131,7 @@ export default function Booking({ price, bookings }) {
               <span className="text-[16px] text-gray-300">/night</span>
             </h3>
           )}
-          {/* {openDate && (
-            <div className="absolute top-0 left-0 bottom-0 right-0 duration-300 z-20 bg-white opacity-25"></div>
-          )} */}
+
           <div
             className={`${
               openDate
@@ -107,41 +139,59 @@ export default function Booking({ price, bookings }) {
                 : "hidden"
             } `}
           >
-            <Example size={1} />
+            <Calendar />
+            {/* <p onClick={OpenDate}>close</p> */}
           </div>
-          <div className="flex flex-col w-full">
-            <p className="pl-2">Date</p>
+
+          <div className="flex flex-col cursor-pointer w-full">
             <div
               onClick={OpenDate}
               className="flex items-center justify-around gap-5 border-[1px] w-full py-3 border-gray-300 relative rounded-[10px] before:absolute before:w-[1px] before:bg-gray-300 before:h-full "
             >
+              <button
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setRange({
+                    from: "",
+                    to: "",
+                  });
+                }}
+                className="cursor-pointer text-primaryDark hover:scale-105 duration-150 absolute right-2 -top-8"
+              >
+                Reset
+              </button>
               <label
-                className="flex flex-col text-center justify-center items-center text-[20px] uppercase w-fit "
+                className="flex cursor-pointer flex-col text-center justify-center items-center text-[14px] smd:text-[16px] uppercase w-fit "
                 htmlFor="checkin"
               >
                 Check In
                 <input
                   name="checkin"
-                  className="text-center text-[14px]"
+                  className="text-[12px] text-center bg-primaryWhite "
                   disabled
-                  value={"2017-06-01"}
+                  value={
+                    range && range.from ? format(range.from, "yyyy-MM-dd") : ""
+                  }
                   type="date"
                 />
               </label>
               <label
-                className="flex flex-col text-center justify-center items-center text-[16px] smd:text-[20px] uppercase w-fit "
+                className="flex flex-col text-center justify-center items-center text-[14px] smd:text-[16px] uppercase w-fit "
                 htmlFor="checkout"
               >
                 checkout
                 <input
                   name="checkout"
-                  className="text-center text-[14px]"
+                  className="text-center   text-[12px] bg-primaryWhite"
                   disabled
-                  value={"2017-06-01"}
+                  value={
+                    range && range.to ? format(range.to, "yyyy-MM-dd") : ""
+                  }
                   type="date"
                 />
               </label>
             </div>
+            <GuestCounter />
           </div>
 
           {!isMobile && (

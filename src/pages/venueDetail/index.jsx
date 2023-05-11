@@ -50,7 +50,7 @@ export default function VenueDetail() {
       >
         <ImgContainer title={venue.title} media={venue.media} />
         <div className="grid grid-cols-1 md:grid-cols-7 md:grid-rows-3 md:h-[500px] gap-3 pt-5 ">
-          <div className="pl-2 col-span-1 w-full md:cols-span-5 md:row-span-3 md:row-start-1 md:col-start-1 md:col-end-5 bg-red-400">
+          <div className="pl-2 col-span-1 w-full md:cols-span-5 md:row-span-3 md:row-start-1 md:col-start-1 md:col-end-5 bg-primaryWhite">
             <div className="">
               <h2 className="text-[20px] md:text-[24px] font-semibold">
                 {venue.title}
