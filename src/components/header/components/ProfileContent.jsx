@@ -77,7 +77,6 @@ export function ProfileContent() {
 
 export function ProfileContentDesktop() {
   const session = useContext(UserContext);
-  console.log("sessionDesktop: ", session);
   const [signInModal, setSignInModal] = useContext(SignInContext);
   const [signUpModal, setSignUpModal] = useContext(SignUpContext);
   const handleSignInClickDesktop = () => {
@@ -127,7 +126,6 @@ export function SingedInProfile() {
       setProfileNav(false);
       if (window.innerWidth < 768) {
         // run some code here
-        console.log("Window width is less than 768 pixels");
         setActiveHeader(!activeHeader);
       }
     };

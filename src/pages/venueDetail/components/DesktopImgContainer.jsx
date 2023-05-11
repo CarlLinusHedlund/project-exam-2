@@ -21,7 +21,6 @@ function AnimatedImg({ image, index }) {
         src={image}
         alt={`Image ${index}`}
       />
-      ;
     </>
   );
 }
@@ -43,10 +42,12 @@ export default function DesktopImgContainer({ media, title }) {
 
   return (
     <>
-      <div className=" w-full grid h-[450px] grid-cols-3 grid-rows-3 gap-3 pt-5">
+      <div className=" w-full grid h-[500px] grid-cols-7 grid-rows-5 gap-3 pt-5">
         <div
           className={` ${
-            media.length > 4 ? "col-span-2" : "col-span-3"
+            media.length > 4
+              ? "col-span-4 row-span-5 "
+              : "col-span-7 row-span-5"
           }  row-span-3 rounded-[10px] shadow-lg relative `}
         >
           {media.length < 4 && (
@@ -60,7 +61,7 @@ export default function DesktopImgContainer({ media, title }) {
             </div>
           )}
           <img
-            className=" h-full w-full rounded-[10px] object-cover "
+            className=" col-span-7 row-span-5 h-full w-full rounded-[10px] object-cover "
             src={media[0]}
             alt={title}
           />
@@ -68,11 +69,11 @@ export default function DesktopImgContainer({ media, title }) {
         {media.length > 4 && (
           <>
             <img
-              className=" shadow-lg col-span-1 row-span-2 col-start-3 row-start-1 h-full w-full  rounded-[10px] object-cover"
+              className=" shadow-lg col-span-3 row-span-3 col-start-5 row-start-1 h-full w-full rounded-[10px] object-cover"
               src={media[1]}
               alt={title}
             />
-            <div className=" row-span-1 col-start-3 col-span-1 row-start-3  h-full grid grid-cols-8 grid-rows-1 gap-3">
+            <div className=" row-span-2 col-start-5 col-span-3 row-start-4  h-full grid grid-cols-8 grid-rows-1 gap-3">
               <img
                 className=" shadow-lg  col-span-4 lg:col-span-5 w-full h-full object-cover rounded-[10px] "
                 src={media[2]}
