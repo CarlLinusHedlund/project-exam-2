@@ -63,7 +63,12 @@ export default function VenueDetail() {
               </p>
             </div>
           </div>
-          <Booking price={venue.price_per_night} bookings={venue.bookings} />
+          <Booking
+            price={venue.price_per_night}
+            bookings={venue.bookings}
+            maxGuests={venue.max_guest}
+            meta={venue.meta}
+          />
         </div>
       </motion.div>
     );
