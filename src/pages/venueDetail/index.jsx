@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { supabase } from "../../Supabase";
 import ImgContainer from "./components/ImgContainer";
 import { LocationSvg } from "../../components/DynamicSvgs";
 import Booking from "./components/Booking";
+import { supabase } from "../../utils/Supabase";
 
 export default function VenueDetail() {
   const { id } = useParams();

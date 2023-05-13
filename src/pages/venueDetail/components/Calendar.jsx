@@ -8,10 +8,10 @@ function useMenuAnimation(openDate) {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
-    animate(".calendar", openDate ? { opacity: 1 } : { opacity: 1 }, {
+    animate(".calendar", openDate ? { opacity: 1 } : { opacity: 0 }, {
       duration: openDate ? 0.5 : 0.3,
     });
-    animate(".root", openDate ? { opacity: 1 } : { opacity: 1 }, {
+    animate(".root", openDate ? { opacity: 1 } : { opacity: 0 }, {
       duration: openDate ? 0.4 : 0.6,
       delay: openDate ? 0.2 : 0,
     });
@@ -57,8 +57,8 @@ export default function Calendar({
     table: "border-collapse border-spacing-0",
     head_cell: "w-10 h-10 uppercase align-middle text-center",
     cell: "w-10 h-10 align-middle text-center border-0 px-0",
-    day: "rounded-full w-10 h-10 transition-colors hover:border focus:outline-none focus-visible:ring focus-visible:ring-sky-300 focus-visible:ring-opacity-50 active:bg-[#FF004D] active:text-white",
-    day_selected: "text-white bg-[#E0736D] duration-500 hover:bg-pink-500",
+    day: "rounded-full w-10 h-10 transition-colors focus:outline-none focus-visible:ring focus-visible:ring-sky-300 focus-visible:ring-opacity-50 active:bg-[#FF004D] active:text-white",
+    day_selected: "text-white bg-[#E0736D] duration-500 hover:bg-[#F19B96]",
     day_today: "font-bold text-primaryCoral text-[22px]",
     day_disabled:
       "opacity-25 hover:border-0 line-through hover:bg-white active:bg-white active:text-gray-800",
