@@ -82,9 +82,9 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
         >
           {!isMobile && (
             <div className="flex space-between items-center w-full pt-3 pb-10">
-              <h3 className="text-primaryDark w-full flex items-center justify-start font-medium text-[18px]">
+              <h3 className="text-primaryDark w-full flex items-center justify-start font-semibold text-[22px]">
                 NOK {price}
-                <span className="text-[16px] text-gray-300">/night</span>
+                <span className="text-[14px] text-gray-300">/night</span>
               </h3>
               <div className="px-1 h-fit flex gap-4">
                 <div className="relative">
@@ -161,10 +161,10 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
               setOpenDate={setOpenDate}
             />
           </div>
-          <div className="flex flex-col gap-10 cursor-pointer w-full">
+          <div className="flex flex-col gap-10 w-full">
             <div
               onClick={OpenDate}
-              className="flex items-center justify-around gap-5 border-[1px] w-full py-3 border-gray-300 relative rounded-[10px] before:absolute before:w-[1px] before:bg-gray-300 before:h-full "
+              className="flex items-center justify-around gap-5 border-[1px] w-full py-3 border-gray-300 relative rounded-[10px] cursor-pointer before:absolute before:w-[1px] before:bg-gray-300 before:h-full "
             >
               {range && (
                 <button
@@ -179,13 +179,13 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
               )}
 
               <label
-                className="flex cursor-pointer flex-col text-center justify-center items-center text-[14px] smd:text-[16px] uppercase w-fit "
+                className="flex cursor-pointer flex-col text-center justify-center items-center text-[14px] smd:text-[16px] font-medium uppercase w-fit "
                 htmlFor="checkin"
               >
                 Check In
                 <input
                   name="checkin"
-                  className="text-[12px] text-center bg-primaryWhite "
+                  className="text-[12px] font-normal text-center bg-primaryWhite "
                   disabled
                   value={
                     range && range.from ? format(range.from, "yyyy-MM-dd") : ""
@@ -194,13 +194,13 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
                 />
               </label>
               <label
-                className="flex flex-col text-center justify-center items-center text-[14px] smd:text-[16px] uppercase w-fit "
+                className="flex flex-col text-center font-medium justify-center items-center text-[14px] smd:text-[16px] uppercase w-fit "
                 htmlFor="checkout"
               >
                 checkout
                 <input
                   name="checkout"
-                  className="text-center   text-[12px] bg-primaryWhite"
+                  className="text-center font-normal text-[12px] bg-primaryWhite"
                   disabled
                   value={
                     range && range.to ? format(range.to, "yyyy-MM-dd") : ""

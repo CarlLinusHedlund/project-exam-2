@@ -97,7 +97,6 @@ export default function GuestCounter({ maxGuests, setGuests }) {
               </button>
             </div>
           </div>
-          <div>Total guests: {adults + children}</div>
         </div>
       </label>
     </>

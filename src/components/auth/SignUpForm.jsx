@@ -1,9 +1,9 @@
 import { createContext, useContext, useState } from "react";
 import { SignInContext, SignUpContext } from "./utils/AuthContext";
-import { supabase } from "../../Supabase";
 import { useFormik } from "formik";
 import { validationSchema } from "./utils/ValidateSchema";
 import "./index.css";
+import { supabase } from "../../utils/Supabase";
 
 export default function SignUpForm() {
   const [signInModal, setSignInModal] = useContext(SignInContext);
