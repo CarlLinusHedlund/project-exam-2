@@ -14,7 +14,7 @@ import Calendar from "./Calendar";
 
 export default function Booking({ price, bookings, maxGuests, meta }) {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 880px)" });
   const bookingRef = useRef(null);
   const [openDate, setOpenDate] = useState(false);
   const defaultSelected = {

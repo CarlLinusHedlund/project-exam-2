@@ -42,7 +42,7 @@ export default function DesktopImgContainer({ media, title }) {
 
   return (
     <>
-      <div className=" w-full grid h-[500px] grid-cols-7 grid-rows-5 gap-3 pt-5">
+      <div className=" w-full grid gap-3 h-[500px] grid-cols-7 grid-rows-5 pt-5">
         <div
           className={` ${
             media.length > 4

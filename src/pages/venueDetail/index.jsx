@@ -5,6 +5,7 @@ import { supabase } from "../../Supabase";
 import ImgContainer from "./components/ImgContainer";
 import { LocationSvg } from "../../components/DynamicSvgs";
 import Booking from "./components/Booking";
+import Tabs from "./components/Tabs";
 
 export default function VenueDetail() {
   const { id } = useParams();
@@ -49,7 +50,7 @@ export default function VenueDetail() {
         className="inner px-2 md:px-4 h-screen "
       >
         <ImgContainer title={venue.title} media={venue.media} />
-        <div className="grid grid-cols-1 md:grid-cols-7 md:grid-rows-3 md:h-[500px] gap-3 pt-5 ">
+        <div className="grid grid-cols-1 md:grid-cols-7 md:grid-rows-3 md:h-[500px] gap-8 pt-5 ">
           <div className="pl-2 col-span-1 w-full md:cols-span-5 md:row-span-3 md:row-start-1 md:col-start-1 md:col-end-5 bg-primaryWhite">
             <div className="">
               <h2 className="text-[20px] md:text-[24px] font-semibold">
@@ -62,6 +63,13 @@ export default function VenueDetail() {
                 {venue.location.address.city}, {venue.location.address.country}
               </p>
             </div>
+            <div className="">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut odio
+              a possimus facere tempora magni quis ipsa doloribus modi ut
+              laborum id, totam quia eligendi eaque nihil. Necessitatibus,
+              accusantium sequi!{venue.description}
+            </div>
+            <Tabs />
           </div>
           <Booking
             price={venue.price_per_night}
