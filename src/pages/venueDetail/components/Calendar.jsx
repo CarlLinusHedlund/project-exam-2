@@ -9,11 +9,10 @@ function useMenuAnimation(openDate) {
 
   useEffect(() => {
     animate(".calendar", openDate ? { opacity: 1 } : { opacity: 0 }, {
-      duration: openDate ? 0.5 : 0.3,
+      duration: openDate ? 0.8 : 0.3,
     });
-    animate(".root", openDate ? { opacity: 1 } : { opacity: 0 }, {
-      duration: openDate ? 0.4 : 0.6,
-      delay: openDate ? 0.2 : 0,
+    animate(".root", openDate ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }, {
+      duration: openDate ? 0.3 : 0.6,
     });
   }, [openDate, animate]);
 
@@ -47,7 +46,7 @@ export default function Calendar({
   const classNames = {
     vhidden: "sr-only",
     caption: "flex justify-center items-center h-10",
-    root: " root text-gray-800 p-10",
+    root: " root text-gray-800 ",
     months: "flex gap-10 relative px-4",
     caption_label: "text-xl px-1",
     nav_button:
@@ -104,7 +103,7 @@ export default function Calendar({
         className="absolute top-3 right-5"
         onClick={() => setOpenDate(false)}
         src="../close.svg"
-        alt="exit"
+        alt="exit calendar"
       />
       <DayPicker
         showOutsideDays

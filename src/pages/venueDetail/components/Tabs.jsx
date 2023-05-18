@@ -1,10 +1,23 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import HomeSvg from "../../../components/DynamicSvgs";
+
+function Location() {
+  return "Location";
+}
+
+function Features() {
+  return "Features";
+}
+
+function YourHost() {
+  return "You Host";
+}
 
 const allIngredients = [
-  { icon: "🍅", label: "Tomato" },
-  { icon: "🥬", label: "Lettuce" },
-  { icon: "🧀", label: "Cheese" },
+  { label: "Location", content: <Location /> },
+  { label: "Features", content: <Features /> },
+  { label: "Your host", content: <YourHost /> },
 ];
 
 export default function Tabs() {
@@ -17,12 +30,20 @@ export default function Tabs() {
         {allIngredients.map((item) => (
           <li
             key={item.label}
-            className={item === selectedTab ? "selected" : ""}
+            className={` flex gap-2 items-center ${
+              item === selectedTab ? "selected relative text-primaryCoral " : ""
+            }`}
             onClick={() => setSelectedTab(item)}
           >
-            {`${item.icon} ${item.label}`}
+            <HomeSvg
+              color={item.label === selectedTab.label ? "#E0736D" : "#A7A7A7"}
+            />{" "}
+            {item.label}
             {item === selectedTab && (
-              <motion.div className="underline" layoutId="underline" />
+              <motion.div
+                className="absolute -bottom-[1px] left-0 w-1/2 bg-primaryCoral h-[1px]  "
+                layoutId="underline"
+              />
             )}
           </li>
         ))}
@@ -35,7 +56,7 @@ export default function Tabs() {
           exit={{ y: -10, opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          {selectedTab ? selectedTab.icon : "😋"}
+          {selectedTab ? selectedTab.content : "😋"}
         </motion.div>
       </AnimatePresence>
     </>

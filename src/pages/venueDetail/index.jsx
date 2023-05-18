@@ -50,24 +50,23 @@ export default function VenueDetail() {
         className="inner px-2 md:px-4 h-screen "
       >
         <ImgContainer title={venue.title} media={venue.media} />
-        <div className="grid grid-cols-1 md:grid-cols-7 md:grid-rows-3 md:h-[500px] gap-8 pt-5 ">
-          <div className="pl-2 col-span-1 w-full md:cols-span-5 md:row-span-3 md:row-start-1 md:col-start-1 md:col-end-5 bg-primaryWhite">
-            <div className="">
-              <h2 className="text-[20px] md:text-[24px] font-semibold">
-                {venue.title}
+        <div className="grid grid-cols-1 smd:grid-cols-7 md:grid-rows-3 md:h-[500px] gap-8 pt-5 ">
+          <div className="pl-2 col-span-1 w-full md:cols-span-5 md:row-span-3 md:row-start-1 md:col-start-1 md:col-end-5 bg-primaryWhite ">
+            <div className="flex flex-col gap-2">
+              <h2 className="text-[20px] md:text-[24px] smd:text-[30px] font-bold">
+                {venue.title.substring(0, 75)}
               </h2>
+              <div className="flex gap-1 items-center">
+                <LocationSvg color={"#E0736D"} width={"18px"} height={"18px"} />
+                <p className="">
+                  {venue.location.address.city},{" "}
+                  {venue.location.address.country}
+                </p>
+              </div>
             </div>
-            <div className="flex gap-1 items-center">
-              <LocationSvg color={"#E0736D"} width={"18px"} height={"18px"} />
-              <p className="">
-                {venue.location.address.city}, {venue.location.address.country}
-              </p>
-            </div>
-            <div className="">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut odio
-              a possimus facere tempora magni quis ipsa doloribus modi ut
-              laborum id, totam quia eligendi eaque nihil. Necessitatibus,
-              accusantium sequi!{venue.description}
+
+            <div className="pb-10 pt-4">
+              {venue.description.substring(0, 375)}
             </div>
             <Tabs />
           </div>
