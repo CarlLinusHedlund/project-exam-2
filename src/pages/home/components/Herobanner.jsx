@@ -31,9 +31,8 @@ function HerobannerContent() {
         animate={{ opacity: 1, transition: { duration: 0.6 } }}
         className=" text-primaryDark text-[16px] md:text-[20px] font-light sm:max-w-[400px] md:max-w-lg "
       >
-        Lorem ipsum dolor sit amet consectetur. Dolor dui leo placerat non
-        sociis quis facilisis. Pellentesque donec scelerisque vitae sem libero
-        quisque. Tellus elit amet proin in.
+        Find your ideal place to stay among thousands of venues, for your
+        vacation, business trip, layover and exploration.
       </motion.h3>
     </>
   );

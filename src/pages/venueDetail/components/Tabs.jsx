@@ -12,7 +12,7 @@ import YourHostTab from "./YourHostTab";
 import { supabase } from "../../../utils/Supabase";
 
 export default function Tabs({ meta, owner }) {
-  const [host, setHost] = useState(owner);
+  const [host, setHost] = useState([owner]);
 
   const allIngredients = [
     { label: "Location", content: <LocationTab /> },
@@ -33,7 +33,7 @@ export default function Tabs({ meta, owner }) {
       try {
         let { data, error } = await supabase
           .from("profiles")
-          .select("about_me, name, email")
+          .select("about_me, name, email, profile_img")
           .eq("id", `${owner}`);
 
         console.log(data);
@@ -81,7 +81,7 @@ export default function Tabs({ meta, owner }) {
             {item.label}
             {item.label === selectedTab.label && (
               <motion.div
-                className="absolute -bottom-[4px] left-0 z-50 w-[30px] bg-primaryCoral h-[2px]  "
+                className="absolute -bottom-[4px] left-0 rounded-full  w-[30px] bg-primaryCoral h-[3px]  "
                 layoutId="underline"
               />
             )}
@@ -90,6 +90,7 @@ export default function Tabs({ meta, owner }) {
       </div>
       <AnimatePresence mode="wait">
         <motion.div
+          className="h-[600px]"
           key={selectedTab ? selectedTab.label : "empty"}
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
