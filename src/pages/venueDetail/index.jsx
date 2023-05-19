@@ -12,6 +12,7 @@ export default function VenueDetail() {
   const [venue, setVenue] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   console.log(id);
+  console.log("Venue: ", venue);
   useEffect(() => {
     async function fetchVenue() {
       try {
@@ -47,12 +48,12 @@ export default function VenueDetail() {
         exit={{ opacity: 0, transition: { duration: 0.3 } }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 0.5 } }}
-        className="inner px-2 md:px-4 h-screen "
+        className="inner px-2 md:px-4 h-screen font-poppins "
       >
         <ImgContainer title={venue.title} media={venue.media} />
         <div className="grid grid-cols-1 smd:grid-cols-7 md:grid-rows-3 md:h-[500px] gap-8 pt-5 ">
           <div className="pl-2 col-span-1 w-full md:cols-span-5 md:row-span-3 md:row-start-1 md:col-start-1 md:col-end-5 bg-primaryWhite ">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col">
               <h2 className="text-[20px] md:text-[24px] smd:text-[30px] font-bold">
                 {venue.title.substring(0, 75)}
               </h2>
@@ -64,11 +65,12 @@ export default function VenueDetail() {
                 </p>
               </div>
             </div>
-
-            <div className="pb-10 pt-4">
-              {venue.description.substring(0, 375)}
-            </div>
-            <Tabs />
+            {venue.description && (
+              <div className="pb-10 pt-4">
+                {venue.description.substring(0, 100)}
+              </div>
+            )}
+            <Tabs owner={venue.owner_id} meta={venue.meta} />
           </div>
           <Booking
             price={venue.price_per_night}
