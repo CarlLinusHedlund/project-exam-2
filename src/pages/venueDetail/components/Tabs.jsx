@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   FeaturesSvg,
@@ -9,10 +9,10 @@ import {
 import FeaturesTab from "./FeaturesTab";
 import LocationTab from "./locationTab";
 import YourHostTab from "./YourHostTab";
-import { supabase } from "../../../utils/Supabase";
+import { useGetUserQuery } from "../../../store/modules/ApiSlice";
 
 export default function Tabs({ meta, owner }) {
-  const [host, setHost] = useState([owner]);
+  const { data: host } = useGetUserQuery(owner);
 
   const allIngredients = [
     { label: "Location", content: <LocationTab /> },
@@ -24,31 +24,6 @@ export default function Tabs({ meta, owner }) {
   ];
 
   const [selectedTab, setSelectedTab] = useState(allIngredients[0]);
-
-  console.log("Host: ", host);
-  console.log(owner);
-
-  useEffect(() => {
-    async function getHost() {
-      try {
-        let { data, error } = await supabase
-          .from("profiles")
-          .select("about_me, name, email, profile_img")
-          .eq("id", `${owner}`);
-
-        console.log(data);
-        setHost(data);
-
-        if (error) {
-          console.error(error);
-          return;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getHost();
-  }, [owner]);
 
   return (
     <>

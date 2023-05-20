@@ -1,29 +1,18 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import { VenueCard } from "./VenueCard";
-import { supabase } from "../../utils/Supabase";
+import { useGetVenuesQuery } from "../../store/modules/ApiSlice";
 
 export function Venues() {
-  const [loading, setLoading] = useState(true);
-  const [venues, setVenues] = useState([]);
-  console.log(venues);
-  useEffect(() => {
-    getVenues();
-  }, []);
+  const { data: venues, error, isLoading } = useGetVenuesQuery();
 
-  async function getVenues() {
-    let { data: venues, error } = await supabase.from("venues").select("*");
-    if (venues) {
-      setLoading(false);
-      console.log(venues);
-      setVenues(venues);
-    }
-
-    if (error) {
-      setLoading(true);
-      console.log(error);
-    }
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
+
+  if (error) {
+    return <div>An error occured: {error}</div>;
+  }
+
   return (
     <motion.div
       className="inner px-4"
@@ -45,7 +34,7 @@ export function Venues() {
             />
           ))}
       </div>
-      {loading && <h1>Loading....</h1>}
+      {/* {loading && <h1>Loading....</h1>} */}
     </motion.div>
   );
 }

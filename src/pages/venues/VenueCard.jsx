@@ -20,7 +20,6 @@ export function VenueCard({ id, media, title, country, city, price }) {
       className="w-full h-[400px] sm:h-[300px] sm:max-w-[315px] max-h-[290px] rounded-[10px] border-[1px] mx-10 sm:mx-0 p-[5px] border-gray-300 md:hover:scale-105 md:duration-200"
     >
       <Link
-        target="_blank"
         className=" w-full h-full flex flex-col font-poppins "
         to={`/venue/${id}`}
         key={id}
