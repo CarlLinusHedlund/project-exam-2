@@ -7,7 +7,7 @@ import {
   YourHostSvg,
 } from "../../../components/DynamicSvgs";
 import FeaturesTab from "./FeaturesTab";
-import LocationTab from "./locationTab";
+import LocationTab from "./LocationTab";
 import YourHostTab from "./YourHostTab";
 import { useGetUserQuery } from "../../../store/modules/ApiSlice";
 
