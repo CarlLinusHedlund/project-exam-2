@@ -3,13 +3,28 @@ import Layout from "./components/Layout";
 import "./index.css";
 import { UserContext } from "./components/auth/utils/UserContext";
 import { supabase } from "./utils/Supabase";
-// import { client } from "./utils/PexelsClient";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import SignInModal from "./components/auth/SignIn";
+import SignUpModal from "./components/auth/SignUp";
+import {
+  SignInContext,
+  SignUpContext,
+} from "./components/auth/utils/AuthContext";
+// import SignInModal from "../auth/SignIn";
+// import SignUpModal from "../auth/SignUp";
 
 function App() {
+  const [signInModalOpen, setSignInModalOpen] = useState(false);
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+
+  if (signInModalOpen || signUpModalOpen) {
+    document.body.classList.add("disableScroll");
+  } else {
+    document.body.classList.remove("disableScroll");
+  }
   const [session, setSession] = useState(null);
-  // const query = "Nature";
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -24,16 +39,17 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // client.photos.search({ query, per_page: 1 }).then((photos) => {
-  //   console.log("pexels: ", photos);
-  // });
-
-  console.log(session);
+  console.log("Session: ", session);
 
   return (
     <UserContext.Provider value={{ session, setSession }}>
       <Provider store={store}>
-        <Layout />;
+        <SignInContext.Provider value={[signInModalOpen, setSignInModalOpen]}>
+          <SignUpContext.Provider value={[signUpModalOpen, setSignUpModalOpen]}>
+            <Layout />;{signInModalOpen && <SignInModal />}
+            {signUpModalOpen && <SignUpModal />}
+          </SignUpContext.Provider>
+        </SignInContext.Provider>
       </Provider>
     </UserContext.Provider>
   );

@@ -32,6 +32,7 @@ export default function SignInForm() {
     });
     if (data) {
       setSignInModal(!signInModal);
+      location.reload();
     }
     if (error) {
       setSignInResponse(true);

@@ -1,7 +1,6 @@
 import { createClient } from "pexels";
+const pexelsKey = import.meta.env.VITE_PEXELS_KEY;
 
-export const client = createClient(
-  "mBibV0R4MDCAAbZKJEVUyAWBp27QQRsfDxd7PgR99coNGWhhy387gNoJ"
-);
+export const client = createClient(pexelsKey);
 
 // All requests made with the client will be authenticated
