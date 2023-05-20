@@ -1,4 +1,4 @@
-import { supabase } from "../../Supabase";
+import { supabase } from "../../utils/Supabase";
 
 export default function SignOut() {
   const signOutHandler = async () => {

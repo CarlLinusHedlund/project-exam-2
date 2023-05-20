@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
 import "./index.css";
 import { UserContext } from "./components/auth/utils/UserContext";
-import { supabase } from "./Supabase";
+import { supabase } from "./utils/Supabase";
+// import { client } from "./utils/PexelsClient";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 function App() {
   const [session, setSession] = useState(null);
-
+  // const query = "Nature";
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -21,11 +24,17 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // client.photos.search({ query, per_page: 1 }).then((photos) => {
+  //   console.log("pexels: ", photos);
+  // });
+
   console.log(session);
 
   return (
     <UserContext.Provider value={{ session, setSession }}>
-      <Layout />;
+      <Provider store={store}>
+        <Layout />;
+      </Provider>
     </UserContext.Provider>
   );
 }

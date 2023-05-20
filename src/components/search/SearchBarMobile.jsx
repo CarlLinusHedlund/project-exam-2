@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { SearchSvg } from "../DynamicSvgs";
-import { supabase } from "../../Supabase";
 import "./index.css";
 import RangeSlider from "./PriceRange";
+import { supabase } from "../../utils/Supabase";
 
 export default function SearchBarMobile() {
   const [openSearch, setOpenSearch] = useState(false);

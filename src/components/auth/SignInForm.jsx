@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { SignInContext, SignUpContext } from "./utils/AuthContext";
-import { supabase } from "../../Supabase";
 import { useFormik } from "formik";
 import { signInSchema } from "./utils/ValidateSchema";
+import { supabase } from "../../utils/Supabase";
 
 export default function SignInForm() {
   const [signInResponse, setSignInResponse] = useState(null);

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../../components/auth/utils/UserContext";
-import { supabase } from "../../../Supabase";
+import { supabase } from "../../../utils/Supabase";
 
 export default function BecomeAHost() {
   const session = useContext(UserContext);
