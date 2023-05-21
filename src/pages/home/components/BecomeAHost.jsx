@@ -6,7 +6,6 @@ import { SignInContext } from "../../../components/auth/utils/AuthContext";
 export default function BecomeAHost() {
   const [signInModal, setSignInModal] = useContext(SignInContext);
   const session = useContext(UserContext);
-  console.log("Session: ", session);
   const [isHost, setIsHost] = useState(false);
 
   useEffect(() => {
@@ -35,9 +34,10 @@ export default function BecomeAHost() {
   const checkSession = () => {
     if (session.session) {
       location.pathname = "/dashboard";
+    } else {
+      setSignInModal(!signInModal);
+      console.log("sign in first");
     }
-    console.log("sign in first");
-    setSignInModal(!signInModal);
   };
 
   if (!isHost) {
