@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function Herobanner() {
   return (
-    <div className="flex flex-col md:gap-10 md:flex-row md:justify-between">
+    <div className="flex flex-col  md:gap-10 md:flex-row md:justify-between md:items-center md:pb-72 md:h-screen">
       <div className="font-poppins max-w-lg md:w-1/2 py-10 ">
         <HerobannerContent />
         <GetInfoHolidaze />
