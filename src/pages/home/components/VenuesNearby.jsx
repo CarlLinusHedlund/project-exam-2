@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./index.css";
-
 import { setLocation } from "../../../store/modules/GeoloactionSlice";
-import { client } from "../../../utils/PexelsClient";
 import { useDispatch, useSelector } from "react-redux";
 import { setImg, setQuery } from "../../../store/modules/PexelsSlice";
 import { useMediaQuery } from "react-responsive";
@@ -12,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
+import pexels from "../../../api/Pexels";
 
 export default function VenuesNearby() {
   const location = useSelector((state) => state.geolocation.location);
@@ -22,38 +21,40 @@ export default function VenuesNearby() {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
 
-  // const query = "Norway";
-  // console.log(query);
-  // console.log(location);
-
-  // useEffect(() => {
-  //   if (location.country === null) {
-  //     // Only fetch if the location data is not available in the state
-  //     const getLocation = () => {
-  //       fetch("https://ipapi.co/json/")
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           console.log("data", data);
-  //           dispatch(
-  //             setLocation({ country: data.country_name, city: data.city })
-  //           );
-  //           dispatch(setQuery(data.country_name));
-  //         });
-  //     };
-  //     getLocation();
-  //   }
-  // }, [dispatch, location]);
-
-  if (query && !img) {
-    client.photos.search({ query, per_page: 1 }).then((photos) => {
-      // console.log("pexels: ", photos);
-      dispatch(setImg({ src: photos.photos[0] }));
-    });
+  async function getImg(term) {
+    try {
+      const response = await pexels.get("/v1/search", {
+        params: {
+          query: term,
+          per_page: 1,
+        },
+      });
+      dispatch(setImg({ src: response.data.photos[0] }));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  // console.log("query", query);
-  // console.log("location", location);
-  // console.log("img", img);
+  useEffect(() => {
+    if (location.country === null) {
+      // Only fetch if the location data is not available in the state
+      const getLocation = () => {
+        fetch("https://ipapi.co/json/")
+          .then((response) => response.json())
+          .then((data) => {
+            dispatch(
+              setLocation({ country: data.country_name, city: data.city })
+            );
+            dispatch(setQuery(data.country_name));
+          });
+      };
+      getLocation();
+    }
+  }, [dispatch, location]);
+
+  if (query && !img) {
+    getImg(query);
+  }
 
   if (error) {
     return null;
@@ -81,7 +82,7 @@ export default function VenuesNearby() {
                 </h3>
               </div>
               <img
-                className=" w-full h-full rounded-[10px]"
+                className=" object-cover w-full h-full rounded-[10px]"
                 src={img.src.src.large}
                 alt={`Photographer: ${img.src.photographer} text for image: ${img.src.alt} Link for image: ${img.src.url}`}
               />
