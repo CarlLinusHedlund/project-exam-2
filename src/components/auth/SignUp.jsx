@@ -51,7 +51,7 @@ export default function SignUpModal() {
   return (
     <div
       ref={modalRef}
-      className="signUpModal justify-center items-center absolute w-screen h-screen top-0 left-0 right-0 z-30 backdrop-blur-[2px] bg-[#a9a9a91c] px-4 pt-[80px] pb-[20px] "
+      className="signUpModal justify-center items-center fixed w-screen h-screen top-0 left-0 right-0 z-30 backdrop-blur-[2px] bg-[#a9a9a91c] px-4 pt-[80px] pb-[20px] "
     >
       <div
         className={`relative w-full h-full max-h-[650px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg ${

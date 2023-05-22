@@ -13,6 +13,7 @@ export default function Router() {
       <Routes key={location.pathname} location={location}>
         <Route path="/" element={<Index />} />
         <Route path="/venues" element={<Venues />} />
+        <Route path="/venues/:country?/:type?/:city?" element={<Venues />} />
         <Route path="/venue/:id" element={<VenueDetail />} />
         <Route path="/dashboard/profile" element={<Index />} />
         <Route path="/dashboard/messages" element={<Index />} />

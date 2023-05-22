@@ -66,9 +66,7 @@ export default function MobileDropdown() {
             >
               <ListingsSvg
                 color={
-                  window.location.pathname === "/listings"
-                    ? "#E0736D"
-                    : "#A7A7A7"
+                  window.location.pathname === "/venues" ? "#E0736D" : "#A7A7A7"
                 }
               />
               Place to stay?
