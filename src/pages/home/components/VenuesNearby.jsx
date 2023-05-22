@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
-import pexels from "../../../api/pexels";
+import pexels from "../../../api/Pexels";
 
 export default function VenuesNearby() {
   const location = useSelector((state) => state.geolocation.location);
