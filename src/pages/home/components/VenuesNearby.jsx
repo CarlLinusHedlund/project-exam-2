@@ -26,23 +26,23 @@ export default function VenuesNearby() {
   // console.log(query);
   // console.log(location);
 
-  useEffect(() => {
-    if (location.country === null) {
-      // Only fetch if the location data is not available in the state
-      const getLocation = () => {
-        fetch("https://ipapi.co/json/")
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("data", data);
-            dispatch(
-              setLocation({ country: data.country_name, city: data.city })
-            );
-            dispatch(setQuery(data.country_name));
-          });
-      };
-      getLocation();
-    }
-  }, [dispatch, location]);
+  // useEffect(() => {
+  //   if (location.country === null) {
+  //     // Only fetch if the location data is not available in the state
+  //     const getLocation = () => {
+  //       fetch("https://ipapi.co/json/")
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           console.log("data", data);
+  //           dispatch(
+  //             setLocation({ country: data.country_name, city: data.city })
+  //           );
+  //           dispatch(setQuery(data.country_name));
+  //         });
+  //     };
+  //     getLocation();
+  //   }
+  // }, [dispatch, location]);
 
   if (query && !img) {
     client.photos.search({ query, per_page: 1 }).then((photos) => {
