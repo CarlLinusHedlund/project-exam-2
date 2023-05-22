@@ -48,15 +48,15 @@ export default function Nav() {
           </Link>
           <div
             className={`p-2 ${
-              location.pathname === "/dashboard/statstics"
+              location.pathname === "/dashboard/statistics"
                 ? "bg-primaryDark"
                 : "bg-none"
             } rounded-[10px] duration-500 `}
           >
-            <Link to="/dashboard/statstics">
+            <Link to="/dashboard/statistics">
               <StatisticSvg
                 color={
-                  location.pathname === "/dashboard/statstics"
+                  location.pathname === "/dashboard/statistics"
                     ? "#FAFAFA"
                     : "#A7A7A7"
                 }
@@ -87,7 +87,7 @@ export default function Nav() {
         </div>
       )}
       {!isMobile && (
-        <div className=" bg-primaryWhite font-poppins z-10 flex flex-col px-5 w-[250px] fixed left-0 top-0 bottom-0 min-h-screen pt-36 ">
+        <div className=" bg-primaryWhite font-poppins z-10 flex flex-col px-5 w-[250px] sticky left-0 top-0 bottom-0 min-h-screen pt-10 ">
           <div className="flex flex-col gap-4">
             <Link
               className={` ${
@@ -101,8 +101,8 @@ export default function Nav() {
                 color={`${
                   location.pathname === "/dashboard" ? "#252525" : "#A7A7A7"
                 }`}
-                height="20px"
-                width="20px"
+                height="15px"
+                width="15px"
               />
               Dashboard
             </Link>
@@ -120,27 +120,27 @@ export default function Nav() {
                     ? "#252525"
                     : "#A7A7A7"
                 }`}
-                height="20px"
-                width="20px"
+                height="15px"
+                width="15px"
               />
               Account
             </Link>
             <Link
               className={` ${
-                location.pathname === "/dashboard/statstics"
+                location.pathname === "/dashboard/statistics"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
               } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
-              to="/dashboard/statstics"
+              to="/dashboard/statistics"
             >
               <StatisticSvg
                 color={`${
-                  location.pathname === "/dashboard/statstics"
+                  location.pathname === "/dashboard/statistics"
                     ? "#252525"
                     : "#A7A7A7"
                 }`}
-                height="20px"
-                width="20px"
+                height="15px"
+                width="15px"
               />
               Statstics
             </Link>
@@ -158,8 +158,8 @@ export default function Nav() {
                     ? "#252525"
                     : "#A7A7A7"
                 }`}
-                height="20px"
-                width="20px"
+                height="15px"
+                width="15px"
               />
               Publish a venue
             </Link>
