@@ -3,18 +3,18 @@ import Layout from "./components/Layout";
 import "./index.css";
 import { UserContext } from "./components/auth/utils/UserContext";
 import { supabase } from "./utils/Supabase";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
 import SignInModal from "./components/auth/SignIn";
 import SignUpModal from "./components/auth/SignUp";
 import {
   SignInContext,
   SignUpContext,
 } from "./components/auth/utils/AuthContext";
-// import SignInModal from "../auth/SignIn";
-// import SignUpModal from "../auth/SignUp";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfile } from "./store/modules/ProfileSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const profileData = useSelector((state) => state.profile);
   const [signInModalOpen, setSignInModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
 
@@ -24,6 +24,16 @@ function App() {
     document.body.classList.remove("disableScroll");
   }
   const [session, setSession] = useState(null);
+
+  async function getProfile(id) {
+    return id;
+  }
+
+  if (session && !profileData) {
+    const id = session.user.id;
+    getProfile(id);
+    dispatch(setProfile(id));
+  }
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -39,18 +49,14 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
-  console.log("Session: ", session);
-
   return (
     <UserContext.Provider value={{ session, setSession }}>
-      <Provider store={store}>
-        <SignInContext.Provider value={[signInModalOpen, setSignInModalOpen]}>
-          <SignUpContext.Provider value={[signUpModalOpen, setSignUpModalOpen]}>
-            <Layout />;{signInModalOpen && <SignInModal />}
-            {signUpModalOpen && <SignUpModal />}
-          </SignUpContext.Provider>
-        </SignInContext.Provider>
-      </Provider>
+      <SignInContext.Provider value={[signInModalOpen, setSignInModalOpen]}>
+        <SignUpContext.Provider value={[signUpModalOpen, setSignUpModalOpen]}>
+          <Layout />2{signInModalOpen && <SignInModal />}
+          {signUpModalOpen && <SignUpModal />}
+        </SignUpContext.Provider>
+      </SignInContext.Provider>
     </UserContext.Provider>
   );
 }

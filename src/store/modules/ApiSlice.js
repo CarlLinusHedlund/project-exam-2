@@ -39,10 +39,26 @@ const supabaseApi = createApi({
         return { data };
       },
     }),
+    getProfile: builder.query({
+      queryFn: async (id) => {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", id);
+        if (error) {
+          throw { error };
+        }
+        return { data };
+      },
+    }),
   }),
 });
 
-export const { useGetVenuesQuery, useGetSingleVenueQuery, useGetUserQuery } =
-  supabaseApi;
+export const {
+  useGetVenuesQuery,
+  useGetSingleVenueQuery,
+  useGetUserQuery,
+  useGetProfileQuery,
+} = supabaseApi;
 
 export { supabaseApi };

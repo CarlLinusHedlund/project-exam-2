@@ -15,9 +15,11 @@ export default function Router() {
         <Route path="/venues" element={<Venues />} />
         <Route path="/venues/:country?/:type?/:city?" element={<Venues />} />
         <Route path="/venue/:id" element={<VenueDetail />} />
-        <Route path="/dashboard/profile" element={<Index />} />
-        <Route path="/dashboard/messages" element={<Index />} />
-        <Route path="/dashboard/become-a-host" element={<Index />} />
+        <Route path="/dashboard/profile" element={<Dashboard />} />
+        <Route path="/dashboard/messages" element={<Dashboard />} />
+        <Route path="/dashboard/become-a-host" element={<Dashboard />} />
+        <Route path="/dashboard/publish" element={<Dashboard />} />
+        <Route path="/dashboard/statstics" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/help-center" element={<Index />} />
       </Routes>
