@@ -49,22 +49,34 @@ export default function MobileDropdown() {
           <div className="whitespace-nowrap text-primaryDark flex flex-col gap-3">
             <NavLink
               activeclassname="active"
-              className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
+              className={` li text-[16px] ${
+                window.location.pathname === "/"
+                  ? "text-[#E0736D]"
+                  : "text-[#A7A7A7]"
+              } w-full p-2 flex items-center gap-4 rounded-[10px]`}
               to={"/"}
               onClick={handleNavLinkClick}
             >
               <HomeSvg
                 color={window.location.pathname === "/" ? "#E0736D" : "#A7A7A7"}
+                height="15px"
+                width="15px"
               />
               Home
             </NavLink>
             <NavLink
               activeclassname="active"
-              className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
+              className={` li text-[16px] ${
+                window.location.pathname === "/venues"
+                  ? "text-[#E0736D]"
+                  : "text-[#A7A7A7]"
+              } w-full p-2 flex items-center gap-4 rounded-[10px]`}
               to={"/venues"}
               onClick={handleNavLinkClick}
             >
               <ListingsSvg
+                height="15px"
+                width="15px"
                 color={
                   window.location.pathname === "/venues" ? "#E0736D" : "#A7A7A7"
                 }
@@ -73,11 +85,17 @@ export default function MobileDropdown() {
             </NavLink>
             <NavLink
               activeclassname="active"
-              className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
+              className={` li text-[16px] ${
+                window.location.pathname === "/dashboard/become-a-host"
+                  ? "text-[#E0736D]"
+                  : "text-[#A7A7A7]"
+              } w-full p-2 flex items-center gap-4 rounded-[10px]`}
               to={"/dashboard/become-a-host"}
               onClick={handleNavLinkClick}
             >
               <HostSvg
+                height="15px"
+                width="15px"
                 color={
                   window.location.pathname === "/dashboard/become-a-host"
                     ? "#E0736D"
@@ -89,11 +107,17 @@ export default function MobileDropdown() {
             <NavLink
               end
               activeclassname="active"
-              className="li text-[16px] w-full p-2 flex items-center gap-4 rounded-[10px]"
+              className={` li text-[16px] ${
+                window.location.pathname === "/dashboard"
+                  ? "text-[#E0736D]"
+                  : "text-[#A7A7A7]"
+              } w-full p-2 flex items-center gap-4 rounded-[10px]`}
               to={"/dashboard"}
               onClick={handleNavLinkClick}
             >
               <DashboardSvg
+                height="15px"
+                width="15px"
                 color={
                   window.location.pathname === "/dashboard"
                     ? "#E0736D"
