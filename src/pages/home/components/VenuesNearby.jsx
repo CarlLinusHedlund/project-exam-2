@@ -46,14 +46,14 @@ export default function VenuesNearby() {
 
   if (query && !img) {
     client.photos.search({ query, per_page: 1 }).then((photos) => {
-      console.log("pexels: ", photos);
+      // console.log("pexels: ", photos);
       dispatch(setImg({ src: photos.photos[0] }));
     });
   }
 
-  console.log("query", query);
-  console.log("location", location);
-  console.log("img", img);
+  // console.log("query", query);
+  // console.log("location", location);
+  // console.log("img", img);
 
   if (error) {
     return null;
@@ -157,13 +157,13 @@ export default function VenuesNearby() {
 
 function VenuesNearbyMobile({ location, img }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  console.log("activeIndex", activeIndex);
+  // console.log("activeIndex", activeIndex);
   const handleSlideChange = (swiper) => {
-    console.log("swiper", swiper);
+    // console.log("swiper", swiper);
     setActiveIndex(swiper.realIndex);
   };
-  console.log("VenuesNearbyMobile", location);
-  console.log("VenuesNearbyMobile", img);
+  // console.log("VenuesNearbyMobile", location);
+  // console.log("VenuesNearbyMobile", img);
 
   return (
     <Swiper
