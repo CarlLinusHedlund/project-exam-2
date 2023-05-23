@@ -3,12 +3,15 @@ import { SignInContext, SignUpContext } from "./utils/AuthContext";
 import { useFormik } from "formik";
 import { signInSchema } from "./utils/ValidateSchema";
 import { supabase } from "../../utils/Supabase";
+import { useLocation } from "react-use";
+// import { Navigate } from "react-router-dom";
 
 export default function SignInForm() {
   const [signInResponse, setSignInResponse] = useState(null);
   const [signInModal, setSignInModal] = useContext(SignInContext);
   const [signUpModal, setSignUpModal] = useContext(SignUpContext);
   const [errorMessage, setErrorMessage] = useState("");
+  const location = useLocation();
 
   const handleSignUpClick = () => {
     setSignInModal(!signInModal);
@@ -19,6 +22,7 @@ export default function SignInForm() {
     setSignInResponse(false);
     setErrorMessage(null);
   };
+  console.log("location", location);
 
   if (signInModal === false) {
     setSignInResponse(false);
@@ -32,7 +36,11 @@ export default function SignInForm() {
     });
     if (data) {
       setSignInModal(!signInModal);
-      location.reload();
+      if (location === "/signIn") {
+        location.pathname = "/";
+      } else {
+        location.reload();
+      }
     }
     if (error) {
       setSignInResponse(true);

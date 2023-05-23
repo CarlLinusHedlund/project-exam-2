@@ -6,6 +6,7 @@ import HomeSvg, {
   PublishSvg,
   StatisticSvg,
 } from "../../../components/DynamicSvgs";
+import Logo from "../../../components/header/components/Logo";
 
 export default function Nav() {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
@@ -87,14 +88,15 @@ export default function Nav() {
         </div>
       )}
       {!isMobile && (
-        <div className=" bg-primaryWhite font-poppins z-10 flex flex-col px-5 w-[250px] sticky left-0 top-0 bottom-0 min-h-screen pt-10 ">
+        <div className=" border-r-2 border-[#e8e8e8] bg-primaryWhite font-poppins z-10 flex flex-col pr-5 pl-5 min-w-[250px] w-[250px] sticky left-0 top-0 bottom-0 min-h-screen pt-5 gap-10 ">
+          <Logo />
           <div className="flex flex-col gap-4">
             <Link
               className={` ${
                 location.pathname === "/dashboard"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard"
             >
               <DashboardSvg
@@ -111,7 +113,7 @@ export default function Nav() {
                 location.pathname === "/dashboard/profile"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard/profile"
             >
               <ProfileSvg
@@ -130,7 +132,7 @@ export default function Nav() {
                 location.pathname === "/dashboard/statistics"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard/statistics"
             >
               <StatisticSvg
@@ -149,7 +151,7 @@ export default function Nav() {
                 location.pathname === "/dashboard/publish"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard/publish"
             >
               <PublishSvg

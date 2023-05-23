@@ -7,7 +7,7 @@ export default function Layout() {
   const location = useLocation();
   return (
     <>
-      <Header />
+      {!location.pathname.includes("/dashboard") && <Header />}
       <Router />
       {!location.pathname.includes("/dashboard") && <Footer />}
     </>

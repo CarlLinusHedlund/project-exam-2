@@ -2,10 +2,10 @@ import { useContext, useEffect, useRef } from "react";
 import { SignInContext } from "./utils/AuthContext";
 import { useAnimate } from "framer-motion";
 import SignInForm from "./SignInForm";
+import { useNavigate } from "react-router-dom";
 
 function useSignInAnimation(activeSignInModal, modalRef) {
   const [scope, animate] = useAnimate();
-
   useEffect(() => {
     if (activeSignInModal) {
       modalRef.current.style.display = "flex"; // Show the modal by removing the hidden class
@@ -38,12 +38,18 @@ function useSignInAnimation(activeSignInModal, modalRef) {
 }
 
 export default function SignInModal() {
+  const navigate = useNavigate();
   const [activeSignInModal, setActiveSignInModal] = useContext(SignInContext);
   const modalRef = useRef(null);
   useSignInAnimation(activeSignInModal, modalRef);
 
   const handleSignInModalClick = () => {
-    setActiveSignInModal(false);
+    if (window.location.pathname === "/signIn") {
+      navigate("/");
+      setActiveSignInModal(false);
+    } else {
+      setActiveSignInModal(false);
+    }
   };
 
   return (
