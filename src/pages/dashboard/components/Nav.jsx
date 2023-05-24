@@ -15,7 +15,7 @@ export default function Nav() {
   return (
     <>
       {isMobile && (
-        <div className=" z-10 fixed flex justify-between items-center bg-primaryWhite bottom-0 h-20 left-0 right-0 max-w-xl mx-auto px-3 sm:px-10">
+        <div className=" w-full z-10 fixed flex justify-between items-center bg-primaryWhite bottom-0 h-20 left-0 right-0 mx-auto px-3 sm:px-10">
           <div>
             <Link to="/">
               <HomeSvg height="20px" width="20px" color="#A7A7A7" />

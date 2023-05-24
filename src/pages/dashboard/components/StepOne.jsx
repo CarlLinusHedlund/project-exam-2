@@ -19,7 +19,7 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
       <div className="flex w-full flex-col gap-10 lg:flex-row lg:justify-between">
         <label
           htmlFor="title"
-          className="text-primaryDark relative flex flex-col w-full lg:w-[40%] "
+          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[40%] "
         >
           Title*
           <Field
@@ -41,7 +41,7 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
         </label>
         <label
           htmlFor="location"
-          className="text-primaryDark relative flex flex-col w-full lg:w-[60%] "
+          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[60%] "
         >
           Location*
           <Field
@@ -65,7 +65,7 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
       <div className="flex w-full flex-col gap-10 lg:flex-row lg:justify-between">
         <label
           htmlFor="description"
-          className="text-primaryDark relative flex flex-col w-full lg:w-[60%] "
+          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[60%] "
         >
           Description*
           <Field
@@ -87,7 +87,7 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
         <div className="w-full flex lg:w-[40%] flex-col gap-3">
           <label
             htmlFor="guest"
-            className="text-primaryDark flex flex-col w-full "
+            className="text-primaryDark flex flex-col w-full text-[14px] "
           >
             Max guests*
             <div className="flex items-center gap-2 px-5 py-1 justify-between bg-primaryWhite border-[1px] border-gray-300 rounded-[10px] ">
@@ -101,7 +101,7 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
                 -
               </button>
               <Field
-                className="p-2 w-fit flex justify-center bg-primaryWhite text-center items-center"
+                className="p-2 w-10 flex justify-center bg-primaryWhite text-center items-center"
                 type="number"
                 id="guest"
                 min={1}

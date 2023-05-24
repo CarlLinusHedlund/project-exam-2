@@ -1,7 +1,8 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import { ValidationFormSchema } from "../utils/ValidationFormSchema";
 import { useState } from "react";
 import StepOne from "./stepOne";
+import StepTwo from "./StepTwo";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -35,7 +36,7 @@ export default function MultiStepForm() {
       onSubmit={handleSubmit}
     >
       {({ errors, touched, values, setFieldValue }) => (
-        <Form className="flex flex-col justify-between duration-300 w-full rounded-[10px] border-[1px] border-[#e3e3e3] p-10 min-h-[500px] ">
+        <Form className="flex flex-col justify-between duration-300 w-full rounded-[10px] border-[1px] border-[#e3e3e3] p-5 md:p-10 min-h-[500px] ">
           {/* Render form fields for each step */}
           {step === 1 && (
             <StepOne
@@ -47,28 +48,31 @@ export default function MultiStepForm() {
             />
           )}
           {step === 2 && (
-            <div>
-              <label htmlFor="lastName">Last Name</label>
-              <Field as="textarea" id="lastName" name="lastName" />
-              {errors.lastName && touched.lastName && (
-                <div>{errors.lastName}</div>
-              )}
-              {/* Add more fields for step 2 */}
-            </div>
+            <StepTwo touched={touched} errors={errors} />
+            // <div>
+            //   <label htmlFor="lastName">Last Name</label>
+            //   <Field as="textarea" id="lastName" name="lastName" />
+            //   {errors.lastName && touched.lastName && (
+            //     <div>{errors.lastName}</div>
+            //   )}
+            //   {/* Add more fields for step 2 */}
+            // </div>
           )}
           {/* Add more steps */}
-          <div className="flex mt-10 w-full gap-10 items-center justify-end">
+          <div className="flex mt-10 w-full gap-2 xxs:gap-10 items-center justify-between xxs:justify-end">
             {step === 2 && (
               <button
-                className="px-16 rounded-[10px] text-[14px] hover:-translate-y-1 duration-300 py-2 border-[1px] text-gray-400 border-gray-400"
+                className="px-3 xxs:px-5 rounded-[10px] text-[14px] duration-300 py-2 hover:bg-gray-100 text-gray-400"
                 onClick={handlePrev}
                 type="button"
               >
-                Prev
+                Go back
               </button>
             )}
             <button
-              className=" rounded-[10px] text-[14px] text-primaryCoral hover:-translate-y-1 duration-300 px-16 py-2 border-[1px] border-red-400 "
+              className={` ${
+                step === 1 ? "w-full sm:w-fit" : ""
+              } rounded-[10px] text-[14px] text-primaryDark lg:hover:-translate-y-1 duration-300 px-12 xxs:px-16 py-2 bg-primaryCoral `}
               type="submit"
             >
               Next

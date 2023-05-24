@@ -13,14 +13,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProfile } from "./store/modules/ProfileSlice";
 import { useLocation } from "react-use";
 import { useNavigate } from "react-router-dom";
+import { headerContext } from "./components/header/utils/MobileHeaderContext";
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile);
+  const [isOpen, setIsOpen] = useState(false);
   const [signInModalOpen, setSignInModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+
+  if (isOpen) {
+    document.body.classList.add("activeDropdown");
+  } else {
+    document.body.classList.remove("activeDropdown");
+  }
+
   if (signInModalOpen || signUpModalOpen) {
     document.body.classList.add("disableScroll");
   } else {
@@ -69,9 +78,11 @@ function App() {
     <UserContext.Provider value={{ session, setSession }}>
       <SignInContext.Provider value={[signInModalOpen, setSignInModalOpen]}>
         <SignUpContext.Provider value={[signUpModalOpen, setSignUpModalOpen]}>
-          <Layout />
-          {signInModalOpen && <SignInModal />}
-          {signUpModalOpen && <SignUpModal />}
+          <headerContext.Provider value={[isOpen, setIsOpen]}>
+            <Layout />
+            {signInModalOpen && <SignInModal />}
+            {signUpModalOpen && <SignUpModal />}
+          </headerContext.Provider>
         </SignUpContext.Provider>
       </SignInContext.Provider>
     </UserContext.Provider>
