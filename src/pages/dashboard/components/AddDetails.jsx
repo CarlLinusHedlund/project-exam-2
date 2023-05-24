@@ -1,7 +1,7 @@
 import { Field } from "formik";
 import PropTypes from "prop-types";
 
-const StepOne = ({ errors, touched, values, setFieldValue }) => {
+const AddDetails = ({ errors, touched, values, setFieldValue }) => {
   const handleAddGuest = (values, setFieldValue) => {
     const currentGuests = values || 0;
     const newGuests = currentGuests + 1;
@@ -160,9 +160,9 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
   );
 };
 
-export default StepOne;
+export default AddDetails;
 
-StepOne.propTypes = {
+AddDetails.propTypes = {
   errors: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   values: PropTypes.object.isRequired,

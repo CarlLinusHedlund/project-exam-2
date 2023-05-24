@@ -1,9 +1,9 @@
 import { Formik, Form } from "formik";
 import { ValidationFormSchema } from "../utils/ValidationFormSchema";
 import { useState } from "react";
-import StepOne from "./stepOne";
-import StepTwo from "./StepTwo";
-import StepThree from "./StepThree";
+import AddDetails from "./AddDetails";
+import AddImages from "./AddImages";
+import AddLocation from "./AddLocation";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -66,7 +66,7 @@ export default function MultiStepForm() {
       <Formik
         initialValues={{
           title: "",
-          location: "",
+          location: { lat: "", lng: "", city: "", country: "" },
           description: "",
           files: [],
           guest: 1,
@@ -80,7 +80,7 @@ export default function MultiStepForm() {
           <Form className="flex flex-col justify-between duration-300 w-full rounded-[10px] p-3 md:p-5 min-h-[500px] ">
             {/* Render form fields for each step */}
             {step === 1 && (
-              <StepOne
+              <AddDetails
                 step={step}
                 errors={errors}
                 touched={touched}
@@ -89,7 +89,7 @@ export default function MultiStepForm() {
               />
             )}
             {step === 2 && (
-              <StepTwo
+              <AddImages
                 files={values.files}
                 setFiles={(newFiles) => setFieldValue("files", newFiles)}
                 setFieldValue={setFieldValue}
@@ -97,8 +97,9 @@ export default function MultiStepForm() {
                 errors={errors}
               />
             )}
+
             {step === 3 && (
-              <StepThree
+              <AddLocation
                 values={values}
                 setFieldValue={setFieldValue}
                 touched={touched}

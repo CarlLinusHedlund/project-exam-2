@@ -4,13 +4,7 @@ import PropTypes from "prop-types";
 import PreviewImages from "./PreviewImages";
 import "./index.css";
 
-export default function StepTwo({
-  touched,
-  errors,
-  files,
-  setFiles,
-  setFieldValue,
-}) {
+export default function AddImages({ errors, files, setFiles, setFieldValue }) {
   const handleFileChange = (event) => {
     const newFiles = Array.from(event.target.files);
     const validFiles = newFiles.filter(
@@ -19,9 +13,9 @@ export default function StepTwo({
     setFiles([...files, ...validFiles]);
     setFieldValue("files", [...files, ...validFiles]);
   };
-  console.log("files", files);
-  console.log("Errors", errors);
-  console.log("touched", touched);
+  // console.log("files", files);
+  // console.log("Errors", errors);
+  // console.log("touched", touched);
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -55,7 +49,7 @@ export default function StepTwo({
     return totalSizeInMB;
   };
 
-  console.log(files);
+  // console.log(files);
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-10">
@@ -107,7 +101,7 @@ export default function StepTwo({
   );
 }
 
-StepTwo.propTypes = {
+AddImages.propTypes = {
   errors: PropTypes.object.isRequired,
   touched: PropTypes.object.isRequired,
   files: PropTypes.array.isRequired,
