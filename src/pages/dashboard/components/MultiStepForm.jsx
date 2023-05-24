@@ -28,7 +28,7 @@ export default function MultiStepForm() {
         title: "",
         location: "",
         description: "",
-        email: "",
+        files: [],
         guest: 1,
         // Add initial values for each step
       }}
@@ -48,15 +48,13 @@ export default function MultiStepForm() {
             />
           )}
           {step === 2 && (
-            <StepTwo touched={touched} errors={errors} />
-            // <div>
-            //   <label htmlFor="lastName">Last Name</label>
-            //   <Field as="textarea" id="lastName" name="lastName" />
-            //   {errors.lastName && touched.lastName && (
-            //     <div>{errors.lastName}</div>
-            //   )}
-            //   {/* Add more fields for step 2 */}
-            // </div>
+            <StepTwo
+              files={values.files}
+              setFiles={(newFiles) => setFieldValue("files", newFiles)}
+              setFieldValue={setFieldValue}
+              touched={touched}
+              errors={errors}
+            />
           )}
           {/* Add more steps */}
           <div className="flex mt-10 w-full gap-2 xxs:gap-10 items-center justify-between xxs:justify-end">

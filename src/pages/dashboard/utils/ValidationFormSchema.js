@@ -14,8 +14,27 @@ export const ValidationFormSchema = (step) => {
     });
   } else if (step === 2) {
     schema = Yup.object().shape({
-      lastName: Yup.string().required("Last name is required"),
-      // Add validation for other fields in step 2
+      files: Yup.array()
+        .required("Please select a file")
+        .test("fileType", "Only JPG and PNG files are allowed", (files) => {
+          if (!files) return true; // Skip validation if no files are selected
+          return files.every(
+            (file) => file.type === "image/jpeg" || file.type === "image/png"
+          );
+        })
+        .test("fileSize", "File size should be less than 3MB", (files) => {
+          if (!files) return true; // Skip validation if no files are selected
+          return files.every((file) => file.size <= 3 * 1024 * 1024);
+        })
+        .test(
+          "totalSize",
+          "Total file size should be less than 50MB",
+          (files) => {
+            if (!files) return true; // Skip validation if no files are selected
+            const totalSize = files.reduce((acc, file) => acc + file.size, 0);
+            return totalSize <= 50 * 1024 * 1024;
+          }
+        ),
     });
   } else {
     // Add validation for other steps

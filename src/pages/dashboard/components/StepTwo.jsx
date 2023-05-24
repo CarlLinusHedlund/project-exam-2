@@ -1,39 +1,40 @@
 // import { Field, ErrorMessage } from "formik";
-// import PropTypes from "prop-types";
-import { useState } from "react";
+import PropTypes from "prop-types";
+// import { useState } from "react";
 import PreviewImages from "./PreviewImages";
-// import { useDropzone } from "react-dropzone";
 
-export default function StepTwo() {
-  const [files, setFiles] = useState(null);
+export default function StepTwo({
+  touched,
+  errors,
+  files,
+  setFiles,
+  setFieldValue,
+}) {
+  const handleFileChange = (event) => {
+    const newFiles = Array.from(event.target.files);
+    setFiles([...files, ...newFiles]);
+    setFieldValue("files", [...files, ...newFiles]);
+  };
+
+  console.log("Errors", errors);
+  console.log("touched", touched);
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const newFiles = Array.from(event.dataTransfer.files);
+    setFiles([...files, ...newFiles]);
+    setFieldValue("files", [...files, ...newFiles]);
+  };
 
   const handleDragOver = (event) => {
     event.preventDefault();
   };
-  const handleDrop = (event) => {
-    event.preventDefault();
-    const droppedFiles = Array.from(event.dataTransfer.files);
-    const validFiles = droppedFiles.filter(
-      (file) => file.type === "image/jpeg" || file.type === "image/png"
-    );
-    setFiles((prevFiles) => {
-      return prevFiles ? [...prevFiles, ...validFiles] : validFiles;
-    });
-  };
-
-  const handleInputChange = (event) => {
-    const newFiles = Array.from(event.target.files);
-    setFiles((prevFiles) => {
-      return prevFiles ? [...prevFiles, ...newFiles] : newFiles;
-    });
-  };
 
   const handleDelete = (index) => {
-    setFiles((prevFiles) => {
-      const updatedFiles = [...prevFiles];
-      updatedFiles.splice(index, 1);
-      return updatedFiles;
-    });
+    const updatedFiles = [...files];
+    updatedFiles.splice(index, 1);
+    setFiles(updatedFiles);
+    setFieldValue("files", updatedFiles);
   };
 
   const getTotalSize = () => {
@@ -65,7 +66,7 @@ export default function StepTwo() {
             >
               browse
               <input
-                onChange={handleInputChange}
+                onChange={handleFileChange}
                 hidden
                 name="image_uploads"
                 id="image_uploads"
@@ -85,7 +86,10 @@ export default function StepTwo() {
   );
 }
 
-// StepTwo.propTypes = {
-//   errors: PropTypes.object.isRequired,
-//   touched: PropTypes.object.isRequired,
-// };
+StepTwo.propTypes = {
+  errors: PropTypes.object.isRequired,
+  touched: PropTypes.object.isRequired,
+  files: PropTypes.array.isRequired,
+  setFieldValue: PropTypes.func,
+  setFiles: PropTypes.func,
+};
