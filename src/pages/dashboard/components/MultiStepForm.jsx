@@ -69,7 +69,7 @@ export default function MultiStepForm() {
           title: "",
           location: "",
           description: "",
-          email: "",
+          files: [],
           guest: 1,
           // Add initial values for each step
         }}
@@ -89,15 +89,13 @@ export default function MultiStepForm() {
               />
             )}
             {step === 2 && (
-              <StepTwo step={step} touched={touched} errors={errors} />
-              // <div>
-              //   <label htmlFor="lastName">Last Name</label>
-              //   <Field as="textarea" id="lastName" name="lastName" />
-              //   {errors.lastName && touched.lastName && (
-              //     <div>{errors.lastName}</div>
-              //   )}
-              //   {/* Add more fields for step 2 */}
-              // </div>
+              <StepTwo
+                files={values.files}
+                setFiles={(newFiles) => setFieldValue("files", newFiles)}
+                setFieldValue={setFieldValue}
+                touched={touched}
+                errors={errors}
+              />
             )}
             {/* Add more steps */}
             <div className="flex mt-10 w-full gap-2 xxs:gap-10 items-center justify-between xxs:justify-end">
@@ -123,61 +121,5 @@ export default function MultiStepForm() {
         )}
       </Formik>
     </>
-    <Formik
-      initialValues={{
-        title: "",
-        location: "",
-        description: "",
-        files: [],
-        guest: 1,
-        // Add initial values for each step
-      }}
-      validationSchema={ValidationFormSchema(step)}
-      onSubmit={handleSubmit}
-    >
-      {({ errors, touched, values, setFieldValue }) => (
-        <Form className="flex flex-col justify-between duration-300 w-full rounded-[10px] border-[1px] border-[#e3e3e3] p-5 md:p-10 min-h-[500px] ">
-          {/* Render form fields for each step */}
-          {step === 1 && (
-            <StepOne
-              step={step}
-              errors={errors}
-              touched={touched}
-              values={values}
-              setFieldValue={setFieldValue}
-            />
-          )}
-          {step === 2 && (
-            <StepTwo
-              files={values.files}
-              setFiles={(newFiles) => setFieldValue("files", newFiles)}
-              setFieldValue={setFieldValue}
-              touched={touched}
-              errors={errors}
-            />
-          )}
-          {/* Add more steps */}
-          <div className="flex mt-10 w-full gap-2 xxs:gap-10 items-center justify-between xxs:justify-end">
-            {step === 2 && (
-              <button
-                className="px-3 xxs:px-5 rounded-[10px] text-[14px] duration-300 py-2 hover:bg-gray-100 text-gray-400"
-                onClick={handlePrev}
-                type="button"
-              >
-                Go back
-              </button>
-            )}
-            <button
-              className={` ${
-                step === 1 ? "w-full sm:w-fit" : ""
-              } rounded-[10px] text-[14px] text-primaryDark lg:hover:-translate-y-1 duration-300 px-12 xxs:px-16 py-2 bg-primaryCoral `}
-              type="submit"
-            >
-              Next
-            </button>
-          </div>
-        </Form>
-      )}
-    </Formik>
   );
 }
