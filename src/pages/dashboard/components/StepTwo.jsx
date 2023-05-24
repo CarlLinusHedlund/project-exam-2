@@ -2,6 +2,7 @@
 import PropTypes from "prop-types";
 // import { useState } from "react";
 import PreviewImages from "./PreviewImages";
+import "./index.css";
 
 export default function StepTwo({
   touched,
@@ -12,18 +13,24 @@ export default function StepTwo({
 }) {
   const handleFileChange = (event) => {
     const newFiles = Array.from(event.target.files);
-    setFiles([...files, ...newFiles]);
-    setFieldValue("files", [...files, ...newFiles]);
+    const validFiles = newFiles.filter(
+      (file) => file.type === "image/jpeg" || file.type === "image/png"
+    );
+    setFiles([...files, ...validFiles]);
+    setFieldValue("files", [...files, ...validFiles]);
   };
-
+  console.log("files", files);
   console.log("Errors", errors);
   console.log("touched", touched);
 
   const handleDrop = (event) => {
     event.preventDefault();
     const newFiles = Array.from(event.dataTransfer.files);
-    setFiles([...files, ...newFiles]);
-    setFieldValue("files", [...files, ...newFiles]);
+    const validFiles = newFiles.filter(
+      (file) => file.type === "image/jpeg" || file.type === "image/png"
+    );
+    setFiles([...files, ...validFiles]);
+    setFieldValue("files", [...files, ...validFiles]);
   };
 
   const handleDragOver = (event) => {
@@ -77,9 +84,23 @@ export default function StepTwo({
             </label>
           </div>
         </div>
-        <div className=" lg lg:w-1/2 flex gap-4 items-center flex-wrap overflow-y-scroll">
-          <PreviewImages files={files} handleDelete={handleDelete} />
-          {files && <div className="">Total Size: {getTotalSize()} mb</div>}
+        <div className=" relative lg:w-1/2 flex gap-4 items-center flex-wrap overflow-y-scroll">
+          {files.length > 0 && <p>Uploaded files</p>}
+          <div className=" h-[250px] overflow-y-scroll flex justify-start gap-5 flex-col w-full p-3">
+            <PreviewImages
+              setFieldValue={setFieldValue}
+              files={files}
+              handleDelete={handleDelete}
+            />
+          </div>
+          <div className="flex flex-wrap gap-5">
+            {files.length > 0 && (
+              <div className=" ">Total Size: {getTotalSize()} mb</div>
+            )}
+            {errors.files && (
+              <div className="text-[14px] text-red-400">{errors.files}</div>
+            )}
+          </div>
         </div>
       </div>
     </>

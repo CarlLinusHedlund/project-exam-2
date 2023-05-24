@@ -40,23 +40,24 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
           )}
         </label>
         <label
-          htmlFor="location"
-          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[60%] "
+          htmlFor="title"
+          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[40%] "
         >
-          Location*
+          Price per night
           <Field
             className={` p-2 bg-primaryWhite duration-500 border-[1px] ${
-              errors.location && touched.location
+              errors.title && touched.title
                 ? "border-red-400"
                 : "border-gray-300"
             }  rounded-[10px] outline-none `}
             type="text"
-            id="location"
-            name="location"
+            id="title"
+            name="title"
           />
-          {errors.location && touched.location && (
-            <div className=" text-red-400 text-[14px] absolute -bottom-5 ">
-              {errors.location}
+          {/* <ErrorMessage name="title" component="div" className="error" /> */}
+          {errors.title && touched.title && (
+            <div className=" text-red-400 absolute -bottom-5 text-[14px] ">
+              {errors.title}
             </div>
           )}
         </label>
@@ -84,7 +85,7 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
             </div>
           )}
         </label>
-        <div className="w-full flex lg:w-[40%] flex-col gap-3">
+        <div className="w-full flex lg:w-[40%] flex-col justify-between gap-3">
           <label
             htmlFor="guest"
             className="text-primaryDark flex flex-col w-full text-[14px] "
@@ -101,7 +102,7 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
                 -
               </button>
               <Field
-                className="p-2 w-10 flex justify-center bg-primaryWhite text-center items-center"
+                className="p-2 w-14 flex justify-center bg-primaryWhite text-center items-center"
                 type="number"
                 id="guest"
                 min={1}
@@ -119,6 +120,39 @@ const StepOne = ({ errors, touched, values, setFieldValue }) => {
             {errors.guest && touched.guest && (
               <div className=" text-red-400 text-[14px] ">{errors.guest}</div>
             )}
+          </label>
+          <label
+            htmlFor="type"
+            className="text-primaryDark flex flex-col w-full text-[14px]"
+          >
+            Type
+            <div
+              className={`w-full ${
+                errors.type && touched.type
+                  ? "border-red-400"
+                  : " border-gray-300"
+              } p-2 bg-primaryWhite border-[1px] relative rounded-[10px]`}
+            >
+              <Field
+                as="select"
+                id="type"
+                name="type"
+                className=" w-full bg-primaryWhite py-2 text-[14px] duration-500 font-light  outline-none"
+              >
+                <option value="">Select Type</option>
+                <option value="boat">Boat</option>
+                <option value="cabin">Cabin</option>
+                <option value="hotel">Hotel</option>
+                <option value="house">House</option>
+                <option value="caravan">Caravan</option>
+                <option value="apartment">Apartment</option>
+              </Field>
+              {errors.type && touched.type && (
+                <div className="text-red-400 text-[14px] absolute -bottom-6 left-1 ">
+                  {errors.type}
+                </div>
+              )}
+            </div>
           </label>
         </div>
       </div>

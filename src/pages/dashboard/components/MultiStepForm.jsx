@@ -3,11 +3,10 @@ import { ValidationFormSchema } from "../utils/ValidationFormSchema";
 import { useState } from "react";
 import StepOne from "./stepOne";
 import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
-
-  console.log(step);
 
   const handlePrev = () => {
     setStep(step - 1);
@@ -26,7 +25,7 @@ export default function MultiStepForm() {
 
   return (
     <>
-      <div className="flex justify-between gap-5">
+      <div className="flex justify-between gap-10">
         <div className="flex flex-col w-[33%]">
           <p className="text-primaryCoral">Information</p>
           <div className="w-full h-[3px] bg-primaryCoral"></div>
@@ -55,7 +54,7 @@ export default function MultiStepForm() {
               step === 3 ? "text-primaryCoral" : "text-gray-300 blur-[2px]"
             }`}
           >
-            Add images
+            Location
           </p>
           <div
             className={`w-full h-[3px] ${
@@ -71,13 +70,14 @@ export default function MultiStepForm() {
           description: "",
           files: [],
           guest: 1,
+          type: {},
           // Add initial values for each step
         }}
         validationSchema={ValidationFormSchema(step)}
         onSubmit={handleSubmit}
       >
         {({ errors, touched, values, setFieldValue }) => (
-          <Form className="flex flex-col justify-between duration-300 w-full rounded-[10px] border-[1px] border-[#e3e3e3] p-5 md:p-10 min-h-[500px] ">
+          <Form className="flex flex-col justify-between duration-300 w-full rounded-[10px] p-3 md:p-5 min-h-[500px] ">
             {/* Render form fields for each step */}
             {step === 1 && (
               <StepOne
@@ -97,9 +97,17 @@ export default function MultiStepForm() {
                 errors={errors}
               />
             )}
+            {step === 3 && (
+              <StepThree
+                values={values}
+                setFieldValue={setFieldValue}
+                touched={touched}
+                errors={errors}
+              />
+            )}
             {/* Add more steps */}
             <div className="flex mt-10 w-full gap-2 xxs:gap-10 items-center justify-between xxs:justify-end">
-              {step === 2 && (
+              {step > 1 && (
                 <button
                   className="px-3 xxs:px-5 rounded-[10px] text-[14px] duration-300 py-2 hover:bg-gray-100 text-gray-400"
                   onClick={handlePrev}
@@ -114,7 +122,7 @@ export default function MultiStepForm() {
                 } rounded-[10px] text-[14px] text-primaryDark lg:hover:-translate-y-1 duration-300 px-12 xxs:px-16 py-2 bg-primaryCoral `}
                 type="submit"
               >
-                Next
+                {step === 3 ? "Publish" : "Next"}
               </button>
             </div>
           </Form>
