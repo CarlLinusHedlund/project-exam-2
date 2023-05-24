@@ -1,12 +1,11 @@
 // import { Field, ErrorMessage } from "formik";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import PreviewImages from "./PreviewImages";
 // import { useDropzone } from "react-dropzone";
 
-export default function StepTwo() {
+export default function StepTwo({ values }) {
   const [files, setFiles] = useState(null);
-
   const handleDragOver = (event) => {
     event.preventDefault();
   };
@@ -85,7 +84,9 @@ export default function StepTwo() {
   );
 }
 
-// StepTwo.propTypes = {
-//   errors: PropTypes.object.isRequired,
-//   touched: PropTypes.object.isRequired,
-// };
+StepTwo.propTypes = {
+  errors: PropTypes.object.isRequired,
+  // errors: PropTypes.object.isRequired,
+  // touched: PropTypes.object.isRequired,
+  step: PropTypes.number,
+};
