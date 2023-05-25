@@ -52,7 +52,7 @@ export default function AddImages({ errors, files, setFiles, setFieldValue }) {
   // console.log(files);
   return (
     <>
-      <div className="flex flex-col lg:flex-row gap-10">
+      <div className="flex flex-col lg:flex-row gap-10 px-3 md:px-0">
         <div
           onDragOver={handleDragOver}
           onDrop={handleDrop}

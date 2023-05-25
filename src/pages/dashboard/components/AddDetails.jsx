@@ -15,11 +15,11 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
   };
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 px-3">
       <div className="flex w-full flex-col gap-10 lg:flex-row lg:justify-between">
         <label
           htmlFor="title"
-          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[40%] "
+          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[60%] "
         >
           Title*
           <Field
@@ -40,24 +40,25 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
           )}
         </label>
         <label
-          htmlFor="title"
+          htmlFor="pricePerNight"
           className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[40%] "
         >
           Price per night
           <Field
             className={` p-2 bg-primaryWhite duration-500 border-[1px] ${
-              errors.title && touched.title
+              errors.pricePerNight && touched.pricePerNight
                 ? "border-red-400"
                 : "border-gray-300"
             }  rounded-[10px] outline-none `}
-            type="text"
-            id="title"
-            name="title"
+            type="number"
+            min={1}
+            id="pricePerNight"
+            name="pricePerNight"
           />
           {/* <ErrorMessage name="title" component="div" className="error" /> */}
-          {errors.title && touched.title && (
-            <div className=" text-red-400 absolute -bottom-5 text-[14px] ">
-              {errors.title}
+          {errors.pricePerNight && touched.pricePerNight && (
+            <div className=" text-red-400 absolute -bottom-6 text-[14px] ">
+              {errors.pricePerNight}
             </div>
           )}
         </label>

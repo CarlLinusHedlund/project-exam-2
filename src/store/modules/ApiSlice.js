@@ -51,6 +51,34 @@ const supabaseApi = createApi({
         return { data };
       },
     }),
+    publishVenue: builder.mutation({
+      queryFn: async ({
+        // user_id,
+        location,
+        // meta,
+        title,
+        description,
+        // media,
+        price_per_night,
+        max_guests,
+        type,
+      }) => {
+        const { data, error } = await supabase.from("venues").insert({
+          owner_id: "dd44b9bf-6453-4eae-ba35-7f0bcfb5ffa7",
+          location: location,
+          title: title,
+          description: description,
+          price_per_night: price_per_night,
+          max_guest: max_guests,
+          type: type,
+        });
+        if (error) {
+          throw { error };
+        }
+        console.log(data);
+        return { data };
+      },
+    }),
   }),
 });
 
@@ -59,6 +87,7 @@ export const {
   useGetSingleVenueQuery,
   useGetUserQuery,
   useGetProfileQuery,
+  usePublishVenueMutation,
 } = supabaseApi;
 
 export { supabaseApi };

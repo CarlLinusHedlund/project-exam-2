@@ -58,7 +58,7 @@ function App() {
     // if () {
 
     // }
-  }, [location, session]);
+  }, [location, session, navigate]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

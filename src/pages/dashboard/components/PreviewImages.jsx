@@ -99,7 +99,7 @@ export default function PreviewImages({ files, handleDelete, setFieldValue }) {
             <div className="flex flex-col gap-5 ">
               <img
                 onClick={() => moveItemUp(index)}
-                className={`w-[10px] h-[10px] rotate-180 ${
+                className={`w-[10px] h-[10px] rotate-180 cursor-pointer duration-200 lg:hover:scale-125 ${
                   index === 0 ? "hidden" : "block"
                 } `}
                 src="../arrow.svg"
@@ -107,7 +107,7 @@ export default function PreviewImages({ files, handleDelete, setFieldValue }) {
               />
               <img
                 onClick={() => moveItemDown(index)}
-                className="w-[10px] h-[10px]  "
+                className="w-[10px] h-[10px] cursor-pointer duration-200 lg:hover:scale-125  "
                 src="../arrow.svg"
                 alt="down"
               />

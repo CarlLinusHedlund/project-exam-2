@@ -6,6 +6,7 @@ export const ValidationFormSchema = (step) => {
   if (step === 1) {
     schema = Yup.object().shape({
       title: Yup.string().required("Title is required"),
+      pricePerNight: Yup.number().required("Select a price (Price per night)"),
       description: Yup.string().required("Description is required"),
       guest: Yup.number()
         .min(1, "Invalid number of guests")
@@ -39,7 +40,7 @@ export const ValidationFormSchema = (step) => {
   } else {
     // Add validation for other steps
     schema = Yup.object().shape({
-      location: Yup.string().required("Location is required"),
+      location: Yup.object().required("Location is required"),
     });
   }
 
