@@ -1,8 +1,9 @@
 // import { Field } from "formik";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Map, Marker } from "react-map-gl";
+import { GeolocateControl, Map, Marker, NavigationControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
 export default function AddLocation({ errors, touched, values }) {
   const [location, setLocation] = useState({
@@ -17,7 +18,7 @@ export default function AddLocation({ errors, touched, values }) {
   };
 
   return (
-    <div className="h-[350px] relative rounded-[10px] ">
+    <div className="h-[350px] overflow-hidden relative rounded-[10px] ">
       <Map
         className="rounded-xl"
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_KEY}
@@ -28,6 +29,11 @@ export default function AddLocation({ errors, touched, values }) {
         }}
         mapStyle="mapbox://styles/mapbox/dark-v11"
       >
+        {/* <MapboxGeocoder></MapboxGeocoder> */}
+        <NavigationControl position="bottom-right"></NavigationControl>
+        <GeolocateControl
+        // position={isTabletOrMobile ? "top-left" : "top-right"}
+        ></GeolocateControl>
         <Marker
           onDragEnd={handleChange}
           latitude={location.lat}
