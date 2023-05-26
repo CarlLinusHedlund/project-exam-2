@@ -15,11 +15,11 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
   };
 
   return (
-    <div className="flex flex-col gap-10 px-3">
-      <div className="flex w-full flex-col gap-10 lg:flex-row lg:justify-between">
+    <div className="flex flex-col lg:flex-row gap-10 px-3">
+      <div className="flex w-full lg:w-[60%] gap-10 flex-col lg:justify-between">
         <label
           htmlFor="title"
-          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[60%] "
+          className="text-primaryDark relative flex flex-col text-[14px] w-full  "
         >
           Title*
           <Field
@@ -40,8 +40,32 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
           )}
         </label>
         <label
+          htmlFor="description"
+          className="text-primaryDark relative flex flex-col text-[14px] w-full "
+        >
+          Description*
+          <Field
+            className={`p-2  min-h-[150px] text-[14px] duration-500 font-light bg-primaryWhite border-[1px] ${
+              errors.description && touched.description
+                ? "border-red-400"
+                : "border-gray-300"
+            } rounded-[10px] outline-none `}
+            as="textarea"
+            id="description"
+            name="description"
+          />
+          {errors.description && touched.description && (
+            <div className=" text-red-400 text-[14px] absolute -bottom-5 ">
+              {errors.description}
+            </div>
+          )}
+        </label>
+        {/* Add more fields for Step 1 */}
+      </div>
+      <div className="flex w-full flex-col gap-10 lg:w-[40%] lg:justify-between">
+        <label
           htmlFor="pricePerNight"
-          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[40%] "
+          className="text-primaryDark relative flex flex-col text-[14px] w-full "
         >
           Price per night
           <Field
@@ -62,31 +86,7 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
             </div>
           )}
         </label>
-        {/* Add more fields for Step 1 */}
-      </div>
-      <div className="flex w-full flex-col gap-10 lg:flex-row lg:justify-between">
-        <label
-          htmlFor="description"
-          className="text-primaryDark relative flex flex-col text-[14px] w-full lg:w-[60%] "
-        >
-          Description*
-          <Field
-            className={`p-2  min-h-[150px] text-[14px] duration-500 font-light bg-primaryWhite border-[1px] ${
-              errors.description && touched.description
-                ? "border-red-400"
-                : "border-gray-300"
-            } rounded-[10px] outline-none `}
-            as="textarea"
-            id="description"
-            name="description"
-          />
-          {errors.description && touched.description && (
-            <div className=" text-red-400 text-[14px] absolute -bottom-5 ">
-              {errors.description}
-            </div>
-          )}
-        </label>
-        <div className="w-full flex lg:w-[40%] flex-col justify-between gap-3">
+        <div className="w-full flex flex-col gap-10 justify-between">
           <label
             htmlFor="guest"
             className="text-primaryDark flex flex-col w-full text-[14px] "
@@ -132,7 +132,7 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
                 errors.type && touched.type
                   ? "border-red-400"
                   : " border-gray-300"
-              } p-2 bg-primaryWhite border-[1px] relative rounded-[10px]`}
+              } p-1 bg-primaryWhite border-[1px] relative rounded-[10px]`}
             >
               <Field
                 as="select"
@@ -151,6 +151,44 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
               {errors.type && touched.type && (
                 <div className="text-red-400 text-[14px] absolute -bottom-6 left-1 ">
                   {errors.type}
+                </div>
+              )}
+            </div>
+          </label>
+          <label
+            htmlFor="meta"
+            className="text-primaryDark flex flex-col w-full text-[14px]"
+          >
+            Meta
+            <div
+              className={`w-full ${
+                errors.meta && touched.meta
+                  ? "border-red-400"
+                  : " border-gray-300"
+              } p-1 bg-primaryWhite border-[1px] relative rounded-[10px]`}
+            >
+              <Field
+                multible
+                as="select"
+                id="meta"
+                name="meta"
+                className=" w-full bg-primaryWhite py-2 text-[14px] duration-500 font-light  outline-none"
+              >
+                <option value="wifi">Wifi</option>
+                <option value="parking">Parking</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="pets">Pets</option>
+                <option value="pool">Pool</option>
+                <option value="gym">Gym</option>
+                <option value="air_conditioning">Air Conditioning</option>
+                <option value="heating">Heating</option>
+                <option value="kitchen">Kitchen</option>
+                <option value="tv">Tv</option>
+                <option value="washing_machine">Washing Machine</option>
+              </Field>
+              {errors.meta && touched.meta && (
+                <div className="text-red-400 text-[14px] absolute -bottom-6 left-1 ">
+                  {errors.meta}
                 </div>
               )}
             </div>

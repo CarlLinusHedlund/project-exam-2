@@ -11,7 +11,7 @@ export const ValidationFormSchema = (step) => {
       guest: Yup.number()
         .min(1, "Invalid number of guests")
         .required("Number of guests is required"),
-      type: Yup.string().required("Type is required"),
+      type: Yup.string("type is required").required("Type is required"),
     });
   } else if (step === 2) {
     schema = Yup.object().shape({

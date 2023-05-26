@@ -44,7 +44,7 @@ export default function SignUpForm() {
         password: values.userPassword,
         options: {
           data: {
-            full_name: values.userName,
+            name: values.userName,
           },
         },
       });

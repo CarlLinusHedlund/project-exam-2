@@ -4,19 +4,28 @@ import { useState } from "react";
 import AddDetails from "./AddDetails";
 import AddImages from "./AddImages";
 import AddLocation from "./AddLocation";
-import { usePublishVenueMutation } from "../../../store/modules/ApiSlice";
+import {
+  usePublishVenueMutation,
+  useUpdateVenueMutation,
+  useUploadFilesMutation,
+} from "../../../store/modules/ApiSlice";
 import { UserContext } from "../../../components/auth/utils/UserContext";
 import { useContext } from "react";
-import { supabase } from "../../../utils/Supabase";
+import { useNavigate } from "react-router-dom";
 
 export default function MultiStepForm() {
+  const Navigate = useNavigate();
   const { session } = useContext(UserContext);
-  const [uploads, setUploads] = useState([]);
-  // console.log("uploads: ", uploads);
   const [step, setStep] = useState(1);
+  // const [uploads, setUploads] = useState([]);
 
   //Publish venue mutation
-  const [publishVenue, { isLoading }] = usePublishVenueMutation();
+  const [publishVenue, { isLoading, error }] = usePublishVenueMutation();
+  const [uploadFiles, { isLoading: uploadLoading, error: uploadError }] =
+    useUploadFilesMutation();
+  const [updateVenue, { isLoading: updateLoading, error: updateError }] =
+    useUpdateVenueMutation();
+
   //Gets user lat and lng if navigator.geolocation not suppoerted, fetch location with ipapi
   function geolocationSupported(setFieldValue) {
     if (navigator.geolocation) {
@@ -50,72 +59,70 @@ export default function MultiStepForm() {
     setStep(step - 1);
   };
 
-  const handleSubmit = async (values, user) => {
-    console.log(step);
+  const handleSubmit = (values, user) => {
     const files = values.files;
-    console.log("files", files);
+    console.log(files);
     if (step === 3) {
-      try {
-        const { data } = await publishVenue({
-          user: user.id,
-          location: values.location,
-          title: values.title,
-          description: values.description,
-          price_per_night: values.pricePerNight,
-          max_guests: values.guest,
-          type: values.type,
-        });
-        if (data) {
-          const venue_id = data[0].id;
+      publishVenue({
+        user_id: user.id,
+        location: values.location,
+        title: values.title,
+        description: values.description,
+        price_per_night: values.pricePerNight,
+        max_guests: values.guest,
+        type: values.type,
+      }).then((response) => {
+        console.log("publishVenue response:", response.data);
+        if (!isLoading && !error) {
+          // let uploads = [];
+          response.data && console.log("homo: ", response.data);
+          const venue_id = response.data.id;
+          const uploadPromises = [];
           for (let file of files) {
-            const { data: uploadData, error } = await supabase.storage
-              .from("venue_media")
-              .upload(`${user.id}/${venue_id}/${file.name}${Date.now()}`, file);
-            if (error) {
-              console.error("UploadError", error);
-              console.error("Failed to upload images");
-              //Delete venue
-            }
-            if (uploadData) {
-              // Build the complete URL using the Supabase storage URL and file path
+            const uploadPromise = uploadFiles({
+              venue_id: venue_id,
+              file: file,
+              user_id: user.id,
+            }).then((uploadResponse) => {
+              console.log(uploadResponse.data);
+              const response = uploadResponse.data;
               const fileUrl = `${
                 import.meta.env.VITE_PUBLIC_SUPABASE_URL
-              }/storage/v1/object/public/venue_media/${user.id}/${venue_id}/${
-                file.name
-              }${Date.now()}`;
-              // Add the file URL to the uploads array
-              setUploads((prevUploads) => [...prevUploads, fileUrl]);
-              console.log("uploadData", data);
-            }
+              }/storage/v1/object/public/venue_media/${response.path}`;
+              // setUploads((prevUploads) => [...prevUploads, fileUrl]);
+              return fileUrl;
+            });
+            uploadPromises.push(uploadPromise);
+            // console.log("uploads outside", uploads);
+            // console.log("files length", files);
           }
-          //Finn ut hvordan jeg kan få uploadsafs fasefsd f
-          if (uploads.length === files.length) {
-            console.log("update request is fired");
-            const { data: updateData, error } = await supabase
-              .from("venues")
-              .update({ media: uploads })
-              .eq("id", venue_id)
-              .select();
-            if (updateData) {
-              setUploads([]);
-              console.log("updated completed");
-              console.log("updateData: ", updateData);
-              console.log(
-                "Click this link",
-                window.location.hostname + `venue/id=${venue_id}`
-              );
-            }
-            if (error) {
-              console.log("updateError: ", error);
-            }
-          }
-        }
 
-        console.log("venueData", data);
-      } catch (error) {
-        // Handle the error here
-        console.error(error);
-      }
+          Promise.all(uploadPromises).then((uploads) => {
+            updateVenue({
+              type: "addMedia",
+              media: uploads,
+              venue_id: venue_id,
+            }).then((updateResponse) => {
+              console.log(updateResponse);
+              if (updateResponse) {
+                const pathname = window.location.pathname;
+                const host = window.location.host;
+                console.log("host", host);
+                console.log("pathname", pathname);
+                window.location.pathname = `/venue/${venue_id}`;
+                // const navigateToVenue = () => (
+                //   <Navigate to={} />
+                // );
+                // navigateToVenue();
+              }
+              console.log("Update success! Get In!!!!!!!!!");
+              // uploads = [];
+            });
+            console.log("fireeeeeee");
+            console.log(uploads.length);
+          });
+        }
+      });
     } else {
       // Move to the next step
       setStep(step + 1);
@@ -176,6 +183,7 @@ export default function MultiStepForm() {
           guest: 1,
           type: {},
           pricePerNight: 1,
+          meta: {},
         }}
         validationSchema={ValidationFormSchema(step)}
         onSubmit={(values) => handleSubmit(values, session.user)}
@@ -238,7 +246,11 @@ export default function MultiStepForm() {
                     step === 1 ? "w-full sm:w-fit" : ""
                   } rounded-[10px] text-[14px] text-primaryDark lg:hover:-translate-y-1 duration-300 px-12 xxs:px-16 py-2 bg-primaryCoral `}
                 >
-                  {step === 3 ? (isLoading ? "loading" : "Publish") : "Next"}
+                  {step === 3
+                    ? isLoading || uploadLoading || updateLoading
+                      ? "loading"
+                      : "Publish"
+                    : "Next"}
                 </button>
               </div>
             </Form>
@@ -248,3 +260,32 @@ export default function MultiStepForm() {
     </>
   );
 }
+
+// Build the complete URL using the Supabase storage URL and file path
+// const fileUrl = `${
+//   import.meta.env.VITE_PUBLIC_SUPABASE_URL
+// }/storage/v1/object/public/venue_media/${}`;
+// // Add the file URL to the uploads array
+// setUploads((prevUploads) => [...prevUploads, fileUrl]);
+// console.log("uploadData", data);
+//Finn ut hvordan jeg kan få uploadsafs fasefsd f
+// if (uploads.length === files.length) {
+//   console.log("update request is fired");
+//   const { data: updateData, error } = await supabase
+//     .from("venues")
+//     .update({ media: uploads })
+//     .eq("id", venue_id)
+//     .select();
+//   if (updateData) {
+//     setUploads([]);
+//     console.log("updated completed");
+//     console.log("updateData: ", updateData);
+//     console.log(
+//       "Click this link",
+//       window.location.hostname + `venue/id=${venue_id}`
+//     );
+//   }
+//   if (error) {
+//     console.log("updateError: ", error);
+//   }
+// }
