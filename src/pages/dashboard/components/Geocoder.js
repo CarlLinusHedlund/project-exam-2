@@ -39,7 +39,7 @@ function Geocoder({ setFieldValue }) {
       }
     });
 
-    setFieldValue("location.coordinates", { lng: coords[0], lat: coords[1] });
+    setFieldValue("location.coordinates", { lon: coords[0], lat: coords[1] });
     setFieldValue("location.address", {
       street: streetValue,
       zip,

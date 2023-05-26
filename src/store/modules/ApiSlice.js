@@ -53,7 +53,7 @@ const supabaseApi = createApi({
     }),
     publishVenue: builder.mutation({
       queryFn: async ({
-        // user_id,
+        user,
         location,
         // meta,
         title,
@@ -63,16 +63,20 @@ const supabaseApi = createApi({
         max_guests,
         type,
       }) => {
-        const { data, error } = await supabase.from("venues").insert({
-          owner_id: "dd44b9bf-6453-4eae-ba35-7f0bcfb5ffa7",
-          location: location,
-          title: title,
-          description: description,
-          price_per_night: price_per_night,
-          max_guest: max_guests,
-          type: type,
-        });
+        const { data, error } = await supabase
+          .from("venues")
+          .insert({
+            owner_id: user,
+            location: location,
+            title: title,
+            description: description,
+            price_per_night: price_per_night,
+            max_guest: max_guests,
+            type: type,
+          })
+          .select();
         if (error) {
+          console.log(error);
           throw { error };
         }
         console.log(data);

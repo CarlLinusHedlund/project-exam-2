@@ -7,14 +7,17 @@ import AddLocation from "./AddLocation";
 import { usePublishVenueMutation } from "../../../store/modules/ApiSlice";
 import { UserContext } from "../../../components/auth/utils/UserContext";
 import { useContext } from "react";
+import { supabase } from "../../../utils/Supabase";
 
 export default function MultiStepForm() {
   const { session } = useContext(UserContext);
+  const [uploads, setUploads] = useState([]);
+  // console.log("uploads: ", uploads);
   const [step, setStep] = useState(1);
 
-  const [publishVenue, { data: venueData, isLoading, error: venueError }] =
-    usePublishVenueMutation();
-
+  //Publish venue mutation
+  const [publishVenue, { isLoading }] = usePublishVenueMutation();
+  //Gets user lat and lng if navigator.geolocation not suppoerted, fetch location with ipapi
   function geolocationSupported(setFieldValue) {
     if (navigator.geolocation) {
       getCurrentLocation(setFieldValue);
@@ -25,7 +28,7 @@ export default function MultiStepForm() {
         })
         .then((data) => {
           setFieldValue("location.coordinates", {
-            lng: data.longitude,
+            lon: data.longitude,
             lat: data.latitude,
           });
         });
@@ -37,7 +40,7 @@ export default function MultiStepForm() {
       result.coords.latitude; // latitude value
       result.coords.longitude; // longitude value
       setFieldValue("location.coordinates", {
-        lng: result.coords.longitude,
+        lon: result.coords.longitude,
         lat: result.coords.latitude,
       });
     });
@@ -47,25 +50,72 @@ export default function MultiStepForm() {
     setStep(step - 1);
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values, user) => {
     console.log(step);
+    const files = values.files;
+    console.log("files", files);
     if (step === 3) {
-      console.log("Session publish", session.user.id);
-      publishVenue({
-        owner_id: session.user.id,
-        location: values.location,
-        title: values.title,
-        description: values.description,
-        price_per_night: values.pricePerNight,
-        max_guest: values.guest,
-        type: values.type,
-      });
-      console.log("Handle submit called");
-      // Handle final form submission
-      console.log("venueData", venueData);
-      console.log("venueError", venueError);
-      console.log("Handle request: ", values);
-      // Use the values object to make a POST request to your database
+      try {
+        const { data } = await publishVenue({
+          user: user.id,
+          location: values.location,
+          title: values.title,
+          description: values.description,
+          price_per_night: values.pricePerNight,
+          max_guests: values.guest,
+          type: values.type,
+        });
+        if (data) {
+          const venue_id = data[0].id;
+          for (let file of files) {
+            const { data: uploadData, error } = await supabase.storage
+              .from("venue_media")
+              .upload(`${user.id}/${venue_id}/${file.name}${Date.now()}`, file);
+            if (error) {
+              console.error("UploadError", error);
+              console.error("Failed to upload images");
+              //Delete venue
+            }
+            if (uploadData) {
+              // Build the complete URL using the Supabase storage URL and file path
+              const fileUrl = `${
+                import.meta.env.VITE_PUBLIC_SUPABASE_URL
+              }/storage/v1/object/public/venue_media/${user.id}/${venue_id}/${
+                file.name
+              }${Date.now()}`;
+              // Add the file URL to the uploads array
+              setUploads((prevUploads) => [...prevUploads, fileUrl]);
+              console.log("uploadData", data);
+            }
+          }
+          //Finn ut hvordan jeg kan få uploadsafs fasefsd f
+          if (uploads.length === files.length) {
+            console.log("update request is fired");
+            const { data: updateData, error } = await supabase
+              .from("venues")
+              .update({ media: uploads })
+              .eq("id", venue_id)
+              .select();
+            if (updateData) {
+              setUploads([]);
+              console.log("updated completed");
+              console.log("updateData: ", updateData);
+              console.log(
+                "Click this link",
+                window.location.hostname + `venue/id=${venue_id}`
+              );
+            }
+            if (error) {
+              console.log("updateError: ", error);
+            }
+          }
+        }
+
+        console.log("venueData", data);
+      } catch (error) {
+        // Handle the error here
+        console.error(error);
+      }
     } else {
       // Move to the next step
       setStep(step + 1);
@@ -118,7 +168,7 @@ export default function MultiStepForm() {
         initialValues={{
           title: "",
           location: {
-            coordinates: { lat: "", lng: "" },
+            coordinates: { lat: "", lon: "" },
             address: { city: "", country: "", street: "", zip: "" },
           },
           description: "",
@@ -128,14 +178,14 @@ export default function MultiStepForm() {
           pricePerNight: 1,
         }}
         validationSchema={ValidationFormSchema(step)}
-        onSubmit={handleSubmit}
+        onSubmit={(values) => handleSubmit(values, session.user)}
       >
         {({ errors, touched, values, setFieldValue }) => {
           // console.log("values", values);
           // console.log("error", errors);
           if (
             values.location.coordinates.lat === "" &&
-            values.location.coordinates.lng === ""
+            values.location.coordinates.lon === ""
           ) {
             geolocationSupported(setFieldValue);
           }

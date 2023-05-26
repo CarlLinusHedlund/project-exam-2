@@ -64,7 +64,7 @@ export default function AddLocation({ values, setFieldValue, errors }) {
             className="rounded-xl"
             mapboxAccessToken={import.meta.env.VITE_MAPBOX_KEY}
             initialViewState={{
-              longitude: values.location.coordinates.lng,
+              longitude: values.location.coordinates.lon,
               latitude: values.location.coordinates.lat,
               zoom: 8,
             }}
@@ -79,7 +79,7 @@ export default function AddLocation({ values, setFieldValue, errors }) {
             <Marker
               onDragEnd={handleChange}
               latitude={values.location.coordinates.lat}
-              longitude={values.location.coordinates.lng}
+              longitude={values.location.coordinates.lon}
               draggable
             />
             <Geocoder setFieldValue={setFieldValue} />
