@@ -1,54 +1,60 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { SignInContext } from "./utils/AuthContext";
-import { useAnimate } from "framer-motion";
+// import { useAnimate } from "framer-motion";
 import SignInForm from "./SignInForm";
+import { useNavigate } from "react-router-dom";
 
-function useSignInAnimation(activeSignInModal, modalRef) {
-  const [scope, animate] = useAnimate();
+// function useSignInAnimation(activeSignInModal, modalRef) {
+// const [scope, animate] = useAnimate();
+// useEffect(() => {
+//   if (activeSignInModal) {
+//     modalRef.current.style.display = "flex"; // Show the modal by removing the hidden class
 
-  useEffect(() => {
-    if (activeSignInModal) {
-      modalRef.current.style.display = "flex"; // Show the modal by removing the hidden class
+//     setTimeout(() => {
+//       animate(
+//         modalRef.current,
+//         { opacity: 1 },
+//         {
+//           duration: 0.6,
+//         },
+//         { delay: 0.5 }
+//       );
+//     }, 500); // Delay the animation by 100 milliseconds (adjust as needed)
+//   } else {
+//     animate(
+//       modalRef.current,
+//       { opacity: 0 },
+//       {
+//         duration: 0.4,
+//         onComplete: () => {
+//           modalRef.current.style.display = "none"; // Hide the modal after the animation completes
+//         },
+//       }
+//     );
+//   }
+// }, [activeSignInModal, animate, modalRef]);
 
-      setTimeout(() => {
-        animate(
-          modalRef.current,
-          { opacity: 1 },
-          {
-            duration: 0.6,
-          },
-          { delay: 0.5 }
-        );
-      }, 500); // Delay the animation by 100 milliseconds (adjust as needed)
-    } else {
-      animate(
-        modalRef.current,
-        { opacity: 0 },
-        {
-          duration: 0.4,
-          onComplete: () => {
-            modalRef.current.style.display = "none"; // Hide the modal after the animation completes
-          },
-        }
-      );
-    }
-  }, [activeSignInModal, animate, modalRef]);
-
-  return scope;
-}
+//   return scope;
+// }
 
 export default function SignInModal() {
+  const navigate = useNavigate();
   const [activeSignInModal, setActiveSignInModal] = useContext(SignInContext);
-  const modalRef = useRef(null);
-  useSignInAnimation(activeSignInModal, modalRef);
+  // const modalRef = useRef(null);
+  // useSignInAnimation(activeSignInModal, modalRef);
 
   const handleSignInModalClick = () => {
-    setActiveSignInModal(false);
+    if (window.location.pathname === "/signIn") {
+      navigate("/");
+      setActiveSignInModal(!activeSignInModal);
+    } else {
+      setActiveSignInModal(!activeSignInModal);
+    }
   };
 
   return (
     <div
-      ref={modalRef}
+      // ref={modalRef}
       className="signInModal justify-center items-center fixed w-screen h-screen top-0 left-0 right-0 z-30 backdrop-blur-[2px] bg-[#a9a9a91c] px-4 pt-[80px] pb-[20px]"
     >
       <div className="relative w-full h-full max-h-[520px] max-w-sm bg-primaryWhite rounded-[10px] shadow-lg overflow-y-scroll ">

@@ -11,12 +11,24 @@ import {
 } from "./components/auth/utils/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setProfile } from "./store/modules/ProfileSlice";
+import { useLocation } from "react-use";
+import { useNavigate } from "react-router-dom";
+import { headerContext } from "./components/header/utils/MobileHeaderContext";
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile);
+  const [isOpen, setIsOpen] = useState(false);
   const [signInModalOpen, setSignInModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+
+  if (isOpen) {
+    document.body.classList.add("activeDropdown");
+  } else {
+    document.body.classList.remove("activeDropdown");
+  }
 
   if (signInModalOpen || signUpModalOpen) {
     document.body.classList.add("disableScroll");
@@ -36,6 +48,19 @@ function App() {
   }
 
   useEffect(() => {
+    if (window.location.pathname === "/signIn" && session) {
+      setSignInModalOpen(false);
+      navigate("/");
+    } else if (window.location.pathname === "/signIn" && !session) {
+      setSignInModalOpen(true);
+      console.log("hello");
+    }
+    // if () {
+
+    // }
+  }, [location, session, navigate]);
+
+  useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
@@ -53,8 +78,11 @@ function App() {
     <UserContext.Provider value={{ session, setSession }}>
       <SignInContext.Provider value={[signInModalOpen, setSignInModalOpen]}>
         <SignUpContext.Provider value={[signUpModalOpen, setSignUpModalOpen]}>
-          <Layout />2{signInModalOpen && <SignInModal />}
-          {signUpModalOpen && <SignUpModal />}
+          <headerContext.Provider value={[isOpen, setIsOpen]}>
+            <Layout />
+            {signInModalOpen && <SignInModal />}
+            {signUpModalOpen && <SignUpModal />}
+          </headerContext.Provider>
         </SignUpContext.Provider>
       </SignInContext.Provider>
     </UserContext.Provider>

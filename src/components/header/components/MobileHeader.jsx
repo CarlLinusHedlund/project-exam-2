@@ -1,22 +1,18 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Logo from "./Logo";
 import MobileDropdown from "./MobileDropdown";
 import { headerContext } from "../utils/MobileHeaderContext";
 
 function MobileHeader() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useContext(headerContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  console.log("isopen", isOpen);
 
-  if (isOpen) {
-    document.body.classList.add("activeDropdown");
-  } else {
-    document.body.classList.remove("activeDropdown");
-  }
   return (
-    <headerContext.Provider value={[isOpen, setIsOpen]}>
+    <>
       <div className="relative w-full h-full flex justify-between items-center md:hidden px-5 z-30">
         <Logo />
         <span
@@ -45,7 +41,7 @@ function MobileHeader() {
       >
         <MobileDropdown />
       </div>
-    </headerContext.Provider>
+    </>
   );
 }
 

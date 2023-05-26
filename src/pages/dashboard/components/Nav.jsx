@@ -6,6 +6,7 @@ import HomeSvg, {
   PublishSvg,
   StatisticSvg,
 } from "../../../components/DynamicSvgs";
+import Logo from "../../../components/header/components/Logo";
 
 export default function Nav() {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
@@ -14,7 +15,7 @@ export default function Nav() {
   return (
     <>
       {isMobile && (
-        <div className=" z-10 fixed flex justify-between items-center bg-primaryWhite bottom-0 h-20 left-0 right-0 max-w-xl mx-auto px-3 sm:px-10">
+        <div className=" w-full z-10 fixed flex justify-between items-center bg-primaryWhite bottom-0 h-20 left-0 right-0 mx-auto px-3 sm:px-10">
           <div>
             <Link to="/">
               <HomeSvg height="20px" width="20px" color="#A7A7A7" />
@@ -48,15 +49,15 @@ export default function Nav() {
           </Link>
           <div
             className={`p-2 ${
-              location.pathname === "/dashboard/statstics"
+              location.pathname === "/dashboard/statistics"
                 ? "bg-primaryDark"
                 : "bg-none"
             } rounded-[10px] duration-500 `}
           >
-            <Link to="/dashboard/statstics">
+            <Link to="/dashboard/statistics">
               <StatisticSvg
                 color={
-                  location.pathname === "/dashboard/statstics"
+                  location.pathname === "/dashboard/statistics"
                     ? "#FAFAFA"
                     : "#A7A7A7"
                 }
@@ -87,22 +88,23 @@ export default function Nav() {
         </div>
       )}
       {!isMobile && (
-        <div className=" bg-primaryWhite font-poppins z-10 flex flex-col px-5 w-[250px] fixed left-0 top-0 bottom-0 min-h-screen pt-36 ">
+        <div className=" border-r-2 border-[#e8e8e8] bg-primaryWhite font-poppins z-10 flex flex-col pr-5 pl-5 min-w-[250px] w-[250px] sticky left-0 top-0 bottom-0 min-h-screen pt-5 gap-10 ">
+          <Logo />
           <div className="flex flex-col gap-4">
             <Link
               className={` ${
                 location.pathname === "/dashboard"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard"
             >
               <DashboardSvg
                 color={`${
                   location.pathname === "/dashboard" ? "#252525" : "#A7A7A7"
                 }`}
-                height="20px"
-                width="20px"
+                height="15px"
+                width="15px"
               />
               Dashboard
             </Link>
@@ -111,7 +113,7 @@ export default function Nav() {
                 location.pathname === "/dashboard/profile"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard/profile"
             >
               <ProfileSvg
@@ -120,27 +122,27 @@ export default function Nav() {
                     ? "#252525"
                     : "#A7A7A7"
                 }`}
-                height="20px"
-                width="20px"
+                height="15px"
+                width="15px"
               />
               Account
             </Link>
             <Link
               className={` ${
-                location.pathname === "/dashboard/statstics"
+                location.pathname === "/dashboard/statistics"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
-              to="/dashboard/statstics"
+              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
+              to="/dashboard/statistics"
             >
               <StatisticSvg
                 color={`${
-                  location.pathname === "/dashboard/statstics"
+                  location.pathname === "/dashboard/statistics"
                     ? "#252525"
                     : "#A7A7A7"
                 }`}
-                height="20px"
-                width="20px"
+                height="15px"
+                width="15px"
               />
               Statstics
             </Link>
@@ -149,7 +151,7 @@ export default function Nav() {
                 location.pathname === "/dashboard/publish"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard/publish"
             >
               <PublishSvg
@@ -158,8 +160,8 @@ export default function Nav() {
                     ? "#252525"
                     : "#A7A7A7"
                 }`}
-                height="20px"
-                width="20px"
+                height="15px"
+                width="15px"
               />
               Publish a venue
             </Link>

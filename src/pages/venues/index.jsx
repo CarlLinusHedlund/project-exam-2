@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
 import { VenueCard } from "./VenueCard";
 import { useGetVenuesQuery } from "../../store/modules/ApiSlice";
+import { useParams } from "react-router-dom";
 
 export function Venues() {
+  const { country, city } = useParams();
+  console.log(country, city);
+
   const { data: venues, error, isLoading } = useGetVenuesQuery();
 
   if (isLoading) {
