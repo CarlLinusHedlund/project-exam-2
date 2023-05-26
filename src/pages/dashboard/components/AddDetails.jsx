@@ -1,17 +1,80 @@
 import { Field } from "formik";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import WifiSvg, {
+  AirConditionSvg,
+  BreakfastSvg,
+  GymSvg,
+  HeatingSvg,
+  KitchenSvg,
+  ParkingSvg,
+  PetSvg,
+  PoolSvg,
+  TvSvg,
+  WashingMachineSvg,
+} from "../../../components/MetaSvgs";
 
 const AddDetails = ({ errors, touched, values, setFieldValue }) => {
+  const [checkbox, setCheckbox] = useState(false);
   const handleAddGuest = (values, setFieldValue) => {
     const currentGuests = values || 0;
     const newGuests = currentGuests + 1;
     setFieldValue("guest", newGuests);
   };
 
+  const metas = [
+    { id: 1, name: "Wifi", value: "wifi", svg: <WifiSvg color="#252525" /> },
+    {
+      id: 2,
+      name: "Parking",
+      value: "parking",
+      svg: <ParkingSvg color="#252525" />,
+    },
+
+    {
+      id: 3,
+      name: "Breakfast",
+      value: "breakfast",
+      svg: <BreakfastSvg color="#252525" />,
+    },
+    { id: 4, name: "Pets", value: "pets", svg: <PetSvg color="#252525" /> },
+    { id: 5, name: "Pool", value: "pool", svg: <PoolSvg color="#252525" /> },
+    { id: 6, name: "Gym", value: "gym", svg: <GymSvg color="#252525" /> },
+    {
+      id: 7,
+      name: "Air Conditioning",
+      value: "air_conditioning",
+      svg: <AirConditionSvg color="#252525" />,
+    },
+    {
+      id: 8,
+      name: "Heating",
+      value: "heating",
+      svg: <HeatingSvg color="#252525" />,
+    },
+    {
+      id: 9,
+      name: "Kitchen",
+      value: "kitchen",
+      svg: <KitchenSvg color="#252525" />,
+    },
+    { id: 10, name: "Tv", value: "tv", svg: <TvSvg color="#252525" /> },
+    {
+      id: 11,
+      name: "Washing Machine",
+      value: "washing_machine",
+      svg: <WashingMachineSvg color="#252525" />,
+    },
+  ];
+
   const handleRemoveGuest = (values, setFieldValue) => {
     const currentGuests = values || 0;
     const newGuests = Math.max(currentGuests - 1, 1); // Minimum value is 1
     setFieldValue("guest", newGuests);
+  };
+
+  const openCheckbox = () => {
+    setCheckbox(!checkbox);
   };
 
   return (
@@ -60,9 +123,70 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
             </div>
           )}
         </label>
+        <fieldset>
+          <legend
+            onClick={openCheckbox}
+            className="text-base font-light w-full leading-6 text-primaryDark"
+          >
+            <p className="text-[14px] text-gray-500">Add amenities</p>
+            <div className="border-[1px] flex justify-between rounded-[10px] px-2 py-3 w-full border-gray-300">
+              <p className="text-[14px]">Select amenities</p>
+              <img src="../arrow.svg" alt="" />
+            </div>
+          </legend>
+          <div
+            className={`bg-[#ffffff4a] ${
+              checkbox ? "flex" : "hidden"
+            } flex items-center justify-center backdrop-blur-[2px] py-20 p-6 sm:p-20 w-screen top-0 left-0 right-0 bottom-0 h-screen fixed z-10`}
+          >
+            <div
+              className={` bg-primaryWhite relative max-w-md w-full max-h-[500px] px-10 divide-y duration-300 divide-gray-200 border-b border-t overflow-y-scroll shadow-lg rounded-[10px] flex flex-col gap-2 border-gray-200`}
+            >
+              <div className="sticky flex items-center justify-end z-10 w-full top-0 left-0 right-0 py-10 h-20 bg-primaryWhite">
+                <img
+                  className=" duration-300 cursor-pointer lg:hover:scale-105 "
+                  onClick={openCheckbox}
+                  src="../close.svg"
+                  alt=""
+                />
+              </div>
+              {metas.map((meta, metaIdx) => (
+                <label
+                  htmlFor={`${meta.value}`}
+                  key={metaIdx}
+                  className="relative flex items-center justify-between w-full py-4"
+                >
+                  <div className="flex gap-2 items-center">
+                    {meta.svg}
+                    <p className="">{meta.name}</p>
+                  </div>
+
+                  <input
+                    id={`${meta.value}`}
+                    name={`${meta.value}`}
+                    type="checkbox"
+                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setFieldValue(`meta.${e.target.id}`, e.target.checked);
+                      } else {
+                        setFieldValue(`meta.${e.target.id}`, e.target.checked);
+                      }
+                    }}
+                  />
+                </label>
+              ))}
+            </div>
+          </div>
+        </fieldset>
+        {errors.meta && touched.meta && (
+          <div className="text-red-400 text-[14px] absolute -bottom-6 left-1 ">
+            {errors.meta}
+          </div>
+        )}
         {/* Add more fields for Step 1 */}
       </div>
-      <div className="flex w-full flex-col gap-10 lg:w-[40%] lg:justify-between">
+      <div className="flex w-full flex-col gap-10 lg:w-[40%]">
         <label
           htmlFor="pricePerNight"
           className="text-primaryDark relative flex flex-col text-[14px] w-full "
@@ -159,17 +283,16 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
             htmlFor="meta"
             className="text-primaryDark flex flex-col w-full text-[14px]"
           >
-            Meta
-            <div
+            {/* <div
               className={`w-full ${
                 errors.meta && touched.meta
                   ? "border-red-400"
                   : " border-gray-300"
               } p-1 bg-primaryWhite border-[1px] relative rounded-[10px]`}
-            >
-              <Field
+            > */}
+            {/* <Field
                 multible
-                as="select"
+                as="checkbox"
                 id="meta"
                 name="meta"
                 className=" w-full bg-primaryWhite py-2 text-[14px] duration-500 font-light  outline-none"
@@ -185,13 +308,8 @@ const AddDetails = ({ errors, touched, values, setFieldValue }) => {
                 <option value="kitchen">Kitchen</option>
                 <option value="tv">Tv</option>
                 <option value="washing_machine">Washing Machine</option>
-              </Field>
-              {errors.meta && touched.meta && (
-                <div className="text-red-400 text-[14px] absolute -bottom-6 left-1 ">
-                  {errors.meta}
-                </div>
-              )}
-            </div>
+              </Field> */}
+            {/* </div> */}
           </label>
         </div>
       </div>

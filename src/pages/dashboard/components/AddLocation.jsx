@@ -5,10 +5,11 @@ import Geocoder from "./Geocoder";
 import "./index.css";
 
 export default function AddLocation({ values, setFieldValue, errors }) {
-  const fetchLocationData = async (lnglat) => {
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${
-      lnglat.lng
-    },${lnglat.lat}.json?access_token=${import.meta.env.VITE_MAPBOX_KEY}`;
+  const fetchLocationData = async (lon, lat) => {
+    console.log("lnglat", lon, lat);
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lon},${lat}.json?access_token=${
+      import.meta.env.VITE_MAPBOX_KEY
+    }`;
     try {
       let streetValue = "";
       let zip = "";
@@ -32,7 +33,7 @@ export default function AddLocation({ values, setFieldValue, errors }) {
           }
         }
       });
-      setFieldValue("location.coordinates", lnglat);
+      setFieldValue("location.coordinates", { lon: lon, lat: lat });
       setFieldValue("location.address", {
         street: streetValue,
         zip,
@@ -46,14 +47,16 @@ export default function AddLocation({ values, setFieldValue, errors }) {
 
   const handleChange = async (event) => {
     const lnglat = event.target.getLngLat();
-    await fetchLocationData(lnglat);
+    const lon = lnglat.lng;
+    const lat = lnglat.lat;
+    await fetchLocationData(lon, lat);
   };
 
   const setGeoLocation = async (e) => {
-    await fetchLocationData({
-      lng: e.coords.longitude,
-      lat: e.coords.latitude,
-    });
+    const lon = e.coords.longitude;
+    const lat = e.coords.latitude;
+    console.log(e);
+    await fetchLocationData(lon, lat);
   };
 
   return (

@@ -11,10 +11,8 @@ import {
 } from "../../../store/modules/ApiSlice";
 import { UserContext } from "../../../components/auth/utils/UserContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function MultiStepForm() {
-  const Navigate = useNavigate();
   const { session } = useContext(UserContext);
   const [step, setStep] = useState(1);
   // const [uploads, setUploads] = useState([]);
@@ -71,6 +69,7 @@ export default function MultiStepForm() {
         price_per_night: values.pricePerNight,
         max_guests: values.guest,
         type: values.type,
+        meta: values.meta,
       }).then((response) => {
         console.log("publishVenue response:", response.data);
         if (!isLoading && !error) {
@@ -110,10 +109,6 @@ export default function MultiStepForm() {
                 console.log("host", host);
                 console.log("pathname", pathname);
                 window.location.pathname = `/venue/${venue_id}`;
-                // const navigateToVenue = () => (
-                //   <Navigate to={} />
-                // );
-                // navigateToVenue();
               }
               console.log("Update success! Get In!!!!!!!!!");
               // uploads = [];
@@ -181,9 +176,21 @@ export default function MultiStepForm() {
           description: "",
           files: [],
           guest: 1,
-          type: {},
+          type: "",
           pricePerNight: 1,
-          meta: {},
+          meta: {
+            wifi: false,
+            parking: false,
+            breakfast: false,
+            pets: false,
+            pool: false,
+            gym: false,
+            air_conditioning: false,
+            heating: false,
+            kitchen: false,
+            tv: false,
+            washing_machine: false,
+          },
         }}
         validationSchema={ValidationFormSchema(step)}
         onSubmit={(values) => handleSubmit(values, session.user)}
@@ -197,7 +204,7 @@ export default function MultiStepForm() {
           ) {
             geolocationSupported(setFieldValue);
           }
-
+          console.log(values);
           return (
             <Form className="flex flex-col justify-between duration-300 w-full rounded-[10px] md:p-5 min-h-[500px] ">
               {/* Render form fields for each step */}

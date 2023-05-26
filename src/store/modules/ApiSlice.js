@@ -57,11 +57,12 @@ const supabaseApi = createApi({
       queryFn: async ({
         user_id,
         location,
-        // meta,
+        meta,
         title,
         description,
         price_per_night,
         max_guests,
+        type,
       }) => {
         const { data, error } = await supabase
           .from("venues")
@@ -72,6 +73,8 @@ const supabaseApi = createApi({
             description: description,
             price_per_night: price_per_night,
             max_guest: max_guests,
+            type: type,
+            meta: meta,
           })
           .select()
           .single();
