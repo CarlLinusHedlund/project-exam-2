@@ -120,7 +120,7 @@ export function SingedInProfile() {
 
   if (session.session) {
     const { user } = session.session;
-    const firstLetter = user.user_metadata.full_name[0];
+    const firstLetter = user.user_metadata.name[0];
 
     const checkWindowSize = () => {
       setProfileNav(false);
@@ -134,23 +134,25 @@ export function SingedInProfile() {
         <div className="relative ">
           <div
             onClick={profileNavHandler}
-            className="flex justify-between gap-2 "
+            className="flex justify-between gap-2 overflow-hidden "
           >
             <div className="flex gap-2">
               {user.user_metadata.avatar_url ? (
                 <img
                   className=" h-10 w-10 rounded-full "
                   src={user.user_metadata.avatar_url}
-                  alt={`${user.user_metadata.full_name}`}
+                  alt={`${user.user_metadata.name}`}
                 />
               ) : (
                 <div className=" text-[16px] bg-primaryCoral h-10 w-10 flex justify-center items-center rounded-full ">
                   {firstLetter}
                 </div>
               )}
-              <div className=" whitespace-nowrap text-ellipsis overflow-hidden ">
-                <p className=" text-[14px] ">{user.user_metadata.full_name}</p>
-                <p className="text-[#868686] text-[12px]">{user.email}</p>
+              <div className=" whitespace-nowrap text-ellipsis overflow-hidden max-w-[150px] ">
+                <p className=" text-[14px] ">{user.user_metadata.name}</p>
+                <p className="text-[#868686] text-[12px] text-ellipsis">
+                  {user.email}
+                </p>
               </div>
             </div>
             <img
@@ -276,7 +278,7 @@ export function SingedInProfileDesktop() {
 
   if (session.session) {
     const { user } = session.session;
-    const firstLetter = user.user_metadata.full_name[0];
+    const firstLetter = user.user_metadata.name[0];
     const checkWindowSize = () => {
       setProfileNav(false);
     };
@@ -296,7 +298,7 @@ export function SingedInProfileDesktop() {
                 <img
                   className=" h-6 w-6 rounded-full "
                   src={user.user_metadata.avatar_url}
-                  alt={`${user.user_metadata.full_name}`}
+                  alt={`${user.user_metadata.name}`}
                 />
               ) : (
                 <div className=" text-[14px] bg-primaryCoral h-8 w-8 flex justify-center items-center rounded-full ">
@@ -304,7 +306,7 @@ export function SingedInProfileDesktop() {
                 </div>
               )}
               <div className=" whitespace-nowrap text-ellipsis overflow-hidden ">
-                <p className=" text-[14px] ">{user.user_metadata.full_name}</p>
+                <p className=" text-[14px] ">{user.user_metadata.name}</p>
                 <p className="text-[#868686] text-[12px]">{user.email}</p>
               </div>
             </div>

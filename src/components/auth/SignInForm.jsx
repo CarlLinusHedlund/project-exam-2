@@ -22,7 +22,6 @@ export default function SignInForm() {
     setSignInResponse(false);
     setErrorMessage(null);
   };
-  console.log("location", location);
 
   if (signInModal === false) {
     setSignInResponse(false);
@@ -34,6 +33,12 @@ export default function SignInForm() {
       email: `${values.email}`,
       password: `${values.password}`,
     });
+    if (error) {
+      setSignInModal(true);
+      setSignInResponse(true);
+      setErrorMessage([error.message]);
+      return error;
+    }
     if (data) {
       setSignInModal(!signInModal);
       if (location === "/signIn") {
@@ -41,10 +46,6 @@ export default function SignInForm() {
       } else {
         location.reload();
       }
-    }
-    if (error) {
-      setSignInResponse(true);
-      setErrorMessage([error.message]);
     }
   };
 

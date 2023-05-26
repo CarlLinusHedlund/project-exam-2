@@ -27,15 +27,16 @@ export default function SignUpForm() {
       .from("profiles")
       .select("email")
       .eq("email", `${values.userEmail}`);
+    if (error) {
+      console.log(error);
+      return error;
+    }
     if (data.length < 1) {
       console.log(data);
       setEmailInUse(null);
       signUp();
     } else {
       setEmailInUse("email already in use");
-    }
-    if (error) {
-      console.log(error);
     }
 
     async function signUp() {
