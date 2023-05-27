@@ -17,7 +17,7 @@ body.activeDropdown {
 }
 
 .inner {
-  @apply max-w-7xl mx-auto
+  @apply max-w-[1400px] mx-auto;
 }
 
 /* width */

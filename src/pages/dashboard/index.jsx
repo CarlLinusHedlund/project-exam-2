@@ -1,14 +1,12 @@
-import { motion } from "framer-motion";
+import { useContext } from "react";
+import { UserContext } from "../../components/auth/utils/UserContext";
+import Dashboard from "./components/Dashboard";
 
-export default function Dashboard() {
+export default function Index() {
+  const session = useContext(UserContext);
   return (
-    <motion.div
-      className="inner flex relative gap-5 "
-      exit={{ opacity: 0, transition: { duration: 0.3 } }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.5 } }}
-    >
-      <Dashboard />
-    </motion.div>
+    <div className="flex relative gap-5 ">
+      <Dashboard session={session} />
+    </div>
   );
 }

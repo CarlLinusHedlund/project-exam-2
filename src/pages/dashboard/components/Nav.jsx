@@ -96,16 +96,18 @@ export default function Nav() {
                 location.pathname === "/dashboard"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center group hover:bg-[#F0F0F0] duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard"
             >
-              <DashboardSvg
-                color={`${
-                  location.pathname === "/dashboard" ? "#252525" : "#A7A7A7"
-                }`}
-                height="15px"
-                width="15px"
-              />
+              <div className="duration-300 group-hover:rotate-6 group-hover:scale-105">
+                <DashboardSvg
+                  color={`${
+                    location.pathname === "/dashboard" ? "#252525" : "#A7A7A7"
+                  }`}
+                  height="15px"
+                  width="15px"
+                />
+              </div>
               Dashboard
             </Link>
             <Link
@@ -113,18 +115,20 @@ export default function Nav() {
                 location.pathname === "/dashboard/profile"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center group hover:bg-[#F0F0F0] duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard/profile"
             >
-              <ProfileSvg
-                color={`${
-                  location.pathname === "/dashboard/profile"
-                    ? "#252525"
-                    : "#A7A7A7"
-                }`}
-                height="15px"
-                width="15px"
-              />
+              <div className="duration-300 group-hover:rotate-6 group-hover:scale-105">
+                <ProfileSvg
+                  color={`${
+                    location.pathname === "/dashboard/profile"
+                      ? "#252525"
+                      : "#A7A7A7"
+                  }`}
+                  height="15px"
+                  width="15px"
+                />
+              </div>
               Account
             </Link>
             <Link
@@ -132,18 +136,20 @@ export default function Nav() {
                 location.pathname === "/dashboard/statistics"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
+              } flex items-center group hover:bg-[#F0F0F0] duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard/statistics"
             >
-              <StatisticSvg
-                color={`${
-                  location.pathname === "/dashboard/statistics"
-                    ? "#252525"
-                    : "#A7A7A7"
-                }`}
-                height="15px"
-                width="15px"
-              />
+              <div className="duration-300 group-hover:rotate-6 group-hover:scale-105">
+                <StatisticSvg
+                  color={`${
+                    location.pathname === "/dashboard/statistics"
+                      ? "#252525"
+                      : "#A7A7A7"
+                  }`}
+                  height="15px"
+                  width="15px"
+                />
+              </div>
               Statstics
             </Link>
             <Link
@@ -151,18 +157,20 @@ export default function Nav() {
                 location.pathname === "/dashboard/publish"
                   ? "bg-[#F0F0F0] text-primaryDark font-medium "
                   : "bg-none text-[#a7a7a7] "
-              } flex items-center duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
+              } flex group items-center hover:bg-[#F0F0F0] duration-500 w-full rounded-[10px] gap-2 py-2 px-3 `}
               to="/dashboard/publish"
             >
-              <PublishSvg
-                color={`${
-                  location.pathname === "/dashboard/publish"
-                    ? "#252525"
-                    : "#A7A7A7"
-                }`}
-                height="15px"
-                width="15px"
-              />
+              <div className="duration-300 group-hover:rotate-6 group-hover:scale-105">
+                <PublishSvg
+                  color={`${
+                    location.pathname === "/dashboard/publish"
+                      ? "#252525"
+                      : "#A7A7A7"
+                  }`}
+                  height="15px"
+                  width="15px"
+                />
+              </div>
               Publish a venue
             </Link>
           </div>
