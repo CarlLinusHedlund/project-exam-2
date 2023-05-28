@@ -11,11 +11,14 @@ import LocationTab from "./LocationTab";
 import YourHostTab from "./YourHostTab";
 import { useGetUserQuery } from "../../../store/modules/ApiSlice";
 
-export default function Tabs({ meta, owner }) {
+export default function Tabs({ meta, owner, location, venueImg }) {
   const { data: host } = useGetUserQuery(owner);
 
   const allIngredients = [
-    { label: "Location", content: <LocationTab /> },
+    {
+      label: "Location",
+      content: <LocationTab venueImg={venueImg} location={location} />,
+    },
     {
       label: "Amenities",
       content: <FeaturesTab meta={meta} />,
@@ -80,6 +83,8 @@ export default function Tabs({ meta, owner }) {
 }
 
 Tabs.propTypes = {
+  venueImg: PropTypes.string,
   meta: PropTypes.object,
   owner: PropTypes.string,
+  location: PropTypes.object,
 };
