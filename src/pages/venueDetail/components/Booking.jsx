@@ -1,9 +1,7 @@
-import { useMediaQuery } from "react-responsive";
 import "./index.css";
 import PropTypes from "prop-types";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { format } from "date-fns";
-import CheckNextBooking from "./CheckNextBooking";
 import GuestCounter from "./GuestCounter";
 import WifiSvg, {
   BreakfastSvg,
@@ -11,11 +9,24 @@ import WifiSvg, {
   PetSvg,
 } from "../../../components/MetaSvgs";
 import Calendar from "./Calendar";
+import { SignInContext } from "../../../components/auth/utils/AuthContext";
 
-export default function Booking({ price, bookings, maxGuests, meta }) {
-  const [bookingOpen, setBookingOpen] = useState(false);
-  const isMobile = useMediaQuery({ query: "(max-width: 880px)" });
-  const bookingRef = useRef(null);
+export default function Booking({
+  user,
+  price,
+  bookings,
+  maxGuests,
+  meta,
+  id,
+  bookingOpen,
+  setBookingOpen,
+  isMobile,
+  bookVenue,
+}) {
+  const [signInModal, setSignInModal] = useContext(SignInContext);
+  console.log("user", user);
+  let venue_id = id;
+  // console.log("signInModal", signInModal);
   const [openDate, setOpenDate] = useState(false);
   const defaultSelected = {
     from: "",
@@ -24,7 +35,7 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
 
   const [guests, setGuests] = useState(0);
   const [range, setRange] = useState(defaultSelected);
-  console.log("range", range);
+
   useEffect(() => {
     // When range.from and range.to are both set,
     // set openDate to true and close the calendar
@@ -35,17 +46,29 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
   }, [range]);
 
   const handleBooking = () => {
-    if (isMobile) {
-      if (bookingOpen) {
-        setBookingOpen(false);
-      } else {
-        setBookingOpen(true);
+    if (user) {
+      if (isMobile) {
+        if (!bookingOpen) {
+          setBookingOpen(true);
+        } else if (range.from && range.to) {
+          let user_id = user.id;
+          let from = format(new Date(range.from), "dd.MM.yyyy HH:mm:ss");
+          let to = format(new Date(range.to), "dd.MM.yyyy HH:mm:ss");
+          let id = venue_id;
+          console.log("Make a request");
+          bookVenue({ from, to, user_id, id });
+          setBookingOpen(false);
+        }
       }
-    }
-    if (!isMobile) {
-      console.log(range);
-      console.log(guests);
-      console.log("Make a request!!");
+      if (!isMobile) {
+        let user_id = user.id;
+        let from = format(new Date(range.from), "yyyy.MM.dd HH:mm:ss");
+        let to = format(new Date(range.to), "yyyy.MM.dd HH:mm:ss");
+        let id = venue_id;
+        bookVenue({ from, to, user_id, id });
+      }
+    } else {
+      setSignInModal(!signInModal);
     }
   };
 
@@ -55,13 +78,6 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
 
   return (
     <>
-      {bookingOpen && isMobile && (
-        <div
-          onClick={() => setBookingOpen(false)}
-          ref={bookingRef}
-          className="absolute top-0 left-0 bottom-0 right-0 bg-[#00000039] h-full w-screen z-30"
-        ></div>
-      )}
       <div
         className={
           isMobile
@@ -231,9 +247,9 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
                     /night
                   </span>{" "}
                 </p>
-                <p className="text-[10px] text-gray-400 ">
+                {/* <p className="text-[10px] text-gray-400 ">
                   <CheckNextBooking bookings={bookings} />
-                </p>
+                </p> */}
               </div>
               <button
                 onClick={handleBooking}
@@ -250,8 +266,14 @@ export default function Booking({ price, bookings, maxGuests, meta }) {
 }
 
 Booking.propTypes = {
+  user: PropTypes.object.isRequired,
+  id: PropTypes.string,
   price: PropTypes.number.isRequired,
   bookings: PropTypes.arrayOf(PropTypes.object).isRequired,
   maxGuests: PropTypes.number.isRequired,
   meta: PropTypes.object.isRequired,
+  bookingOpen: PropTypes.bool,
+  setBookingOpen: PropTypes.func,
+  isMobile: PropTypes.bool,
+  bookVenue: PropTypes.func,
 };
