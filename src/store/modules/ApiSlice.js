@@ -4,11 +4,14 @@ import { supabase } from "../../utils/Supabase";
 const supabaseApi = createApi({
   reducerPath: "SupabaseApi",
   baseQuery: fakeBaseQuery(),
-  tagTypes: ["Venues", "Bookings"],
+  tagTypes: ["Venues", "User", "Bookings"],
   endpoints: (builder) => ({
     getVenues: builder.query({
-      queryFn: async () => {
-        const { data, error } = await supabase.from("venues").select("*");
+      queryFn: async (user_id) => {
+        const { data, error } = await supabase
+          .from("venues")
+          .select("*")
+          .eq("owner_id", user_id);
         if (error) {
           throw { error };
         }
@@ -29,6 +32,20 @@ const supabaseApi = createApi({
         return { data };
       },
     }),
+    getOwnersBookings: builder.query({
+      queryFn: async (userId) => {
+        const { data, error } = await supabase
+          .rpc("get_bookings_with_owner_and_venue_details", { user_id: userId })
+          .select("*")
+          .order("created_at", { ascending: false });
+        if (error) {
+          console.log(error);
+          throw { error };
+        }
+        return { data };
+      },
+      providesTags: ["Bookings"],
+    }),
     getUser: builder.query({
       queryFn: async (id) => {
         const { data, error } = await supabase
@@ -36,6 +53,20 @@ const supabaseApi = createApi({
           .select("*")
           .eq("id", id);
         if (error) {
+          throw { error };
+        }
+        return { data };
+      },
+      providesTags: ["User"],
+    }),
+    getTodaysChekinChekout: builder.query({
+      queryFn: async (owner_id) => {
+        const { data, error } = await supabase.rpc(
+          "get_checkins_checkouts_today",
+          { owner_id: owner_id }
+        );
+        if (error) {
+          console.log(error);
           throw { error };
         }
         return { data };
@@ -52,6 +83,7 @@ const supabaseApi = createApi({
         }
         return { data };
       },
+      providesTags: ["User"],
     }),
     publishVenue: builder.mutation({
       queryFn: async ({
@@ -87,18 +119,34 @@ const supabaseApi = createApi({
       invalidatesTags: ["Venues"],
     }),
     deleteVenue: builder.mutation({
-      queryFn: async ({ venue_id }) => {
+      queryFn: async (id) => {
         const { data, error } = await supabase
           .from("venues")
           .delete()
-          .eq("id", venue_id);
+          .eq("id", id);
         if (error) {
+          console.log(error);
           throw { error };
         }
-        // console.log(data);
+        console.log("tst", data);
         return { data };
       },
-      invalidatesTags: ["Venues"],
+      invalidatesTags: ["Venues", "Bookings", "User"],
+    }),
+    deleteBooking: builder.mutation({
+      queryFn: async (id) => {
+        const { data, error } = await supabase
+          .from("bookings")
+          .delete()
+          .eq("id", id);
+        if (error) {
+          console.log(error);
+          throw { error };
+        }
+        console.log("tst", data);
+        return { data };
+      },
+      invalidatesTags: ["Venues", "Bookings", "User"],
     }),
     uploadFiles: builder.mutation({
       queryFn: async ({ file, venue_id, user_id }) => {
@@ -125,11 +173,29 @@ const supabaseApi = createApi({
           return { data };
         }
       },
+      invalidatesTags: ["Venues"],
+    }),
+    updateBookingStatus: builder.mutation({
+      queryFn: async ({ status, bookingId }) => {
+        const { data, error } = await supabase
+          .from("bookings")
+          .update({ status: status })
+          .eq("id", bookingId)
+          .select();
+        if (error) {
+          console.log(error);
+          throw { error };
+        }
+        console.log(data);
+        return { data };
+      },
+      invalidatesTags: ["Bookings"],
     }),
   }),
 });
 
 export const {
+  useGetTodaysChekinChekoutQuery,
   useUpdateVenueMutation,
   useDeleteVenueMutation,
   useUploadFilesMutation,
@@ -138,6 +204,9 @@ export const {
   useGetUserQuery,
   useGetProfileQuery,
   usePublishVenueMutation,
+  useDeleteBookingMutation,
+  useGetOwnersBookingsQuery,
+  useUpdateBookingStatusMutation,
 } = supabaseApi;
 
 export { supabaseApi };
