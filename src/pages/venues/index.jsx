@@ -7,7 +7,7 @@ export function Venues() {
   const { country, city } = useParams();
   console.log(country, city);
 
-  const { data: venues, error, isLoading } = useGetVenuesQuery();
+  const { data: venues, error, isLoading } = useGetVenuesQuery({});
 
   if (isLoading) {
     return <div>Loading...</div>;
