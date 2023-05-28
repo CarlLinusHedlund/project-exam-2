@@ -36,9 +36,6 @@ export default function Booking({
   const [guests, setGuests] = useState(0);
   const [range, setRange] = useState(defaultSelected);
 
-  // console.log(bookingData);
-  // console.log(bookingError);
-
   useEffect(() => {
     // When range.from and range.to are both set,
     // set openDate to true and close the calendar
