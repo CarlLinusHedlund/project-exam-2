@@ -205,6 +205,8 @@ export const {
   useGetProfileQuery,
   usePublishVenueMutation,
   useDeleteBookingMutation,
+  useGetOwnersBookingsQuery,
+  useUpdateBookingStatusMutation,
 } = supabaseApi;
 
 export { supabaseApi };

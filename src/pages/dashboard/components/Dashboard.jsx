@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../components/auth/utils/UserContext";
 import {
   useGetUserQuery,
-  useGetVenuesQuery,
   useGetTodaysChekinChekoutQuery,
 } from "../../../store/modules/ApiSlice";
 import { useMediaQuery } from "react-responsive";
@@ -17,9 +16,7 @@ export function TodaysBookingsData({
   totalBookings,
 }) {
   const { data, isLoading, error } = useGetTodaysChekinChekoutQuery(owner_id);
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  // console.log("wner_id: ", owner_id);
-  console.log("isMobile: ", isMobile);
+  // const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   if (error) {
     console.log(error);
   }
@@ -67,10 +64,8 @@ export default function Dashboard() {
       setUser(data);
     }
   }, [userData]);
-  console.log("user", user);
 
   if (error) {
-    console.log(error);
     return (
       <div className="fixed w-72 rounded-sm h-10 bg-red-400 top-20 right-10 ">
         {error.message}
@@ -81,7 +76,6 @@ export default function Dashboard() {
   if (isLoading) return <div>Loading...</div>;
 
   if (user) {
-    console.log("userData", userData);
     return (
       <motion.div
         className=" text-primaryDark font-poppins w-full h-full py-14 px-5 md:px-10 lg:px-20 "
@@ -179,7 +173,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <DashboardTabs owner_id={user.id} />
+        <DashboardTabs bookings={user.bookings} owner_id={user.id} />
       </motion.div>
     );
   }

@@ -17,10 +17,8 @@ export default function UserVenues({ owner_id }) {
     id: "",
     name: "",
   });
-  console.log(deleteObject);
   const { data, isLoading, error } = useGetVenuesQuery(owner_id);
   const [deleteVenue] = useDeleteVenueMutation();
-  // console.log("deleteData", deleteError);
   useEffect(() => {
     if (data) {
       setModalVisibility(Array(data.length).fill(false));
@@ -35,13 +33,15 @@ export default function UserVenues({ owner_id }) {
     });
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="pt-20 animate-pulse w-full text-center">Loading...</div>
+    );
 
   if (error) return <div>{error.message}</div>;
-  console.log("data:", data);
   return (
     <div className="flex w-full flex-col pt-14 gap-6">
-      <h1 className="text-xl font-bold">Total Venues({data.length})</h1>
+      <h1 className="text-xl font-bold">Total Venues({data?.length})</h1>
 
       {data && data.length > 0 ? (
         <table className=" font-poppins w-full">
@@ -88,11 +88,13 @@ export default function UserVenues({ owner_id }) {
                     className=" hover:bg-gray-100 min-w-[600px] w-full overflow-x-scroll rounded-md border-[#E2E8F0] lg:hover:shadow-lg lg:hover:scale-[1.02] duration-500"
                   >
                     <td className="py-4"></td>
-                    <Link className="" to={`/venue/${venue.id}`}>
-                      <td className="text-ellipsis duration-300 text-primaryDark py-4 text-[12px] md:text-[14px]">
+
+                    <td className="text-ellipsis duration-300 text-primaryDark py-4 text-[12px] md:text-[14px]">
+                      <Link className="" to={`/venue/${venue.id}`}>
                         {venue.title}
-                      </td>
-                    </Link>
+                      </Link>
+                    </td>
+
                     <td className="py-4 text-gray-400 text-[10px] md:text-[14px]">
                       {created_at}
                     </td>
@@ -134,7 +136,7 @@ export default function UserVenues({ owner_id }) {
                         {modalVisibility[index] && (
                           <div
                             onClick={() => {
-                              deleteVenue(venue.id); // Invoke deleteVenue inside the callback
+                              deleteVenue(deleteObject.id); // Invoke deleteVenue inside the callback
                               onClick(index);
                               setDeleteObject("");
                             }}
@@ -163,14 +165,13 @@ export default function UserVenues({ owner_id }) {
           <Link
             to="/dashboard/publish"
             className={
-              "relative flex w-fit min-w-[250px] items-center justify-center rounded-[10px] bg-primaryCoral p-4 font-medium lg:hover:text-primaryWhite text-primaryDark duration-300 hover:bg-primaryDark"
+              "relative flex w-fit min-w-[250px] items-center justify-center rounded-[10px] bg-primaryCoral p-4 font-medium lg:hover:text-primaryWhite text-primaryDark duration-300 lg:hover:bg-primaryDark"
             }
           >
             List A Vanue
           </Link>
         </div>
       )}
-      {console.log(data)}
     </div>
   );
 }

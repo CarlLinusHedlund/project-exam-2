@@ -1,0 +1,21 @@
+.table-container {
+  max-width: 900px;
+  overflow-x: auto;
+}
+
+.table-container::-webkit-scrollbar {
+  height: 4px !important;
+  display: block !important;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

@@ -5,35 +5,37 @@ import {
   LocationPinSvg,
   YourHostSvg,
 } from "../../../components/DynamicSvgs";
+
 import { useState } from "react";
 import UserVenues from "./UserVenues";
+import Bookings from "./Bookings";
+import Performance from "./Performance";
 
 export default function DashboardTabs({ owner_id }) {
   const allIngredients = [
-    { label: "Your venues", content: <UserVenues owner_id={owner_id} /> },
+    { label: "Venues", content: <UserVenues owner_id={owner_id} /> },
     {
       label: "Bookings",
-      content: "Bookings",
+      content: <Bookings owner_id={owner_id} />,
     },
-    { label: "Your Bookings", content: "Your Bookings" },
-    { label: "Performance", content: "Performance" },
+    { label: "Performance", content: <Performance /> },
   ];
 
   const [selectedTab, setSelectedTab] = useState(allIngredients[0]);
   return (
     <>
-      <div className=" font-poppins list-none flex gap-5 xs:gap-10 pt-10 ">
-        {allIngredients.map((item) => (
+      <div className=" font-poppins list-none flex gap-5 justify-around sm:justify-start xs:gap-10 pt-10 ">
+        {allIngredients.map((item, index) => (
           <li
-            key={item.label}
-            className={` flex gap-1 items-center text-[12px] md:text-[16px] font-semibold cursor-pointer ${
+            key={item.label + index}
+            className={` flex gap-1 items-center text-[12px] smd:text-[16px] font-semibold cursor-pointer ${
               item.label === selectedTab.label
                 ? "selected relative text-primaryCoral "
                 : " text-[#C1C1C1]"
             }`}
             onClick={() => setSelectedTab(item)}
           >
-            {item.label === "Your venues" && (
+            {item.label === "Venues" && (
               <LocationPinSvg
                 color={item.label === selectedTab.label ? "#E0736D" : "#C1C1C1"}
               />
