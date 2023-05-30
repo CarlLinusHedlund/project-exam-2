@@ -15,8 +15,6 @@ function Geocoder({ setFieldValue }) {
     const street = e.result.text;
     const address = e.result.address;
     const context = e.result.context;
-    // console.log("geometry", context);
-    // console.log("data", street);
 
     let streetValue = "";
     if (street && address) {

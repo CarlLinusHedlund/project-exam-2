@@ -59,7 +59,6 @@ export default function MultiStepForm() {
 
   const handleSubmit = (values, user) => {
     const files = values.files;
-    console.log(files);
     if (step === 3) {
       publishVenue({
         user_id: user.id,
@@ -71,7 +70,6 @@ export default function MultiStepForm() {
         type: values.type,
         meta: values.meta,
       }).then((response) => {
-        console.log("publishVenue response:", response.data);
         if (!isLoading && !error) {
           const venue_id = response.data.id;
           const uploadPromises = [];
@@ -81,7 +79,6 @@ export default function MultiStepForm() {
               file: file,
               user_id: user.id,
             }).then((uploadResponse) => {
-              console.log(uploadResponse.data);
               const response = uploadResponse.data;
               const fileUrl = `${
                 import.meta.env.VITE_PUBLIC_SUPABASE_URL
@@ -90,8 +87,6 @@ export default function MultiStepForm() {
               return fileUrl;
             });
             uploadPromises.push(uploadPromise);
-            // console.log("uploads outside", uploads);
-            // console.log("files length", files);
           }
 
           Promise.all(uploadPromises).then((uploads) => {
@@ -100,19 +95,11 @@ export default function MultiStepForm() {
               media: uploads,
               venue_id: venue_id,
             }).then((updateResponse) => {
-              console.log(updateResponse);
               if (updateResponse) {
-                const pathname = window.location.pathname;
-                const host = window.location.host;
-                console.log("host", host);
-                console.log("pathname", pathname);
                 window.location.pathname = `/venue/${venue_id}`;
               }
-              console.log("Update success! Get In!!!!!!!!!");
               // uploads = [];
             });
-            console.log("fireeeeeee");
-            console.log(uploads.length);
           });
         }
       });
@@ -194,8 +181,6 @@ export default function MultiStepForm() {
         onSubmit={(values) => handleSubmit(values, session.user)}
       >
         {({ errors, touched, values, setFieldValue }) => {
-          // console.log("values", values);
-          // console.log("error", errors);
           if (
             values.location.coordinates.lat === "" &&
             values.location.coordinates.lon === ""
@@ -264,32 +249,3 @@ export default function MultiStepForm() {
     </>
   );
 }
-
-// Build the complete URL using the Supabase storage URL and file path
-// const fileUrl = `${
-//   import.meta.env.VITE_PUBLIC_SUPABASE_URL
-// }/storage/v1/object/public/venue_media/${}`;
-// // Add the file URL to the uploads array
-// setUploads((prevUploads) => [...prevUploads, fileUrl]);
-// console.log("uploadData", data);
-//Finn ut hvordan jeg kan få uploadsafs fasefsd f
-// if (uploads.length === files.length) {
-//   console.log("update request is fired");
-//   const { data: updateData, error } = await supabase
-//     .from("venues")
-//     .update({ media: uploads })
-//     .eq("id", venue_id)
-//     .select();
-//   if (updateData) {
-//     setUploads([]);
-//     console.log("updated completed");
-//     console.log("updateData: ", updateData);
-//     console.log(
-//       "Click this link",
-//       window.location.hostname + `venue/id=${venue_id}`
-//     );
-//   }
-//   if (error) {
-//     console.log("updateError: ", error);
-//   }
-// }

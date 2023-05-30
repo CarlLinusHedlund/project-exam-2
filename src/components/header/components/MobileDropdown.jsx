@@ -43,7 +43,6 @@ export default function MobileDropdown({ user }) {
     if (error) {
       console.log(error);
     }
-    console.log(data);
     if (data) {
       setIsHost(data[0].is_host);
     }
@@ -51,7 +50,6 @@ export default function MobileDropdown({ user }) {
 
   useEffect(() => {
     if (user.session) {
-      console.log(user.session);
       getUser(user.session.user.id);
     }
   }, [user]);

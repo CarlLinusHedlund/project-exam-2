@@ -19,12 +19,9 @@ export default function Profile() {
   const [modal, setModal] = useState(false);
   const [files, setFiles] = useState();
   const [imagePreview, setImagePreview] = useState(null);
-  const [uploadImg, { data: uploadData, error: uploadError }] =
-    useUploadUserImageMutation();
-  const [updateImg, { data: updateData, error: updateError }] =
-    useUpdateUserImageMutation();
-  const [updateProfile, { data: profileData, error: profileError }] =
-    useUpdateUserMediaColumnMutation();
+  const [uploadImg] = useUploadUserImageMutation();
+  const [updateImg] = useUpdateUserImageMutation();
+  const [updateProfile] = useUpdateUserMediaColumnMutation();
 
   useEffect(() => {
     if (data) {
@@ -33,8 +30,6 @@ export default function Profile() {
       }
     }
   }, [data]);
-  // console.log(data, error, isLoading);
-  console.log("userData", data);
   const handleFileChange = (event) => {
     const newFiles = Array.from(event.target.files);
     const validFiles = newFiles.filter(
@@ -52,18 +47,13 @@ export default function Profile() {
       setImagePreview(null);
     }
   };
-  console.log(data);
   const handleSubmit = () => {
     const file = files[0];
     const user_id = id.id;
     const user_name = data[0].name;
-    console.log(user_id);
-    console.log(user_name);
-    console.log(file);
     if (data[0].profile_img) {
       updateImg({ file: file, user_id: user_id, user_name: user_name }).then(
         (updateResponse) => {
-          console.log(updateResponse.data);
           const path = updateResponse.data.path;
           const url = `${
             import.meta.env.VITE_PUBLIC_SUPABASE_URL
@@ -74,7 +64,6 @@ export default function Profile() {
     } else {
       uploadImg({ file: file, user_id: user_id, user_name: user_name }).then(
         (uploadResponse) => {
-          console.log(uploadResponse.data);
           const path = uploadResponse.data.path;
           const url = `${
             import.meta.env.VITE_PUBLIC_SUPABASE_URL
@@ -84,10 +73,6 @@ export default function Profile() {
       );
     }
   };
-
-  // console.log(uploadData);
-  // console.log(uploadError);
-  // console.log(imagePreview);
 
   if (user) {
     return (

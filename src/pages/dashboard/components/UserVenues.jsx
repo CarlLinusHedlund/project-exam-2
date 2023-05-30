@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { DeleteSvg, EditSvg } from "../../../components/DynamicSvgs";
 import { useMediaQuery } from "react-responsive";
-import { supabase } from "../../../utils/Supabase";
 
 export default function UserVenues({ owner_id }) {
   const [modalVisibility, setModalVisibility] = useState([]);
@@ -37,7 +36,6 @@ export default function UserVenues({ owner_id }) {
 
   const handleDeleteVenue = async (venue) => {
     console.log("fireee");
-    console.log(venue);
     deleteVenue(venue);
   };
 

@@ -16,7 +16,6 @@ import "./map.css";
 import "swiper/css/pagination";
 
 export default function Map({ searchQuery, venues, setVenues }) {
-  console.log("venues", venues);
   const [viewport, setViewport] = useState({
     latitude: null,
     longitude: null,

@@ -27,7 +27,6 @@ export default function Calendar({
   setOpenDate,
   openDate,
 }) {
-  // console.log("Range calendar: ", range);
   const scope = useMenuAnimation(openDate);
 
   const disabledDays = [

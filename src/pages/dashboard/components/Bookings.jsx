@@ -166,7 +166,7 @@ export function BookingsTable({ bookings, deleteBooking }) {
 }
 
 export default function Bookings({ owner_id }) {
-  const { data, isLoading, error } = useGetOwnersBookingsQuery(owner_id);
+  const { data, isLoading } = useGetOwnersBookingsQuery(owner_id);
   const [deleteBooking] = useDeleteBookingMutation();
   if (isLoading)
     return (

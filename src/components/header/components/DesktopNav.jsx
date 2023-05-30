@@ -12,9 +12,8 @@ export default function DesktopNav({ user }) {
       .select("*")
       .eq("id", id);
     if (error) {
-      console.log(error);
+      console.error(error);
     }
-    console.log(data);
     if (data) {
       setIsHost(data[0].is_host);
     }
@@ -22,7 +21,6 @@ export default function DesktopNav({ user }) {
 
   useEffect(() => {
     if (user.session) {
-      console.log(user.session);
       getUser(user.session.user.id);
     }
   }, [user]);

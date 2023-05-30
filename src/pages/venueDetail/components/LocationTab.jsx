@@ -2,8 +2,6 @@ import { Map, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
 
 export default function LocationTab({ location, venueImg }) {
-  console.log(location);
-  console.log(venueImg);
   return (
     <div className="h-[350px] w-full overflow-hidden relative mt-10 md:rounded-[10px] ">
       <Map
