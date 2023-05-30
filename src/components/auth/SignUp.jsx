@@ -38,14 +38,12 @@ function useSignUpAnimation(activeSignUpModal, modalRef) {
 
 export default function SignUpModal() {
   const signedUp = useContext(SignedUpContext);
-  console.log("SignedUp: ", signedUp);
   const [activeSignUpModal, setActiveSignUpModal] = useContext(SignUpContext);
   const modalRef = useRef(null);
   useSignUpAnimation(activeSignUpModal, modalRef);
 
   const handleSignUpModalClick = () => {
     setActiveSignUpModal(false);
-    console.log("ActiveSignUpMOdal", activeSignUpModal);
   };
 
   return (

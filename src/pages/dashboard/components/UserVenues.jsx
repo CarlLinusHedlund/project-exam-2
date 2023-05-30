@@ -37,7 +37,6 @@ export default function UserVenues({ owner_id }) {
 
   const handleDeleteVenue = async (venue) => {
     console.log("fireee");
-    console.log(venue);
     deleteVenue(venue);
   };
 

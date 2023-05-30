@@ -55,7 +55,6 @@ export default function AddLocation({ values, setFieldValue, errors }) {
   const setGeoLocation = async (e) => {
     const lon = e.coords.longitude;
     const lat = e.coords.latitude;
-    console.log(e);
     await fetchLocationData(lon, lat);
   };
 

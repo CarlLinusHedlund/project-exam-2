@@ -36,7 +36,6 @@ export default function BecomeAHost() {
       location.pathname = "/dashboard";
     } else {
       setSignInModal(!signInModal);
-      console.log("sign in first");
     }
   };
 

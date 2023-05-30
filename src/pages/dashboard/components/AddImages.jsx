@@ -13,9 +13,6 @@ export default function AddImages({ errors, files, setFiles, setFieldValue }) {
     setFiles([...files, ...validFiles]);
     setFieldValue("files", [...files, ...validFiles]);
   };
-  // console.log("files", files);
-  // console.log("Errors", errors);
-  // console.log("touched", touched);
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -49,7 +46,6 @@ export default function AddImages({ errors, files, setFiles, setFieldValue }) {
     return totalSizeInMB;
   };
 
-  // console.log(files);
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-10 px-3 md:px-0">

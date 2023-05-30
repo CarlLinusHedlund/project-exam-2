@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import {
   useBookVenueMutation,
   useGetSingleVenueQuery,
-  useGetUserQuery,
 } from "../../store/modules/ApiSlice";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -76,7 +75,6 @@ function BookHandler({ bookingData, bookingError }) {
 
 export default function VenueDetail() {
   const user = useContext(UserContext);
-  console.log(user);
   // const {data: userData, error: usererror} = useGetUserQuery(user)
   const [bookVenue, { data: bookingData, error: bookingError }] =
     useBookVenueMutation();
@@ -90,13 +88,9 @@ export default function VenueDetail() {
     return <div className=" inner text-3xl ">Loading</div>;
   }
 
-  console.log("bookingData", bookingData);
-  console.log("bookingError", bookingError);
-
   if (error) {
     <div>An error occured: {error}</div>;
   }
-  console.log(venue);
   if (venue) {
     return (
       <motion.div

@@ -10,7 +10,6 @@ export default function SignUpForm() {
   const [signUpModal, setSignUpModal] = useContext(SignUpContext);
   const [emailInUse, setEmailInUse] = useState(null);
   const [signedUp, setSignedUp] = useState(false);
-  console.log("signedUp: ", signedUp);
 
   if (signUpModal == false) {
     setSignedUp(false);
@@ -32,7 +31,6 @@ export default function SignUpForm() {
       return error;
     }
     if (data.length < 1) {
-      console.log(data);
       setEmailInUse(null);
       signUp();
     } else {
@@ -54,7 +52,6 @@ export default function SignUpForm() {
         console.log(error);
       }
       if (data) {
-        console.log(data);
         setSignUpModal(false);
         actions.resetForm();
       }

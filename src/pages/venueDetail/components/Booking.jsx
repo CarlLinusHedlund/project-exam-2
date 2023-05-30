@@ -24,7 +24,6 @@ export default function Booking({
   bookVenue,
 }) {
   const [signInModal, setSignInModal] = useContext(SignInContext);
-  console.log("user", user);
   let venue_id = id;
   // console.log("signInModal", signInModal);
   const [openDate, setOpenDate] = useState(false);
@@ -55,7 +54,6 @@ export default function Booking({
           let from = format(new Date(range.from), "yyyy.MM.dd HH:mm:ss");
           let to = format(new Date(range.to), "yyyy.MM.dd HH:mm:ss");
           let id = venue_id;
-          console.log("Make a request");
           bookVenue({ from, to, user_id: user_id.user.id, id });
           setBookingOpen(false);
         }

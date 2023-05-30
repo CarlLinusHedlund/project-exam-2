@@ -37,7 +37,6 @@ export default function CheckNextBooking({ bookings }) {
   const daysUntilNextBooking =
     nearestBookingStartDate &&
     daysBetween(now, new Date(nearestBookingStartDate));
-  console.log("daysUntilNextBooking: ", daysUntilNextBooking);
 
   // Determine the availability status
   const availabilityStatus =
