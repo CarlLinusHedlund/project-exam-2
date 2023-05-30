@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import PropTypes from "prop-types";
 import {
-  FeaturesSvg,
-  LocationPinSvg,
-  YourHostSvg,
+  CalendarSvg,
+  ListingsSvg,
+  StatisticSvg,
 } from "../../../components/DynamicSvgs";
 
 import { useState } from "react";
@@ -36,22 +36,23 @@ export default function DashboardTabs({ owner_id }) {
             onClick={() => setSelectedTab(item)}
           >
             {item.label === "Venues" && (
-              <LocationPinSvg
+              <ListingsSvg
+                width="15px"
+                height="15px"
                 color={item.label === selectedTab.label ? "#E0736D" : "#C1C1C1"}
               />
             )}
             {item.label === "Bookings" && (
-              <YourHostSvg
+              <CalendarSvg
+                height="15px"
+                width="15px"
                 color={item.label === selectedTab.label ? "#E0736D" : "#C1C1C1"}
               />
             )}
-            {item.label === "Your Bookings" && (
-              <FeaturesSvg
-                color={item.label === selectedTab.label ? "#E0736D" : "#A7A7A7"}
-              />
-            )}
             {item.label === "Performance" && (
-              <FeaturesSvg
+              <StatisticSvg
+                width="15px"
+                height="15px"
                 color={item.label === selectedTab.label ? "#E0736D" : "#A7A7A7"}
               />
             )}

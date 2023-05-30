@@ -2,14 +2,14 @@ import { useContext } from "react";
 import Logo from "./Logo";
 import MobileDropdown from "./MobileDropdown";
 import { headerContext } from "../utils/MobileHeaderContext";
+import PropTypes from "prop-types";
 
-function MobileHeader() {
+function MobileHeader({ user }) {
   const [isOpen, setIsOpen] = useContext(headerContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  console.log("isopen", isOpen);
 
   return (
     <>
@@ -39,10 +39,14 @@ function MobileHeader() {
             : "duration-500 opacity-0 w-0 h-screen md:hidden fixed top-[75px] right-0 z-10 overflow-hidden"
         }
       >
-        <MobileDropdown />
+        <MobileDropdown user={user} />
       </div>
     </>
   );
 }
 
 export default MobileHeader;
+
+MobileHeader.propTypes = {
+  user: PropTypes.object,
+};

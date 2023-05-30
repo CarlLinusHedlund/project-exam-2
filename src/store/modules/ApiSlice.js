@@ -19,6 +19,34 @@ const supabaseApi = createApi({
       },
       providesTags: ["Venues"],
     }),
+    getAllVenues: builder.query({
+      queryFn: async () => {
+        const { data, error } = await supabase
+          .from("venues")
+          .select("*")
+          .range(0, 20);
+        if (error) {
+          throw { error };
+        }
+        return { data };
+      },
+      providesTags: ["Venues"],
+    }),
+    getOnMapVenues: builder.query({
+      queryFn: async (bounds) => {
+        const { data, error } = await supabase.rpc("venues_within_bounds", {
+          min_lat: bounds[1],
+          min_lng: bounds[0],
+          max_lat: bounds[3],
+          max_lng: bounds[2],
+        });
+        if (error) {
+          console.log(error);
+          throw { error };
+        }
+        return { data };
+      },
+    }),
     getSingleVenue: builder.query({
       queryFn: async (id) => {
         const { data, error } = await supabase
@@ -155,7 +183,7 @@ const supabaseApi = createApi({
       invalidatesTags: ["Venues", "Bookings", "User"],
     }),
     deleteBooking: builder.mutation({
-      queryFn: async (id) => {
+      queryFn: async ({ id: id }) => {
         const { data, error } = await supabase
           .from("bookings")
           .delete()
@@ -212,6 +240,48 @@ const supabaseApi = createApi({
       },
       invalidatesTags: ["Bookings"],
     }),
+    updateUserImage: builder.mutation({
+      queryFn: async ({ user_id, user_name, file }) => {
+        // console.log(file);
+        // console.log(user_id);
+        const { data, error } = await supabase.storage
+          .from("avatar")
+          .update(`${user_id}/${user_name}`, file);
+        if (error) {
+          throw { error };
+        }
+        return { data };
+      },
+      invalidatesTags: ["User"],
+    }),
+    uploadUserImage: builder.mutation({
+      queryFn: async ({ user_id, user_name, file }) => {
+        const { data, error } = await supabase.storage
+          .from("avatar")
+          .upload(`${user_id}/${user_name}`, file)
+          .select();
+        if (error) {
+          throw { error };
+        }
+        return { data };
+      },
+      invalidatesTags: ["User"],
+    }),
+    updateUserMediaColumn: builder.mutation({
+      queryFn: async ({ url, user_id }) => {
+        const { data, error } = await supabase
+          .from("profiles")
+          .update({ profile_img: url })
+          .eq("id", user_id)
+          .select();
+        if (error) {
+          throw { error };
+        }
+        console.log(data);
+        return { data };
+      },
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -229,6 +299,11 @@ export const {
   useGetOwnersBookingsQuery,
   useUpdateBookingStatusMutation,
   useBookVenueMutation,
+  useGetAllVenuesQuery,
+  useGetOnMapVenuesQuery,
+  useUpdateUserImageMutation,
+  useUploadUserImageMutation,
+  useUpdateUserMediaColumnMutation,
 } = supabaseApi;
 
 export { supabaseApi };

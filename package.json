@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^5.0.1",
+    "@mapbox/search-js-react": "^1.0.0-beta.16",
     "@reduxjs/toolkit": "^1.9.5",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/auth-ui-react": "^0.3.6",
@@ -35,6 +36,7 @@
     "react-scrollbars-custom": "^4.1.1",
     "react-use": "^17.4.0",
     "swiper": "^9.3.1",
+    "use-supercluster": "^0.4.0",
     "yup": "^1.1.1"
   },
   "devDependencies": {

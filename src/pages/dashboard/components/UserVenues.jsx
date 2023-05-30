@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { DeleteSvg, EditSvg } from "../../../components/DynamicSvgs";
 import { useMediaQuery } from "react-responsive";
+import { supabase } from "../../../utils/Supabase";
 
 export default function UserVenues({ owner_id }) {
   const [modalVisibility, setModalVisibility] = useState([]);
@@ -17,6 +18,7 @@ export default function UserVenues({ owner_id }) {
     id: "",
     name: "",
   });
+  console.log(deleteObject);
   const { data, isLoading, error } = useGetVenuesQuery(owner_id);
   const [deleteVenue] = useDeleteVenueMutation();
   useEffect(() => {
@@ -31,6 +33,12 @@ export default function UserVenues({ owner_id }) {
       newVisibility[index] = !newVisibility[index];
       return newVisibility;
     });
+  };
+
+  const handleDeleteVenue = async (venue) => {
+    console.log("fireee");
+    console.log(venue);
+    deleteVenue(venue);
   };
 
   if (isLoading)
@@ -121,7 +129,7 @@ export default function UserVenues({ owner_id }) {
                     <td className="py-4">
                       <div
                         onClick={() => {
-                          setDeleteObject(venue.id);
+                          setDeleteObject(venue);
                           onClick(index); // Toggle modal visibility if needed
                         }}
                         className="flex pl-3 items-center relative w-full h-[20px] cursor-pointer hover:scale-125 group duration-300"
@@ -136,9 +144,10 @@ export default function UserVenues({ owner_id }) {
                         {modalVisibility[index] && (
                           <div
                             onClick={() => {
-                              deleteVenue(deleteObject.id); // Invoke deleteVenue inside the callback
+                              handleDeleteVenue(venue.id);
+                              // Invoke deleteVenue inside the callback
                               onClick(index);
-                              setDeleteObject("");
+                              // setDeleteObject("");
                             }}
                             onMouseLeave={() => {
                               onClick(index);

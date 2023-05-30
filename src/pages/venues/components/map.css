@@ -1,0 +1,20 @@
+.swiper-pagination-bullet {
+  background-color: rgb(238, 238, 238) !important;
+}
+
+.swiper-pagination {
+  z-index: 100 !important;
+  bottom: 0px !important;
+  background-color: #0000008e;
+  width: 110px !important;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.mbx04818a47--Suggestion {
+  background-color: red !important;
+}
+
+.mbx04818a47--Suggestion:hover {
+  background-color: #ebebeb !important;
+}

@@ -6,7 +6,6 @@ import {
   useGetUserQuery,
   useGetTodaysChekinChekoutQuery,
 } from "../../../store/modules/ApiSlice";
-import { useMediaQuery } from "react-responsive";
 import DashboardTabs from "./DashboardTabs";
 
 export function TodaysBookingsData({

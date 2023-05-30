@@ -3,26 +3,23 @@ import PropTypes from "prop-types";
 import "./index.css";
 
 export default function RangeSlider({
-  initialMin,
-  initialMax,
   min,
   max,
   step,
   priceCap,
+  initialMin,
+  initialMax,
+  setMinNumber,
+  setMaxNumber,
 }) {
   const progressRef = useRef(null);
   const [minValue, setMinValue] = useState(initialMin);
-  const [maxValue, setMaxValue] = useState(initialMax);
+  const [maxValue, setMaxValue] = useState(initialMax - 1);
 
-  // console.log("minValue: ", minValue);
-  // console.log("maxValue: ", maxValue);
-  // console.log("initialMin: ", initialMin);
-  // console.log("initialMax: ", initialMax);
-  // console.log("Min: ", min);
-  // console.log("Max: ", max);
-  // console.log("step", step);
-  // console.log("priceCap: ", priceCap);
-
+  useEffect(() => {
+    setMinNumber(minValue);
+    setMaxNumber(maxValue);
+  }, [minValue, maxValue, setMinNumber, setMaxNumber]);
   const handleMin = (e) => {
     if (maxValue - minValue > priceCap && maxValue < max) {
       // eslint-disable-next-line no-empty
@@ -140,8 +137,10 @@ export default function RangeSlider({
 RangeSlider.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
-  initialMax: PropTypes.number.isRequired,
-  initialMin: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
   priceCap: PropTypes.number.isRequired,
+  initialMin: PropTypes.number.isRequired,
+  initialMax: PropTypes.number.isRequired,
+  setMinNumber: PropTypes.func.isRequired,
+  setMaxNumber: PropTypes.func.isRequired,
 };

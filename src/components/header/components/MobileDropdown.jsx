@@ -1,10 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { headerContext } from "../utils/MobileHeaderContext";
 import { NavLink } from "react-router-dom";
 import { ProfileContent, SingedInProfile } from "./ProfileContent";
 import { useEffect } from "react";
 import { useAnimate, stagger } from "framer-motion";
 import HomeSvg, { DashboardSvg, HostSvg, ListingsSvg } from "../../DynamicSvgs";
+import PropTypes from "prop-types";
+import { supabase } from "../../../utils/Supabase";
+// import { useGetUserQuery } from "../../../store/modules/ApiSlice";
 
 const staggerMenuItems = stagger(0.1, { startDelay: 0.05 });
 
@@ -27,9 +30,31 @@ function useMenuAnimation(activeHeader) {
   return scope;
 }
 
-export default function MobileDropdown() {
+export default function MobileDropdown({ user }) {
   const [activeHeader, setActiveHeader] = useContext(headerContext);
+  const [isHost, setIsHost] = useState(false);
   const scope = useMenuAnimation(activeHeader);
+
+  async function getUser(id) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", id);
+    if (error) {
+      console.log(error);
+    }
+    console.log(data);
+    if (data) {
+      setIsHost(data[0].is_host);
+    }
+  }
+
+  useEffect(() => {
+    if (user.session) {
+      console.log(user.session);
+      getUser(user.session.user.id);
+    }
+  }, [user]);
 
   const handleNavLinkClick = () => {
     setActiveHeader(false); // Close the menu by updating activeHeader to false
@@ -83,27 +108,30 @@ export default function MobileDropdown() {
               />
               Place to stay?
             </NavLink>
-            <NavLink
-              activeclassname="active"
-              className={` li text-[16px] ${
-                window.location.pathname === "/dashboard/become-a-host"
-                  ? "text-[#E0736D]"
-                  : "text-[#A7A7A7]"
-              } w-full p-2 flex items-center gap-4 rounded-[10px]`}
-              to={"/dashboard/become-a-host"}
-              onClick={handleNavLinkClick}
-            >
-              <HostSvg
-                height="15px"
-                width="15px"
-                color={
+            {!isHost && (
+              <NavLink
+                activeclassname="active"
+                className={` li text-[16px] ${
                   window.location.pathname === "/dashboard/become-a-host"
-                    ? "#E0736D"
-                    : "#A7A7A7"
-                }
-              />
-              Become a host
-            </NavLink>
+                    ? "text-[#E0736D]"
+                    : "text-[#A7A7A7]"
+                } w-full p-2 flex items-center gap-4 rounded-[10px]`}
+                to={"/dashboard/become-a-host"}
+                onClick={handleNavLinkClick}
+              >
+                <HostSvg
+                  height="15px"
+                  width="15px"
+                  color={
+                    window.location.pathname === "/dashboard/become-a-host"
+                      ? "#E0736D"
+                      : "#A7A7A7"
+                  }
+                />
+                Become a host
+              </NavLink>
+            )}
+
             <NavLink
               end
               activeclassname="active"
@@ -135,3 +163,7 @@ export default function MobileDropdown() {
     </div>
   );
 }
+
+MobileDropdown.propTypes = {
+  user: PropTypes.object,
+};
