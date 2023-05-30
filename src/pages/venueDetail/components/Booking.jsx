@@ -46,26 +46,26 @@ export default function Booking({
   }, [range]);
 
   const handleBooking = () => {
-    if (user) {
+    if (user.session) {
       if (isMobile) {
         if (!bookingOpen) {
           setBookingOpen(true);
         } else if (range.from && range.to) {
-          let user_id = user.id;
-          let from = format(new Date(range.from), "dd.MM.yyyy HH:mm:ss");
-          let to = format(new Date(range.to), "dd.MM.yyyy HH:mm:ss");
+          let user_id = user.session;
+          let from = format(new Date(range.from), "yyyy.MM.dd HH:mm:ss");
+          let to = format(new Date(range.to), "yyyy.MM.dd HH:mm:ss");
           let id = venue_id;
           console.log("Make a request");
-          bookVenue({ from, to, user_id, id });
+          bookVenue({ from, to, user_id: user_id.user.id, id });
           setBookingOpen(false);
         }
       }
       if (!isMobile) {
-        let user_id = user.id;
+        let user_id = user.session;
         let from = format(new Date(range.from), "yyyy.MM.dd HH:mm:ss");
         let to = format(new Date(range.to), "yyyy.MM.dd HH:mm:ss");
         let id = venue_id;
-        bookVenue({ from, to, user_id, id });
+        bookVenue({ from, to, user_id: user_id.user.id, id });
       }
     } else {
       setSignInModal(!signInModal);

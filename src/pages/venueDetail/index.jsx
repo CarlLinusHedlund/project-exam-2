@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import {
   useBookVenueMutation,
   useGetSingleVenueQuery,
+  useGetUserQuery,
 } from "../../store/modules/ApiSlice";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -75,7 +76,8 @@ function BookHandler({ bookingData, bookingError }) {
 
 export default function VenueDetail() {
   const user = useContext(UserContext);
-
+  console.log(user);
+  // const {data: userData, error: usererror} = useGetUserQuery(user)
   const [bookVenue, { data: bookingData, error: bookingError }] =
     useBookVenueMutation();
 
@@ -85,7 +87,7 @@ export default function VenueDetail() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const bookingRef = useRef(null);
   if (isLoading) {
-    return <div className=" text-5xl ">Loading</div>;
+    return <div className=" inner text-3xl ">Loading</div>;
   }
 
   console.log("bookingData", bookingData);
@@ -148,7 +150,7 @@ export default function VenueDetail() {
             setBookingOpen={setBookingOpen}
             isMobile={isMobile}
             bookVenue={bookVenue}
-            user={user.session.user}
+            user={user}
           />
         </div>
       </motion.div>

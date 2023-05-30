@@ -69,7 +69,7 @@ export default function VenuesNearby() {
         {!isMobile && (
           <div className=" w-full grid grid-rows-2 grid-cols-7 gap-5 max-h-[400px]">
             <Link
-              to={`/venues/country=${location.country}`}
+              to={`/venues/${location.country}`}
               className=" cursor-pointer group relative cols-span-3 row-span-2 col-start-1 col-end-4 hover:scale-[1.01] hover:shadow-2xl duration-200 rounded-[10px] "
             >
               <div className=" absolute w-full h-full top-0 left-0 bottom-0 right-0 duration-300 bg-[#00000017] group-hover:bg-[#0000002c] rounded-[10px] "></div>
@@ -88,7 +88,7 @@ export default function VenuesNearby() {
               />
             </Link>
             <Link
-              to={`/venues/country=${location.country}/type=apartment/city=${location.city}`}
+              to={`/venues/${location.country}/apartment/${location.city}`}
               className="cursor-pointer group relative cols-span-2 row-span-1 row-start-1 col-start-4 col-end-6 rounded-[10px] hover:scale-[1.03] hover:shadow-2xl duration-200"
             >
               <div className="absolute w-full h-full top-0 left-0 bottom-0 right-0 duration-300  group-hover:bg-[#0000002c] rounded-[10px]"></div>
@@ -107,7 +107,7 @@ export default function VenuesNearby() {
               />
             </Link>
             <Link
-              to={`/venues/country=${location.country}/type=hotel/city=${location.city}`}
+              to={`/venues/${location.country}/hotel/${location.city}`}
               className="cursor-pointer group relative cols-span-2 row-span-1 row-start-2 col-start-4 col-end-6 rounded-[10px] hover:scale-[1.03] hover:shadow-2xl duration-200"
             >
               <div className=" absolute w-full h-full top-0 left-0 bottom-0 right-0 duration-300 bg-[#00000017] group-hover:bg-[#0000002c] rounded-[10px] "></div>
@@ -126,7 +126,7 @@ export default function VenuesNearby() {
               />
             </Link>
             <Link
-              to={`/venues/country=${location.country}/type=house/city=${location.city}`}
+              to={`/venues/${location.country}/house/${location.city}`}
               className=" cursor-pointer group relative cols-span-2 row-span-2 col-start-6 col-end-8 rounded-[10px] hover:scale-[1.02] hover:shadow-2xl duration-200"
             >
               <div className=" absolute w-full h-full top-0 left-0 bottom-0 right-0 duration-300 bg-[#00000017] group-hover:bg-[#0000002c] rounded-[10px] "></div>

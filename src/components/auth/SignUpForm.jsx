@@ -46,16 +46,16 @@ export default function SignUpForm() {
         options: {
           data: {
             name: values.userName,
+            is_host: values.is_host,
           },
         },
       });
       if (error) {
         console.log(error);
-        setSignedUp(false);
       }
       if (data) {
         console.log(data);
-        setSignedUp(true);
+        setSignUpModal(false);
         actions.resetForm();
       }
     }
@@ -68,6 +68,7 @@ export default function SignUpForm() {
         userName: "",
         userPassword: "",
         userConfirmPassword: "",
+        is_host: false,
       },
       validationSchema: validationSchema,
       onSubmit,
@@ -170,6 +171,19 @@ export default function SignUpForm() {
                   </p>
                 )}
               </label>
+              <label className="flex w-fit gap-1">
+                <span className="text-lg">Is Host?</span>
+                <input
+                  className={`h-5 w-5 checked:bg-red-100 `}
+                  type="checkbox"
+                  name="is_host"
+                  placeholder="Is Host?"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.is_host}
+                  id="is_host"
+                />
+              </label>
               <button
                 className=" duration-300 md:hover:scale-105 mt-5 max-w-[300px] p-2 w-full bg-primaryCoral rounded-xl"
                 type="submit"
@@ -179,22 +193,6 @@ export default function SignUpForm() {
             </div>
           </form>
         </div>
-        {signedUp && (
-          <div className="absolute left-0 top-0 right-0 bottom-0 w-full h-full backdrop-blur-[2px] flex justify-center items-center bg-[#0000000f]">
-            <div className="w-[90%] h-fit bg-primaryWhite mx-auto my-auto rounded-[10px] shadow-lg px-4 pb-6 flex flex-col gap-2 items-center overflow-y-scroll ">
-              <img className="w-fit h-3/5 " src="success.gif" alt="success" />
-              <h2 className=" text-center font-medium font-poppins text-[20px] ">
-                Thanks for signing up!
-              </h2>
-              <div
-                className="w-full py-2 bg-primaryCoral flex justify-center items-center rounded-[10px] md:hover:scale-105 duration-300 cursor-pointer mt-10"
-                onClick={handleSignInClick}
-              >
-                Sign in
-              </div>
-            </div>
-          </div>
-        )}
       </SignedUpContext.Provider>
     </>
   );

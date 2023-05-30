@@ -11,7 +11,6 @@ import Logo from "../../../components/header/components/Logo";
 export default function Nav() {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const location = useLocation();
-  console.log(location.pathname);
   return (
     <>
       {isMobile && (

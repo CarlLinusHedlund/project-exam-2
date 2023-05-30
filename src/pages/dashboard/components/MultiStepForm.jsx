@@ -73,8 +73,6 @@ export default function MultiStepForm() {
       }).then((response) => {
         console.log("publishVenue response:", response.data);
         if (!isLoading && !error) {
-          // let uploads = [];
-          response.data && console.log("homo: ", response.data);
           const venue_id = response.data.id;
           const uploadPromises = [];
           for (let file of files) {
@@ -204,7 +202,6 @@ export default function MultiStepForm() {
           ) {
             geolocationSupported(setFieldValue);
           }
-          console.log(values);
           return (
             <Form className="flex flex-col justify-between duration-300 w-full rounded-[10px] md:p-5 min-h-[500px] ">
               {/* Render form fields for each step */}

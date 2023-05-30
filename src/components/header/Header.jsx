@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { motion, useScroll } from "framer-motion";
 import MobileHeader from "./components/MobileHeader";
 import DesktopHeader from "./components/DesktopHeader";
+import { UserContext } from "../auth/utils/UserContext";
 
 export default function Header() {
+  const user = useContext(UserContext);
   //Fot the header to disappear and come back
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
@@ -51,7 +53,11 @@ export default function Header() {
       animate={hidden ? "hidden" : "visible"}
       className=" header1 w-full sticky top-0 left-0 right-0 h-[75px] md:h-[90px] z-30 bg-[#fafafa] backdrop-blur-[8px]"
     >
-      {isMobileScreen ? <MobileHeader /> : <DesktopHeader />}
+      {isMobileScreen ? (
+        <MobileHeader user={user} />
+      ) : (
+        <DesktopHeader user={user} />
+      )}
     </motion.div>
   );
 }

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import { LocationSvg } from "../../components/DynamicSvgs";
+import { LocationSvg } from "../../../components/DynamicSvgs";
 import { useInView } from "react-intersection-observer";
 
 export function VenueCard({ id, media, title, country, city, price }) {
@@ -67,8 +67,8 @@ export function VenueCard({ id, media, title, country, city, price }) {
 VenueCard.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  media: PropTypes.arrayOf(PropTypes.string).isRequired,
-  country: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
+  media: PropTypes.arrayOf(PropTypes.string),
+  country: PropTypes.string,
+  city: PropTypes.string,
   price: PropTypes.number.isRequired,
 };
